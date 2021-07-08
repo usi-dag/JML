@@ -53,6 +53,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
             <version>${jmh.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.helger</groupId>
+            <artifactId>ph-commons</artifactId>
+            <version>9.3.2</version>
+        </dependency>
     </dependencies>
 
     <properties>

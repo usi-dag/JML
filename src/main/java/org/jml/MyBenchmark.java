@@ -39,7 +39,7 @@ public class MyBenchmark {
         System.out.println("HEllO, WORlD!");
     }
 
-    @Benchmark
+//    @Benchmark
     public int testMethod() {
         int a = 1;
         int b = 2;
