@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BenchmarkLinearRegression {
 
-    @State(Scope.Thread)
+//    @State(Scope.Thread)
     public static class MyState {
         private LoadCSV loader = new LoadCSV("weatherHistory.csv");
         private Map<String, List<String>> records = loader.getRecords();
@@ -25,14 +25,14 @@ public class BenchmarkLinearRegression {
         public VectorLinearRegression vectorLinearRegression = new VectorLinearRegression();
     }
 
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
+//    @Benchmark
+//    @BenchmarkMode(Mode.AverageTime)
     public void testLinearRegression(MyState state) {
         state.linearRegression.fit(state.x, state.y);
     }
 
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
+//    @Benchmark
+//    @BenchmarkMode(Mode.AverageTime)
     public void testVectorLinearRegression(MyState state) {
         state.vectorLinearRegression.fit(state.x, state.y);
     }

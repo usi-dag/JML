@@ -31,7 +31,17 @@
 
 package org.jml;
 
+import org.jml.dataset.LoadCSV;
+import org.jml.regression.linear.LinearRegression;
+import org.jml.regression.linear.VectorLinearRegression;
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
+
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.DoubleStream;
 
 public class MyBenchmark {
 
@@ -39,11 +49,29 @@ public class MyBenchmark {
         System.out.println("HEllO, WORlD!");
     }
 
-//    @Benchmark
-    public int testMethod() {
-        int a = 1;
-        int b = 2;
-        return a + b;
+    @State(Scope.Thread)
+    public static class MyState {
+        private long size = 10_000_000;
+        public double[] x = DoubleStream
+                .generate(ThreadLocalRandom.current()::nextDouble)
+                .limit(size)
+                .toArray();;
+        public double[] y = DoubleStream
+                .generate(ThreadLocalRandom.current()::nextDouble)
+                .limit(size)
+                .toArray();
+
+        public Operations operations = new Operations();
+    }
+
+    @Benchmark
+    public void testVectorAddition(MyState state) {
+        state.operations.sumVectorArrays(state.x, state.y);
+    }
+
+    @Benchmark
+    public void testAddition(MyState state) {
+        state.operations.sumArrays(state.x, state.y);
     }
 
 }
