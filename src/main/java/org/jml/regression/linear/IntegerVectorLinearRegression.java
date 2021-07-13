@@ -19,10 +19,15 @@ public class IntegerVectorLinearRegression {
 
         int i = 0; // number of elements for vector
         int upperBound = SPECIES.loopBound(x.length); // defines the upperbound of array length in which a vector transformation can be applied
+        IntVector sumxV = IntVector.zero(SPECIES);
+        IntVector sumyV = IntVector.zero(SPECIES);
         for (; i < upperBound; i += SPECIES_LENGTH) {
-            sumx += IntVector.fromArray(SPECIES, x, i).reduceLanes(VectorOperators.ADD);
-            sumy += IntVector.fromArray(SPECIES, y, i).reduceLanes(VectorOperators.ADD);
+            sumxV = sumxV.add(IntVector.fromArray(SPECIES, x, i));
+            sumyV = sumyV.add(IntVector.fromArray(SPECIES, y, i));
         }
+
+        sumx += sumxV.reduceLanes(VectorOperators.ADD);
+        sumy += sumyV.reduceLanes(VectorOperators.ADD);
 
         for (; i < x.length; i++) {
             sumx += x[i];
@@ -36,11 +41,16 @@ public class IntegerVectorLinearRegression {
         int xybar = 0;
 
         i = 0;
+        IntVector xxbarV = IntVector.zero(SPECIES);
+        IntVector xybarV = IntVector.zero(SPECIES);
         for (; i < upperBound; i += SPECIES_LENGTH) {
             var xs = IntVector.fromArray(SPECIES, x, i).sub(xbar);
-            xybar += IntVector.fromArray(SPECIES, y, i).sub(ybar).mul(xs).reduceLanes(VectorOperators.ADD);
-            xxbar += xs.mul(xs).reduceLanes(VectorOperators.ADD);
+            xxbarV = xxbarV.add(IntVector.fromArray(SPECIES, y, i).sub(ybar).mul(xs));
+            xybarV = xybarV.add(xs.mul(xs));
         }
+
+        xxbar += sumxV.reduceLanes(VectorOperators.ADD);
+        xybar += sumyV.reduceLanes(VectorOperators.ADD);
 
         for (; i < x.length; i++) {
             xxbar += (x[i] - xbar) * (x[i] - xbar);

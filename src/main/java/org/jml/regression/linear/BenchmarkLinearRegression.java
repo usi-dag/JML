@@ -56,17 +56,17 @@ public class BenchmarkLinearRegression {
         public IntegerVectorLinearRegression integerVectorLinearRegression = new IntegerVectorLinearRegression();
     }
 
-      @Benchmark
-      @OutputTimeUnit(TimeUnit.MILLISECONDS)
-      public void testLinearRegression(MyState state) {
-              state.linearRegression.fit(state.dx, state.dy);
-      }
-
-      @Benchmark
-      @OutputTimeUnit(TimeUnit.MILLISECONDS)
-      public void testVectorLinearRegression(MyState state) {
-              state.vectorLinearRegression.fit(state.dx, state.dy);
-      }
+      // @Benchmark
+      // @OutputTimeUnit(TimeUnit.MILLISECONDS)
+      // public void testLinearRegression(MyState state) {
+      //         state.linearRegression.fit(state.dx, state.dy);
+      // }
+// 
+      // @Benchmark
+      // @OutputTimeUnit(TimeUnit.MILLISECONDS)
+      // public void testVectorLinearRegression(MyState state) {
+      //         state.vectorLinearRegression.fit(state.dx, state.dy);
+      // }
 //
 //    @Benchmark
 //    @OutputTimeUnit(TimeUnit.MILLISECONDS)
