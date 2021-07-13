@@ -32,15 +32,15 @@ public class IntegerLinearRegression {
         intercept = ybar - slope * xbar;
     }
 
-    public double getIntercept() {
+    public int getIntercept() {
         return intercept;
     }
 
-    public double getSlope() {
+    public int getSlope() {
         return slope;
     }
 
-    public double predict(double x) {
+    public int predict(int x) {
         return slope*x + intercept;
     }
 

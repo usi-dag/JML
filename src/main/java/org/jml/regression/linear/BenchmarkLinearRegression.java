@@ -13,7 +13,7 @@ import java.util.stream.LongStream;
 
 public class BenchmarkLinearRegression {
 
-    @State(Scope.Thread)
+    @State(Scope.Benchmark)
     public static class MyState {
 //        private LoadCSV loader = new LoadCSV("weatherHistory.csv");
 //        private Map<String, List<String>> records = loader.getRecords();
@@ -56,21 +56,17 @@ public class BenchmarkLinearRegression {
         public IntegerVectorLinearRegression integerVectorLinearRegression = new IntegerVectorLinearRegression();
     }
 
-//    @Benchmark
-//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-//    @Fork(value = 1, warmups = 2)
-//    @BenchmarkMode(Mode.AverageTime)
-//    public void testLinearRegression(MyState state) {
-//        state.linearRegression.fit(state.dx, state.dy);
-//    }
-//
-//    @Benchmark
-//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-//    @Fork(value = 1, warmups = 2)
-//    @BenchmarkMode(Mode.AverageTime)
-//    public void testVectorLinearRegression(MyState state) {
-//        state.vectorLinearRegression.fit(state.dx, state.dy);
-//    }
+      @Benchmark
+      @OutputTimeUnit(TimeUnit.MILLISECONDS)
+      public void testLinearRegression(MyState state) {
+              state.linearRegression.fit(state.dx, state.dy);
+      }
+
+      @Benchmark
+      @OutputTimeUnit(TimeUnit.MILLISECONDS)
+      public void testVectorLinearRegression(MyState state) {
+              state.vectorLinearRegression.fit(state.dx, state.dy);
+      }
 //
 //    @Benchmark
 //    @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -90,18 +86,20 @@ public class BenchmarkLinearRegression {
 
     @Benchmark
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    @Fork(value = 1, warmups = 2)
     @BenchmarkMode(Mode.AverageTime)
-    public void testIntLinearRegression(MyState state) {
-        state.integerLinearRegression.fit(state.ix, state.iy);
+    public int testIntLinearRegression(MyState state) {
+        IntegerLinearRegression integerLinearRegression = new IntegerLinearRegression();
+        integerLinearRegression.fit(state.ix, state.iy);
+        return integerLinearRegression.predict(ThreadLocalRandom.current().nextInt());
     }
 
     @Benchmark
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    @Fork(value = 1, warmups = 2)
     @BenchmarkMode(Mode.AverageTime)
-    public void testIntVectorLinearRegression(MyState state) {
-        state.integerVectorLinearRegression.fit(state.ix, state.iy);
+    public int testIntVectorLinearRegression(MyState state) {
+        IntegerVectorLinearRegression integerVectorLinearRegression = new IntegerVectorLinearRegression();
+        integerVectorLinearRegression.fit(state.ix, state.iy);
+        return integerVectorLinearRegression.predict(ThreadLocalRandom.current().nextInt());
     }
 
 // capire perche int e double differenti velocita
