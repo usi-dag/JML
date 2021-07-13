@@ -1,0 +1,18 @@
+# JMH version: 1.32
+# VM version: JDK 17-panama, OpenJDK 64-Bit Server VM, 17-panama+3-167
+# VM invoker: /Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/bin/java
+# VM options: --add-modules=jdk.incubator.vector
+# Blackhole mode: full + dont-inline hint
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.jml.regression.linear.BenchmarkLinearRegression.testLinearRegression
+
+# Run progress: 0.00% complete, ETA 00:33:20
+# Fork: 1 of 5
+WARNING: Using incubator modules: jdk.incubator.vector
+# Warmup Iteration   1: 0.025 s/op
+# Warmup Iteration   2: 0.026 s/op
+# Warmup Iteration   3: 

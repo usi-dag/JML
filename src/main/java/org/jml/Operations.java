@@ -1,6 +1,7 @@
 package org.jml;
 
 import jdk.incubator.vector.DoubleVector;
+import jdk.incubator.vector.LongVector;
 import jdk.incubator.vector.VectorSpecies;
 
 import java.util.List;
@@ -15,6 +16,12 @@ public class Operations {
         System.out.println("256: " + DoubleVector.SPECIES_256);
         System.out.println("512: " + DoubleVector.SPECIES_512);
         System.out.println("MAX: " + DoubleVector.SPECIES_MAX);
+
+        System.out.println("PREFERRED: " + LongVector.SPECIES_PREFERRED);
+        System.out.println("128: " + LongVector.SPECIES_128);
+        System.out.println("256: " + LongVector.SPECIES_256);
+        System.out.println("512: " + LongVector.SPECIES_512);
+        System.out.println("MAX: " + LongVector.SPECIES_MAX);
 
     }
 

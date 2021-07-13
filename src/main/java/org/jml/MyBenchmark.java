@@ -49,7 +49,7 @@ public class MyBenchmark {
         System.out.println("HEllO, WORlD!");
     }
 
-    @State(Scope.Thread)
+//    @State(Scope.Thread)
     public static class MyState {
         private long size = 10_000_000;
         public double[] x = DoubleStream
@@ -64,12 +64,12 @@ public class MyBenchmark {
         public Operations operations = new Operations();
     }
 
-    @Benchmark
+//    @Benchmark
     public void testVectorAddition(MyState state) {
         state.operations.sumVectorArrays(state.x, state.y);
     }
 
-    @Benchmark
+//    @Benchmark
     public void testAddition(MyState state) {
         state.operations.sumArrays(state.x, state.y);
     }
