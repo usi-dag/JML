@@ -2,13 +2,39 @@ package org.jml.dataset;
 
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 public class LoadCSV {
 
+    public static void main(String[] args) {
+        LoadCSV loader = new LoadCSV("weatherHistory.csv");
+        Map<String, List<String>> records = loader.getRecords();
+
+
+
+        long size = 100_000_000;
+
+
+
+        double[] dxs = records.get("Temperature (C)").stream()
+                .mapToDouble(Double::parseDouble)
+                .toArray();
+
+        double[] xxs = Collections.nCopies(500, dxs)
+                .stream()
+                .flatMapToDouble(Arrays::stream)
+                .limit(size)
+                .toArray();
+
+
+
+
+
+        System.out.println(xxs.length);
+
+    }
 
     private static final String COMMA_DELIMITER = ",";
     private final Map<String, List<String>> records = new HashMap<>();

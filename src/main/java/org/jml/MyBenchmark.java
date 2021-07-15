@@ -31,15 +31,6 @@
 
 package org.jml;
 
-import org.jml.dataset.LoadCSV;
-import org.jml.regression.linear.LinearRegression;
-import org.jml.regression.linear.VectorLinearRegression;
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.State;
-
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.DoubleStream;
 
@@ -51,17 +42,17 @@ public class MyBenchmark {
 
 //    @State(Scope.Thread)
     public static class MyState {
-        private long size = 10_000_000;
-        public double[] x = DoubleStream
+        private final long size = 10_000_000;
+        public final double[] x = DoubleStream
                 .generate(ThreadLocalRandom.current()::nextDouble)
                 .limit(size)
-                .toArray();;
-        public double[] y = DoubleStream
+                .toArray();
+    public final double[] y = DoubleStream
                 .generate(ThreadLocalRandom.current()::nextDouble)
                 .limit(size)
                 .toArray();
 
-        public Operations operations = new Operations();
+        public final Operations operations = new Operations();
     }
 
 //    @Benchmark

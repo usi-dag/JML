@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OperationsTest {
 
-    private static Operations operations = new Operations();
+    private static final Operations operations = new Operations();
 
     @Test
     void sumVectorArraysTest() {

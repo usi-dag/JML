@@ -2,13 +2,13 @@ package org.jml;
 
 import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.LongVector;
+import jdk.incubator.vector.VectorOperators;
 import jdk.incubator.vector.VectorSpecies;
-
-import java.util.List;
 
 public class Operations {
 
     static final VectorSpecies<Double> SPECIES = DoubleVector.SPECIES_PREFERRED;
+    static final int SPECIES_LENGTH = SPECIES.length();
 
     public static void main(String[] args) {
         System.out.println("PREFERRED: " + DoubleVector.SPECIES_PREFERRED);
@@ -54,5 +54,108 @@ public class Operations {
 
         return result;
 
+    }
+
+
+    public double reduce(double[] x) {
+        double sumx = 0;
+
+        for(int i = 0; i < x.length; i++) {
+            sumx += x[i];
+
+        }
+        return sumx;
+    }
+
+    public double reduce(double[] x, double[] y) {
+        double sumx = 0;
+        double sumy = 0;
+
+        for(int i = 0; i < x.length; i++) {
+            sumx += x[i];
+            sumy += y[i];
+        }
+
+        return sumx + sumy;
+    }
+
+    public double reduceSpecial(double[] x) {
+
+        double sum = 0;
+
+        int i = 0;
+        double upperBound = SPECIES.loopBound(x.length);
+        DoubleVector sumxV = DoubleVector.zero(SPECIES);
+        for (; i < upperBound; i += SPECIES_LENGTH) {
+            sumxV = sumxV.add(DoubleVector.fromArray(SPECIES, x, i));
+        }
+
+        sum += sumxV.reduceLanes(VectorOperators.ADD);
+
+        for (; i < x.length; i++) {
+            sum += x[i];
+        }
+
+        return sum;
+    }
+
+    public double reduceLane(double[] x) {
+        double sum = 0;
+
+        int i = 0;
+        double upperBound = SPECIES.loopBound(x.length);
+        for (; i < upperBound; i += SPECIES_LENGTH) {
+            sum = DoubleVector.fromArray(SPECIES, x, i).reduceLanes(VectorOperators.ADD);
+        }
+
+        for (; i < x.length; i++) {
+            sum += x[i];
+        }
+
+        return sum;
+    }
+
+    public double reduceSpecial(double[] x, double[] y) {
+
+        double sumx = 0;
+        double sumy = 0;
+
+        int i = 0;
+        double upperBound = SPECIES.loopBound(x.length);
+        DoubleVector sumxV = DoubleVector.zero(SPECIES);
+        DoubleVector sumxY = DoubleVector.zero(SPECIES);
+        for (; i < upperBound; i += SPECIES_LENGTH) {
+            sumxV = sumxV.add(DoubleVector.fromArray(SPECIES, x, i));
+            sumxY = sumxY.add(DoubleVector.fromArray(SPECIES, y, i));
+        }
+
+        sumx += sumxV.reduceLanes(VectorOperators.ADD);
+
+        for (; i < x.length; i++) {
+            sumx += x[i];
+            sumy += y[i];
+        }
+
+        return sumx + sumy;
+    }
+
+    public double reduceLane(double[] x, double[] y) {
+        double sumx = 0;
+        double sumy = 0;
+
+        int i = 0;
+        double upperBound = SPECIES.loopBound(x.length);
+        for (; i < upperBound; i += SPECIES_LENGTH) {
+            sumx = DoubleVector.fromArray(SPECIES, x, i).reduceLanes(VectorOperators.ADD);
+            sumy = DoubleVector.fromArray(SPECIES, y, i).reduceLanes(VectorOperators.ADD);
+        }
+
+        for (; i < x.length; i++) {
+            sumx += x[i];
+            sumy += y[i];
+
+        }
+
+        return sumx + sumy;
     }
 }
