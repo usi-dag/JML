@@ -7,7 +7,7 @@ import jdk.incubator.vector.VectorSpecies;
 
 public class Operations {
 
-    static final VectorSpecies<Double> SPECIES = DoubleVector.SPECIES_PREFERRED;
+    static final VectorSpecies<Double> SPECIES = DoubleVector.SPECIES_MAX;
     static final int SPECIES_LENGTH = SPECIES.length();
 
     public static void main(String[] args) {
@@ -95,6 +95,12 @@ public class Operations {
         for (; i < x.length; i++) {
             sum += x[i];
         }
+
+//        double[] tmp = sumxV.toDoubleArray();
+//
+//        for (i = 0; i < tmp.length; i++ ) {
+//          sum += tmp[i];
+//        }
 
         return sum;
     }

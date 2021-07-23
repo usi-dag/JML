@@ -1,0 +1,2839 @@
+CompileCommand: print *Operations.reduce bool print = true
+# JMH version: 1.32
+# VM version: JDK 16-internal, OpenJDK 64-Bit Server VM, 16-internal+0-adhoc.ominil.jdk16
+# VM invoker: /Library/Java/JavaVirtualMachines/macosx-x86_64-server-fastdebug/jdk/bin/java
+# VM options: --add-modules=jdk.incubator.vector -XX:+UnlockDiagnosticVMOptions -XX:CompileCommand=print,*Operations::reduce -XX:PrintAssemblyOptions=intel -XX:-UseCompressedOops -XX:UseAVX=0
+# Blackhole mode: full + dont-inline hint
+# Warmup: 100 iterations, single-shot each
+# Measurement: 10 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: org.jml.regression.linear.BenchmarkLinearRegression.testReduceSingle
+
+# Run progress: 0.00% complete, ETA 00:00:00
+# Fork: 1 of 1
+CompileCommand: print *Operations.OrpeednuJcDeK  b6o4o-lB iptr int S=e rtvreure 
+VM warning: printing of assembly code is enabled; turning on DebugNonSafepoints to gain additional output
+# Warmup Iteration   1: 
+============================= C1-compiled nmethod ==============================
+----------------------------------- Assembly -----------------------------------
+
+Compiled method (c1)    2899  971 %     3       org.jml.Operations::reduce @ 5 (27 bytes)
+ total in heap  [0x0000000115adf490,0x0000000115adfa58] = 1480
+ relocation     [0x0000000115adf608,0x0000000115adf660] = 88
+ main code      [0x0000000115adf660,0x0000000115adf880] = 544
+ stub code      [0x0000000115adf880,0x0000000115adf8d8] = 88
+ oops           [0x0000000115adf8d8,0x0000000115adf8e0] = 8
+ metadata       [0x0000000115adf8e0,0x0000000115adf8e8] = 8
+ scopes data    [0x0000000115adf8e8,0x0000000115adf950] = 104
+ scopes pcs     [0x0000000115adf950,0x0000000115adfa40] = 240
+ dependencies   [0x0000000115adfa40,0x0000000115adfa48] = 8
+ nul chk table  [0x0000000115adfa48,0x0000000115adfa58] = 16
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+ ;;  block B5 [0, 0]
+  0x0000000115adf660: 448b 5608 | 49c1 e203 
+
+  0x0000000115adf668: ;   {runtime_call ic_miss_stub}
+  0x0000000115adf668: 4c3b d00f | 85af 029f | ff90 9090 | 9090 9090 | 9090 9090 | 9090 9090 
+[Verified Entry Point]
+  0x0000000115adf680: 8984 2400 | a0fe ff55 | 4883 ec50 
+
+  0x0000000115adf68c: ;   {metadata(method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115adf68c: 48bf 884d | 3070 0200 | 0000 8b9f | 1c01 0000 | 83c3 0289 | 9f1c 0100 | 0081 e3fe | 0700 0083 
+  0x0000000115adf6ac: fb00 0f84 
+
+  0x0000000115adf6b0: ;*dconst_0 {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@0 (line 61)
+  0x0000000115adf6b0: 0801 0000 
+ ;;  block B6 [0, 0]
+ ;;  block B0 [0, 5]
+  0x0000000115adf6b4: be00 0000 | 0066 0f57 | c0e9 6400 
+
+  0x0000000115adf6c0: ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x0000000115adf6c0: 0000 9090 | 9090 9090 
+ ;;  block B2 [12, 22]
+  0x0000000115adf6c8: 3b72 0c0f | 830c 0100 | 0048 63fe | f20f 104c 
+
+  0x0000000115adf6d8: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x0000000115adf6d8: fa10 f20f | 58c8 ffc6 
+
+  0x0000000115adf6e0: ;   {metadata(method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115adf6e0: 48bf 884d | 3070 0200 | 0000 8b9f | 2001 0000 | 83c3 0289 | 9f20 0100 | 0081 e3fe | 3f00 0083 
+  0x0000000115adf700: fb00 0f84 
+
+  0x0000000115adf704: ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@22 (line 63)
+  0x0000000115adf704: f700 0000 | 4d8b 9730 
+
+  0x0000000115adf70c: ; ImmutableOopMap {rdx=Oop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) org.jml.Operations::reduce@22 (line 63)
+                      ;   {poll}
+  0x0000000115adf70c: 0100 0041 
+
+  0x0000000115adf710: ;   {metadata(method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115adf710: 8502 48bf | 884d 3070 | 0200 0000 | ff87 8001 | 0000 660f 
+
+  0x0000000115adf724: ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@22 (line 63)
+  0x0000000115adf724: 28c1 8b7a 
+
+  0x0000000115adf728: ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@8 (line 63)
+                      ;   {metadata(method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115adf728: 0c3b f748 | bf88 4d30 | 7002 0000 | 0048 bb70 | 0100 0000 | 0000 000f | 8c0a 0000 | 0048 bb60 
+  0x0000000115adf748: 0100 0000 | 0000 0048 | 8b04 1f48 | 8d40 0148 | 8904 1f0f | 8c67 ffff 
+
+  0x0000000115adf760: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x0000000115adf760: ff48 83c4 
+
+  0x0000000115adf764: ;   {poll_return}
+  0x0000000115adf764: 505d 493b | a728 0100 | 000f 87c6 
+
+  0x0000000115adf770: ;*dreturn {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@26 (line 67)
+  0x0000000115adf770: 0000 00c3 
+ ;;  block B4 [5, 5]
+  0x0000000115adf774: 8984 2400 | a0fe ff55 | 4883 ec50 | 488b 5e18 | f20f 1046 | 088b 0648 | 8bfe 4889 | 5c24 3089 
+  0x0000000115adf794: 4424 28f2 | 0f11 4424 
+
+  0x0000000115adf79c: ;   {runtime_call SharedRuntime::OSR_migration_end(long*)}
+  0x0000000115adf79c: 38e8 fe18 | 4afc 8b44 | 2428 488b | f0f2 0f10 | 4424 3848 | 8b5c 2430 | 488b d3e9 | 6aff ffff 
+ ;; CounterOverflowStub slow case
+  0x0000000115adf7bc: ;   {metadata({method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115adf7bc: 49ba 0040 | 3070 0200 | 0000 4c89 | 5424 0848 | c704 24ff 
+
+  0x0000000115adf7d0: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x0000000115adf7d0: ffff ffe8 
+
+  0x0000000115adf7d4: ; ImmutableOopMap {rsi=Oop rdx=Oop }
+                      ;*synchronization entry
+                      ; - org.jml.Operations::reduce@-1 (line 61)
+  0x0000000115adf7d4: e85a 93ff | e9d7 feff | ff48 8934 | 2448 8954 
+
+  0x0000000115adf7e4: ;   {runtime_call throw_range_check_failed Runtime1 stub}
+  0x0000000115adf7e4: 2408 e855 
+
+  0x0000000115adf7e8: ; ImmutableOopMap {rdx=Oop }
+                      ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+                      ;   {external_word}
+  0x0000000115adf7e8: c393 ff48 | bf69 6b32 | 1201 0000 | 0048 83e4 
+
+  0x0000000115adf7f8: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x0000000115adf7f8: f0e8 5217 
+
+  0x0000000115adf7fc: ;   {metadata({method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115adf7fc: 20fc f449 | ba00 4030 | 7002 0000 | 004c 8954 | 2408 48c7 | 0424 1600 
+
+  0x0000000115adf814: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x0000000115adf814: 0000 e8a5 
+
+  0x0000000115adf818: ; ImmutableOopMap {rdx=Oop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) org.jml.Operations::reduce@22 (line 63)
+  0x0000000115adf818: 5a93 ffe9 | e8fe ffff 
+ ;; ImplicitNullCheckStub slow case
+  0x0000000115adf820: ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x0000000115adf820: e81b ba93 
+
+  0x0000000115adf824: ; ImmutableOopMap {rdx=Oop }
+                      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@8 (line 63)
+                      ;   {external_word}
+  0x0000000115adf824: ff48 bf69 | 6b32 1201 | 0000 0048 
+
+  0x0000000115adf830: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x0000000115adf830: 83e4 f0e8 | 1817 20fc 
+
+  0x0000000115adf838: ;   {internal_word}
+  0x0000000115adf838: f449 ba66 | f7ad 1501 | 0000 004d | 8997 e803 
+
+  0x0000000115adf848: ;   {runtime_call SafepointBlob}
+  0x0000000115adf848: 0000 e9d1 | f49e ff90 | 9049 8b87 | 5004 0000 | 49c7 8750 | 0400 0000 | 0000 0049 | c787 5804 
+  0x0000000115adf868: 0000 0000 | 0000 4883 
+
+  0x0000000115adf870: ;   {runtime_call unwind_exception Runtime1 stub}
+  0x0000000115adf870: c450 5de9 | c8cc 93ff | f4f4 f4f4 | f4f4 f4f4 
+[Exception Handler]
+  0x0000000115adf880: ;   {no_reloc}
+  0x0000000115adf880: 48bb adde | 0000 0000 | 0000 48b9 | adde 0000 | 0000 0000 | 48be adde | 0000 0000 | 0000 48bf 
+  0x0000000115adf8a0: adde 0000 | 0000 0000 
+
+  0x0000000115adf8a8: ;   {runtime_call handle_exception_from_callee Runtime1 stub}
+  0x0000000115adf8a8: e833 9593 
+
+  0x0000000115adf8ac: ;   {external_word}
+  0x0000000115adf8ac: ff48 bf69 | 6b32 1201 | 0000 0048 
+
+  0x0000000115adf8b8: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x0000000115adf8b8: 83e4 f0e8 | 9016 20fc 
+
+  0x0000000115adf8c0: ;   {section_word}
+  0x0000000115adf8c0: f449 bac1 | f8ad 1501 | 0000 0041 
+
+  0x0000000115adf8cc: ;   {runtime_call DeoptimizationBlob}
+  0x0000000115adf8cc: 52e9 8e11 | 9fff f4f4 | f4f4 f4f4 
+[/MachCode]
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Oops:
+  0x0000000115adf8d8:   0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Metadata:
+  0x0000000115adf8e0:   0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+pc-bytecode offsets:
+PcDesc(pc=0x0000000115adf65f offset=ffffffff bits=0):
+PcDesc(pc=0x0000000115adf6b4 offset=54 bits=0):   org.jml.Operations::reduce@0 (line 61)
+PcDesc(pc=0x0000000115adf6c2 offset=62 bits=0):   org.jml.Operations::reduce@5 (line 63)
+PcDesc(pc=0x0000000115adf6da offset=7a bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x0000000115adf708 offset=a8 bits=0):   org.jml.Operations::reduce@22 (line 63)
+PcDesc(pc=0x0000000115adf70f offset=af bits=1):   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm1 [64],double
+    - l4: reg rsi [12],int
+PcDesc(pc=0x0000000115adf726 offset=c6 bits=0):   org.jml.Operations::reduce@22 (line 63)
+PcDesc(pc=0x0000000115adf729 offset=c9 bits=0):   org.jml.Operations::reduce@8 (line 63)
+PcDesc(pc=0x0000000115adf761 offset=101 bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x0000000115adf774 offset=114 bits=0):   org.jml.Operations::reduce@26 (line 67)
+PcDesc(pc=0x0000000115adf7d8 offset=178 bits=0):   org.jml.Operations::reduce@-1 (line 61)
+   Locals
+    - l0: reg rsi [12],oop
+    - l1: reg rdx [4],oop
+    - l2: empty
+    - l3: empty
+    - l4: empty
+PcDesc(pc=0x0000000115adf7eb offset=18b bits=0):   org.jml.Operations::reduce@16 (line 64)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+PcDesc(pc=0x0000000115adf81b offset=1bb bits=1):   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm1 [64],double
+    - l4: reg rsi [12],int
+PcDesc(pc=0x0000000115adf825 offset=1c5 bits=0):   org.jml.Operations::reduce@8 (line 63)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+PcDesc(pc=0x0000000115adf8d9 offset=279 bits=0):
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+oop maps:ImmutableOopMapSet contains 5 OopMaps
+
+ImmutableOopMap {rdx=Oop } pc offsets: 175 
+ImmutableOopMap {rsi=Oop rdx=Oop } pc offsets: 376 
+ImmutableOopMap {rdx=Oop } pc offsets: 395 443 453 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+scopes:
+ScopeDesc(pc=0x0000000115adf6b4 offset=54):
+   org.jml.Operations::reduce@0 (line 61)
+ScopeDesc(pc=0x0000000115adf6c2 offset=62):
+   org.jml.Operations::reduce@5 (line 63)
+ScopeDesc(pc=0x0000000115adf6da offset=7a):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x0000000115adf708 offset=a8):
+   org.jml.Operations::reduce@22 (line 63)
+ScopeDesc(pc=0x0000000115adf70f offset=af):
+   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm1 [64],double
+    - l4: reg rsi [12],int
+ScopeDesc(pc=0x0000000115adf726 offset=c6):
+   org.jml.Operations::reduce@22 (line 63)
+ScopeDesc(pc=0x0000000115adf729 offset=c9):
+   org.jml.Operations::reduce@8 (line 63)
+ScopeDesc(pc=0x0000000115adf761 offset=101):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x0000000115adf774 offset=114):
+   org.jml.Operations::reduce@26 (line 67)
+ScopeDesc(pc=0x0000000115adf7d8 offset=178):
+   org.jml.Operations::reduce@-1 (line 61)
+   Locals
+    - l0: reg rsi [12],oop
+    - l1: reg rdx [4],oop
+    - l2: empty
+    - l3: empty
+    - l4: empty
+ScopeDesc(pc=0x0000000115adf7eb offset=18b):
+   org.jml.Operations::reduce@16 (line 64)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+ScopeDesc(pc=0x0000000115adf81b offset=1bb):
+   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm1 [64],double
+    - l4: reg rsi [12],int
+ScopeDesc(pc=0x0000000115adf825 offset=1c5):
+   org.jml.Operations::reduce@8 (line 63)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+relocations:
+         @0x0000000115adf608: 600b
+relocInfo@0x0000000115adf608 [type=6(runtime_call) addr=0x0000000115adf66b offset=11] | [destination=0x00000001154cf920]
+         @0x0000000115adf60a: c021
+relocInfo@0x0000000115adf60a [type=12(metadata) addr=0x0000000115adf68c offset=33] | [metadata_addr=0x0000000115adf68e *=0x0000000270304d88 offset=0]metadata_value=0x0000000270304d88: method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115adf60c: c054
+relocInfo@0x0000000115adf60c [type=12(metadata) addr=0x0000000115adf6e0 offset=84] | [metadata_addr=0x0000000115adf6e2 *=0x0000000270304d88 offset=0]metadata_value=0x0000000270304d88: method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115adf60e: a02f
+relocInfo@0x0000000115adf60e [type=10(poll) addr=0x0000000115adf70f offset=47]
+         @0x0000000115adf610: c003
+relocInfo@0x0000000115adf610 [type=12(metadata) addr=0x0000000115adf712 offset=3] | [metadata_addr=0x0000000115adf714 *=0x0000000270304d88 offset=0]metadata_value=0x0000000270304d88: method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115adf612: c019
+relocInfo@0x0000000115adf612 [type=12(metadata) addr=0x0000000115adf72b offset=25] | [metadata_addr=0x0000000115adf72d *=0x0000000270304d88 offset=0]metadata_value=0x0000000270304d88: method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115adf614: b03b
+relocInfo@0x0000000115adf614 [type=11(poll_return) addr=0x0000000115adf766 offset=59]
+         @0x0000000115adf616: 6437
+relocInfo@0x0000000115adf616 [type=6(runtime_call) addr=0x0000000115adf79d offset=55 format=1] | [destination=0x0000000111f810a0]
+         @0x0000000115adf618: c01f
+relocInfo@0x0000000115adf618 [type=12(metadata) addr=0x0000000115adf7bc offset=31] | [metadata_addr=0x0000000115adf7be *=0x0000000270304000 offset=0]metadata_value=0x0000000270304000: {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115adf61a: 6417
+relocInfo@0x0000000115adf61a [type=6(runtime_call) addr=0x0000000115adf7d3 offset=23 format=1] | [destination=0x00000001154152c0]
+         @0x0000000115adf61c: 6413
+relocInfo@0x0000000115adf61c [type=6(runtime_call) addr=0x0000000115adf7e6 offset=19 format=1] | [destination=0x000000011541bb40]
+         @0x0000000115adf61e: f80312326b6900017005
+relocInfo@0x0000000115adf626 [type=7(external_word) addr=0x0000000115adf7eb offset=5 data={12326b690001}] | [target=0x0000000112326b69]
+         @0x0000000115adf628: 640e
+relocInfo@0x0000000115adf628 [type=6(runtime_call) addr=0x0000000115adf7f9 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x0000000115adf62a: c006
+relocInfo@0x0000000115adf62a [type=12(metadata) addr=0x0000000115adf7ff offset=6] | [metadata_addr=0x0000000115adf801 *=0x0000000270304000 offset=0]metadata_value=0x0000000270304000: {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115adf62c: 6417
+relocInfo@0x0000000115adf62c [type=6(runtime_call) addr=0x0000000115adf816 offset=23 format=1] | [destination=0x00000001154152c0]
+         @0x0000000115adf62e: 640a
+relocInfo@0x0000000115adf62e [type=6(runtime_call) addr=0x0000000115adf820 offset=10 format=1] | [destination=0x000000011541b240]
+         @0x0000000115adf630: f80312326b6900017005
+relocInfo@0x0000000115adf638 [type=7(external_word) addr=0x0000000115adf825 offset=5 data={12326b690001}] | [target=0x0000000112326b69]
+         @0x0000000115adf63a: 640e
+relocInfo@0x0000000115adf63a [type=6(runtime_call) addr=0x0000000115adf833 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x0000000115adf63c: f0d38006
+relocInfo@0x0000000115adf63e [type=8(internal_word) addr=0x0000000115adf839 offset=6 data=211] | [target=0x0000000115adf766]
+         @0x0000000115adf640: 6411
+relocInfo@0x0000000115adf640 [type=6(runtime_call) addr=0x0000000115adf84a offset=17 format=1] | [destination=0x00000001154ced20]
+         @0x0000000115adf642: 6429
+relocInfo@0x0000000115adf642 [type=6(runtime_call) addr=0x0000000115adf873 offset=41 format=1] | [destination=0x000000011541c540]
+         @0x0000000115adf644: 000d
+relocInfo@0x0000000115adf644 [type=0(none) addr=0x0000000115adf880 offset=13]
+         @0x0000000115adf646: 6428
+relocInfo@0x0000000115adf646 [type=6(runtime_call) addr=0x0000000115adf8a8 offset=40 format=1] | [destination=0x0000000115418de0]
+         @0x0000000115adf648: f80312326b6900017005
+relocInfo@0x0000000115adf650 [type=7(external_word) addr=0x0000000115adf8ad offset=5 data={12326b690001}] | [target=0x0000000112326b69]
+         @0x0000000115adf652: 640e
+relocInfo@0x0000000115adf652 [type=6(runtime_call) addr=0x0000000115adf8bb offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x0000000115adf654: f801fefe9006
+relocInfo@0x0000000115adf658 [type=9(section_word) addr=0x0000000115adf8c1 offset=6 data=-258] | [target=0x0000000115adf8c1]
+         @0x0000000115adf65a: 640c
+relocInfo@0x0000000115adf65a [type=6(runtime_call) addr=0x0000000115adf8cd offset=12 format=1] | [destination=0x00000001154d0a60]
+         @0x0000000115adf65c: 0000
+relocInfo@0x0000000115adf65c [type=0(none) addr=0x0000000115adf8cd offset=0]
+         @0x0000000115adf65e: 0000
+relocInfo@0x0000000115adf65e [type=0(none) addr=0x0000000115adf8cd offset=0]
+         @0x0000000115adf660: 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Dependencies:
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ExceptionHandlerTable (size = 0 bytes)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ImplicitExceptionTable (size = 1 entries, 12 bytes):
+{
+   < 0x0000000115adf726, 0x0000000115adf820 > 
+}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded oops:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded metadata:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+============================= C2-compiled nmethod ==============================
+----------------------- MetaData before Compile_id = 972 ------------------------
+{method}
+ - this oop:          0x0000000270304000
+ - method holder:     'org/jml/Operations'
+ - constants:         0x000000027008f450 constant pool [162]/operands[25] {0x000000027008f450} for 'org/jml/Operations' cache=0x0000000270304800
+ - access:            0xc1000001  public 
+ - name:              'reduce'
+ - signature:         '([D)D'
+ - max stack:         5
+ - max locals:        5
+ - size of params:    2
+ - method size:       13
+ - vtable index:      6
+ - i2i entry:         0x00000001153c7d60
+ - adapters:          AHE@0x00007f8d740a9640: 0xbb000000 i2c: 0x00000001154420e0 c2i: 0x00000001154421bb c2iUV: 0x000000011544218e c2iNCI: 0x00000001154421f8
+ - compiled entry     0x00000001154421bb
+ - code size:         27
+ - code start:        0x000000027008ffa0
+ - code end (excl):   0x000000027008ffbb
+ - method data:       0x0000000270304d88
+ - checked ex length: 0
+ - linenumber start:  0x000000027008ffbb
+ - localvar length:   4
+ - localvar start:    0x000000027008ffc6
+
+------------------------ OptoAssembly for Compile_id = 972 -----------------------
+#
+#  double/half ( rawptr:BotPTR )
+#
+#r018 rsi:rsi   : parm 0: rawptr:BotPTR
+# -- Old rsp -- Framesize: 64 --
+#r583 rsp+60: in_preserve
+#r582 rsp+56: return address
+#r581 rsp+52: in_preserve
+#r580 rsp+48: saved fp register
+#r579 rsp+44: pad2, stack alignment
+#r578 rsp+40: pad2, stack alignment
+#r577 rsp+36: Fixed slot 1
+#r576 rsp+32: Fixed slot 0
+#r591 rsp+28: spill
+#r590 rsp+24: spill
+#r589 rsp+20: spill
+#r588 rsp+16: spill
+#r587 rsp+12: spill
+#r586 rsp+ 8: spill
+#r585 rsp+ 4: spill
+#r584 rsp+ 0: spill
+#
+000     N262: #	out( B1 ) <- BLOCK HEAD IS JUNK  Freq: 1
+000     # breakpoint
+        nop 	# 11 bytes pad for loops and calls
+
+010     B1: #	out( B31 B2 ) <- BLOCK HEAD IS JUNK  Freq: 1
+010     # stack bang (168 bytes)
+	pushq   rbp	# Save rbp
+	subq    rsp, #48	# Create frame
+
+01c     movq    R12, [RSI + #24 (8-bit)]	# ptr
+020     movsd   XMM0, [RSI + #8 (8-bit)]	# double
+025     movdq   R13, XMM0	# spill
+02a     movl    RBX, [RSI]	# int
+02c     movq    RDI, RSI	# spill
+02f     call_leaf,runtime  OSR_migration_end
+        No JVM State Info
+        # 
+        nop 	# 4 bytes pad for loops and calls
+040     movl    R11, [R12 + #8 (8-bit)]	# compressed klass ptr
+045     NullCheck R12
+
+045     B2: #	out( B29 B3 ) <- in( B1 )  Freq: 0.999999
+045     cmpl    R11, narrowklass: precise klass [D: 0x00007f8d76f0a730:Constant:exact *	# compressed klass ptr
+04c     jne,u   B29  P=0.000001 C=-1.000000
+
+052     B3: #	out( B30 B4 ) <- in( B2 )  Freq: 0.999998
+052     # checkcastPP of R12
+052     movl    R11, [R12 + #12 (8-bit)]	# range
+057     cmpl    RBX, R11
+        nop 	# 6 bytes pad for loops and calls
+060     jge     B30  P=0.000000 C=1897215.000000
+
+066     B4: #	out( B5 ) <- in( B3 )  Freq: 0.999997
+066     movl    R10, RBX	# spill
+069     incl    R10	# int
+06c     xorl    RDI, RDI	# int
+06e     cmpl    R10, RDI
+071     cmovllt R10, RDI	# max
+075     cmpl    R10, R11
+078     cmovlgt R10, R11	# min
+
+07c     B5: #	out( B25 B6 ) <- in( B4 B7 ) Loop( B5-B7 inner pre of N249) Freq: 1.99999
+        nop 	# 4 bytes pad for loops and calls
+080     cmpl    RBX, R11	# unsigned
+083     jnb,u   B25  P=0.000001 C=-1.000000
+
+089     B6: #	out( B8 B7 ) <- in( B5 )  Freq: 1.99999
+089     movdq   XMM0, R13	# spill
+08e     addsd   XMM0, [R12 + #16 + RBX << #3]
+095     incl    RBX	# int
+097     cmpl    RBX, R10
+09a     jge,s   B8	# loop end  P=0.500000 C=1897215.000000
+
+09c     B7: #	out( B5 ) <- in( B6 )  Freq: 0.999995
+09c     movdq   R13, XMM0	# spill
+0a1     jmp,s   B5
+
+0a3     B8: #	out( B17 B9 ) <- in( B6 )  Freq: 0.999995
+0a3     movl    RCX, R11	# spill
+0a6     addl    RCX, #-7	# int
+0a9     movl    R8, #-2147483648	# int
+0af     cmpl    R11, RCX
+0b2     cmovll RCX, R8	# signed, int
+0b6     cmpl    RBX, RCX
+0b8     jge     B17  P=0.000001 C=-1.000000
+
+0be     B9: #	out( B26 B10 ) <- in( B8 )  Freq: 0.999994
+0be     # castII of RBX
+        nop 	# 2 bytes pad for loops and calls
+0c0     cmpl    RBX, R11	# unsigned
+0c3     jnb,u   B26  P=0.000001 C=-1.000000
+
+0c9     B10: #	out( B27 B11 ) <- in( B9 )  Freq: 0.999993
+0c9     movl    R8, RBX	# spill
+0cc     addl    R8, #7	# int
+0d0     cmpl    R8, R11	# unsigned
+0d3     jnb,u   B27  P=0.000001 C=-1.000000
+
+0d9     B11: #	out( B28 B12 ) <- in( B10 )  Freq: 0.999992
+0d9     cmpl    RBX, R11	# unsigned
+        nop 	# 4 bytes pad for loops and calls
+0e0     jnb,u   B28  P=0.000001 C=-1.000000
+
+0e6     B12: #	out( B14 ) <- in( B11 )  Freq: 0.999991
+0e6     movl    R9, #8000	# int
+0ec     # TLS is in R15
+0ec     jmp,s   B14
+
+0ee     B13: #	out( B17 B14 ) <- in( B16 ) top-of-loop Freq: 999991
+0ee     movq    R8, [R15 + #304 (32-bit)]	# ptr
+0f5     testl   rax, [R8]	# Safepoint: poll for GC        # org.jml.Operations::reduce @ bci:22 (line 63) L[0]=_ L[1]=R12 L[2]=XMM0 L[3]=_ L[4]=RBX
+        # OopMap {r12=Oop off=245/0xf5}
+0f8     cmpl    RBX, RCX
+        nop 	# 6 bytes pad for loops and calls
+100     jge     B17  P=0.000000 C=1897215.000000
+
+106     B14: #	out( B15 ) <- in( B12 B13 ) Loop( B14-B13 ) Freq: 999991
+106     movl    R10, RCX	# spill
+109     subl    R10, RBX	# int
+10c     cmpl    RCX, RBX
+10e     cmovll R10, RDI	# signed, int
+112     cmpl    R10, #8000	# unsigned
+119     cmovlnbe R10, R9	# unsigned, int
+11d     addl    R10, RBX	# int
+
+120     B15: #	out( B15 B16 ) <- in( B14 B15 ) Loop( B15-B15 inner main of N115 strip mined) Freq: 9.99991e+11
+120     addsd   XMM0, [R12 + #16 + RBX << #3]
+127     movslq  R8, RBX	# i2l
+12a     addsd   XMM0, [R12 + #24 + R8 << #3]
+131     addsd   XMM0, [R12 + #32 + R8 << #3]
+138     addsd   XMM0, [R12 + #40 + R8 << #3]
+13f     addsd   XMM0, [R12 + #48 + R8 << #3]
+146     addsd   XMM0, [R12 + #56 + R8 << #3]
+14d     addsd   XMM0, [R12 + #64 + R8 << #3]
+154     addsd   XMM0, [R12 + #72 + R8 << #3]
+15b     addl    RBX, #8	# int
+        nop 	# 2 bytes pad for loops and calls
+160     cmpl    RBX, R10
+163     jl,s   B15	# loop end  P=1.000000 C=1897215.000000
+
+165     B16: #	out( B13 ) <- in( B15 )  Freq: 476833
+165     jmp,s   B13
+
+167     B17: #	out( B21 B18 ) <- in( B8 B13 )  Freq: 0.999992
+167     cmpl    RBX, R11
+16a     jge,s   B21  P=0.000001 C=-1.000000
+
+16c     B18: #	out( B19 ) <- in( B17 )  Freq: 0.999991
+16c     # castII of RBX
+
+16c     B19: #	out( B23 B20 ) <- in( B18 B20 ) Loop( B19-B20 inner post of N249) Freq: 493444
+16c     cmpl    RBX, R11	# unsigned
+16f     jnb,us  B23  P=0.000001 C=-1.000000
+
+171     B20: #	out( B19 B21 ) <- in( B19 )  Freq: 493443
+171     addsd   XMM0, [R12 + #16 + RBX << #3]
+178     incl    RBX	# int
+        nop 	# 6 bytes pad for loops and calls
+180     cmpl    RBX, R11
+183     jl,s   B19	# loop end  P=0.999999 C=1897215.000000
+
+185     B21: #	out( B22 ) <- in( B20 B17 )  Freq: 0.499996
+185     movdq   RBP, XMM0	# spill
+
+18a     B22: #	out( N262 ) <- in( B30 B21 )  Freq: 0.499997
+18a     movl    RSI, #-187	# int
+18f     movq    [rsp + #0], R12	# spill
+193     movl    [rsp + #12], RBX	# spill
+197     movl    [rsp + #16], R11	# spill
+        nop 	# 3 bytes pad for loops and calls
+19f     call,static  wrapper for: uncommon_trap(reason='unstable_if' action='reinterpret' debug_id='0')
+        # org.jml.Operations::reduce @ bci:9 (line 63) L[0]=_ L[1]=rsp + #0 L[2]=RBP L[3]=_ L[4]=rsp + #12 STK[0]=rsp + #12 STK[1]=rsp + #16
+        # OopMap {[0]=Oop off=420/0x1a4}
+1a4     stop	# ShouldNotReachHere
+
+1b8     B23: #	out( B24 ) <- in( B19 )  Freq: 0.499996
+1b8     movdq   RBP, XMM0	# spill
+
+1bd     B24: #	out( N262 ) <- in( B23 B25 )  Freq: 0.499998
+1bd     movl    RSI, #-28	# int
+1c2     movq    [rsp + #16], R12	# spill
+1c7     movl    [rsp + #12], RBX	# spill
+1cb     call,static  wrapper for: uncommon_trap(reason='range_check' action='make_not_entrant' debug_id='0')
+        # org.jml.Operations::reduce @ bci:16 (line 64) L[0]=_ L[1]=rsp + #16 L[2]=_ L[3]=_ L[4]=rsp + #12 STK[0]=RBP STK[1]=_ STK[2]=rsp + #16 STK[3]=rsp + #12
+        # OopMap {[16]=Oop off=464/0x1d0}
+1d0     stop	# ShouldNotReachHere
+
+1e4     B25: #	out( B24 ) <- in( B5 )  Freq: 2.02655e-06
+1e4     movq    RBP, R13	# spill
+1e7     jmp,s   B24
+
+1e9     B26: #	out( N262 ) <- in( B9 )  Freq: 1.01327e-06
+1e9     stop	# ShouldNotReachHere
+
+1fd     B27: #	out( N262 ) <- in( B10 )  Freq: 1.01327e-06
+1fd     stop	# ShouldNotReachHere
+
+211     B28: #	out( N262 ) <- in( B11 )  Freq: 1.01327e-06
+211     stop	# ShouldNotReachHere
+
+225     B29: #	out( N262 ) <- in( B2 )  Freq: 9.99999e-07
+225     movl    RSI, #-115	# int
+22a     movq    RBP, R12	# spill
+22d     movq    [rsp + #0], R13	# spill
+231     movl    [rsp + #8], RBX	# spill
+        nop 	# 2 bytes pad for loops and calls
+237     call,static  wrapper for: uncommon_trap(reason='constraint' action='reinterpret' debug_id='0')
+        # org.jml.Operations::reduce @ bci:5 (line 63) L[0]=_ L[1]=RBP L[2]=rsp + #0 L[3]=_ L[4]=rsp + #8
+        # OopMap {rbp=Oop off=572/0x23c}
+23c     stop	# ShouldNotReachHere
+
+250     B30: #	out( B22 ) <- in( B3 )  Freq: 4.76836e-07
+250     movq    RBP, R13	# spill
+253     jmp     B22
+
+258     B31: #	out( N262 ) <- in( B1 )  Freq: 1.01328e-06
+258     movl    RSI, #-138	# int
+25d     movq    RBP, R13	# spill
+260     movl    [rsp + #0], RBX	# spill
+263     call,static  wrapper for: uncommon_trap(reason='predicate' action='maybe_recompile' debug_id='0')
+        # org.jml.Operations::reduce @ bci:5 (line 63) L[0]=_ L[1]=#NULL L[2]=RBP L[3]=_ L[4]=rsp + #0
+        # OopMap {off=616/0x268}
+268     stop	# ShouldNotReachHere
+
+--------------------------------------------------------------------------------
+----------------------------------- Assembly -----------------------------------
+
+Compiled method (c2)    2914  972 %     4       org.jml.Operations::reduce @ 5 (27 bytes)
+ total in heap  [0x000000011cf3cf10,0x000000011cf3d610] = 1792
+ relocation     [0x000000011cf3d088,0x000000011cf3d0f8] = 112
+ main code      [0x000000011cf3d100,0x000000011cf3d380] = 640
+ stub code      [0x000000011cf3d380,0x000000011cf3d398] = 24
+ oops           [0x000000011cf3d398,0x000000011cf3d3a0] = 8
+ metadata       [0x000000011cf3d3a0,0x000000011cf3d3b0] = 16
+ scopes data    [0x000000011cf3d3b0,0x000000011cf3d448] = 152
+ scopes pcs     [0x000000011cf3d448,0x000000011cf3d5f8] = 432
+ dependencies   [0x000000011cf3d5f8,0x000000011cf3d600] = 8
+ nul chk table  [0x000000011cf3d600,0x000000011cf3d610] = 16
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Verified Entry Point]
+  # {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+ ;; N262: #	out( B1 ) <- BLOCK HEAD IS JUNK  Freq: 1
+  0x000000011cf3d100: ;   {runtime_call os::breakpoint()}
+  0x000000011cf3d100: e89b aef3 | f490 9090 | 9090 9090 | 9090 9090 
+ ;; B1: #	out( B31 B2 ) <- BLOCK HEAD IS JUNK  Freq: 1
+  0x000000011cf3d110: 8984 2400 | a0fe ff55 | 4883 ec30 | 4c8b 6618 | f20f 1046 | 0866 490f | 7ec5 8b1e | 488b fe49 
+  0x000000011cf3d130: baa0 10f8 | 1101 0000 | 0041 ffd2 | 9090 9090 
+
+  0x000000011cf3d140: ; implicit exception: dispatches to 0x000000011cf3d358
+  0x000000011cf3d140: 458b 5c24 
+
+  0x000000011cf3d144: ;   {metadata({type array double})}
+  0x000000011cf3d144: 0841 81fb | c380 c845 | 0f85 d301 
+
+  0x000000011cf3d150: ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x000000011cf3d150: 0000 458b 
+
+  0x000000011cf3d154: ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@8 (line 63)
+  0x000000011cf3d154: 5c24 0c41 | 3bdb 9090 | 9090 9090 | 0f8d ea01 
+
+  0x000000011cf3d164: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf3d164: 0000 448b | d341 ffc2 | 33ff 443b | d744 0f4c | d745 3bd3 
+
+  0x000000011cf3d178: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf3d178: 450f 4fd3 
+ ;; B5: #	out( B25 B6 ) <- in( B4 B7 ) Loop( B5-B7 inner pre of N249) Freq: 1.99999
+  0x000000011cf3d17c: 9090 9090 | 413b db0f | 835b 0100 | 0066 490f | 6ec5 f241 | 0f58 44dc 
+
+  0x000000011cf3d194: ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@17 (line 64)
+  0x000000011cf3d194: 10ff c341 
+
+  0x000000011cf3d198: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf3d198: 3bda 7d07 
+ ;; B7: #	out( B5 ) <- in( B6 )  Freq: 0.999995
+  0x000000011cf3d19c: 6649 0f7e | c5eb d941 | 8bcb 83c1 | f941 b800 | 0000 8044 | 3bd9 410f | 4cc8 3bd9 | 0f8d a900 
+  0x000000011cf3d1bc: 0000 9090 | 413b db0f | 8320 0100 | 0044 8bc3 | 4183 c007 | 453b c30f | 8324 0100 | 0041 3bdb 
+  0x000000011cf3d1dc: 9090 9090 | 0f83 2b01 | 0000 41b9 
+
+  0x000000011cf3d1e8: ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@22 (line 63)
+  0x000000011cf3d1e8: 401f 0000 | eb18 4d8b | 8730 0100 
+
+  0x000000011cf3d1f4: ; ImmutableOopMap {r12=Oop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) org.jml.Operations::reduce@22 (line 63)
+                      ;   {poll}
+  0x000000011cf3d1f4: 0041 8500 | 3bd9 9090 | 9090 9090 | 0f8d 6100 | 0000 448b | d144 2bd3 | 3bcb 440f | 4cd7 4181 
+  0x000000011cf3d214: fa40 1f00 | 0045 0f47 
+
+  0x000000011cf3d21c: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf3d21c: d144 03d3 
+ ;; B15: #	out( B15 B16 ) <- in( B14 B15 ) Loop( B15-B15 inner main of N115 strip mined) Freq: 9.99991e+11
+  0x000000011cf3d220: f241 0f58 | 44dc 104c | 63c3 f243 | 0f58 44c4 | 18f2 430f | 5844 c420 | f243 0f58 | 44c4 28f2 
+  0x000000011cf3d240: 430f 5844 | c430 f243 | 0f58 44c4 | 38f2 430f | 5844 c440 | f243 0f58 
+
+  0x000000011cf3d258: ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@17 (line 64)
+  0x000000011cf3d258: 44c4 4883 
+
+  0x000000011cf3d25c: ;*iinc {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@19 (line 63)
+  0x000000011cf3d25c: c308 9090 | 413b da7c 
+
+  0x000000011cf3d264: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf3d264: bbeb 8741 
+
+  0x000000011cf3d268: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf3d268: 3bdb 7d19 
+ ;; B18: #	out( B19 ) <- in( B17 )  Freq: 0.999991
+ ;; B19: #	out( B23 B20 ) <- in( B18 B20 ) Loop( B19-B20 inner post of N249) Freq: 493444
+  0x000000011cf3d26c: 413b db73 | 47f2 410f 
+
+  0x000000011cf3d274: ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@17 (line 64)
+  0x000000011cf3d274: 5844 dc10 
+
+  0x000000011cf3d278: ;*iinc {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@19 (line 63)
+  0x000000011cf3d278: ffc3 9090 | 9090 9090 | 413b db7c | e766 480f 
+
+  0x000000011cf3d288: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf3d288: 7ec5 be45 | ffff ff4c | 8924 2489 | 5c24 0c44 | 895c 2410 
+
+  0x000000011cf3d29c: ;   {runtime_call UncommonTrapBlob}
+  0x000000011cf3d29c: 9090 90e8 
+
+  0x000000011cf3d2a0: ; ImmutableOopMap {[0]=Oop }
+                      ;*if_icmpge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf3d2a0: 9c32 59f8 
+
+  0x000000011cf3d2a4: ;   {external_word}
+  0x000000011cf3d2a4: 48bf 7777 | 3a12 0100 | 0000 4883 
+
+  0x000000011cf3d2b0: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf3d2b0: e4f0 e899 
+
+  0x000000011cf3d2b4: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf3d2b4: 3cda f4f4 
+ ;; B23: #	out( B24 ) <- in( B19 )  Freq: 0.499996
+  0x000000011cf3d2b8: 6648 0f7e | c5be e4ff | ffff 4c89 | 6424 1089 
+
+  0x000000011cf3d2c8: ;   {runtime_call UncommonTrapBlob}
+  0x000000011cf3d2c8: 5c24 0ce8 
+
+  0x000000011cf3d2cc: ; ImmutableOopMap {[16]=Oop }
+                      ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf3d2cc: 7032 59f8 
+
+  0x000000011cf3d2d0: ;   {external_word}
+  0x000000011cf3d2d0: 48bf 7777 | 3a12 0100 | 0000 4883 
+
+  0x000000011cf3d2dc: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf3d2dc: e4f0 e86d 
+
+  0x000000011cf3d2e0: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf3d2e0: 3cda f4f4 
+ ;; B25: #	out( B24 ) <- in( B5 )  Freq: 2.02655e-06
+  0x000000011cf3d2e4: 498b edeb 
+
+  0x000000011cf3d2e8: ;   {external_word}
+  0x000000011cf3d2e8: d448 bfa6 | 2d42 1201 | 0000 0048 
+
+  0x000000011cf3d2f4: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf3d2f4: 83e4 f0e8 | 543c daf4 
+
+  0x000000011cf3d2fc: ;   {external_word}
+  0x000000011cf3d2fc: f448 bf31 | 2542 1201 | 0000 0048 
+
+  0x000000011cf3d308: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf3d308: 83e4 f0e8 | 403c daf4 
+
+  0x000000011cf3d310: ;   {external_word}
+  0x000000011cf3d310: f448 bf31 | 2542 1201 | 0000 0048 
+
+  0x000000011cf3d31c: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf3d31c: 83e4 f0e8 | 2c3c daf4 | f4be 8dff | ffff 498b | ec4c 892c | 2489 5c24 
+
+  0x000000011cf3d334: ;   {runtime_call UncommonTrapBlob}
+  0x000000011cf3d334: 0890 90e8 
+
+  0x000000011cf3d338: ; ImmutableOopMap {rbp=Oop }
+                      ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x000000011cf3d338: 0432 59f8 
+
+  0x000000011cf3d33c: ;   {external_word}
+  0x000000011cf3d33c: 48bf 7777 | 3a12 0100 | 0000 4883 
+
+  0x000000011cf3d348: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf3d348: e4f0 e801 | 3cda f4f4 
+ ;; B30: #	out( B22 ) <- in( B3 )  Freq: 4.76836e-07
+  0x000000011cf3d350: 498b ede9 | 32ff ffff 
+ ;; B31: #	out( N262 ) <- in( B1 )  Freq: 1.01328e-06
+  0x000000011cf3d358: be76 ffff | ff49 8bed 
+
+  0x000000011cf3d360: ;   {runtime_call UncommonTrapBlob}
+  0x000000011cf3d360: 891c 24e8 
+
+  0x000000011cf3d364: ; ImmutableOopMap {}
+                      ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x000000011cf3d364: d831 59f8 
+
+  0x000000011cf3d368: ;   {external_word}
+  0x000000011cf3d368: 48bf 7777 | 3a12 0100 | 0000 4883 
+
+  0x000000011cf3d374: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf3d374: e4f0 e8d5 
+
+  0x000000011cf3d378: ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x000000011cf3d378: 3bda f4f4 | f4f4 f4f4 
+[Exception Handler]
+  0x000000011cf3d380: ;   {no_reloc}
+  0x000000011cf3d380: e99b ea4d | f8e8 0000 | 0000 4883 
+
+  0x000000011cf3d38c: ;   {runtime_call DeoptimizationBlob}
+  0x000000011cf3d38c: 2c24 05e9 | cc36 59f8 | f4f4 f4f4 
+[/MachCode]
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Oops:
+  0x000000011cf3d398:   0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Metadata:
+  0x000000011cf3d3a0:   0x000000022e440618 {type array double}
+  0x000000011cf3d3a8:   0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+pc-bytecode offsets:
+PcDesc(pc=0x000000011cf3d0ff offset=ffffffff bits=0):
+PcDesc(pc=0x000000011cf3d152 offset=52 bits=0):   org.jml.Operations::reduce@5 (line 63)
+PcDesc(pc=0x000000011cf3d157 offset=57 bits=0):   org.jml.Operations::reduce@8 (line 63)
+PcDesc(pc=0x000000011cf3d166 offset=66 bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf3d17c offset=7c bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x000000011cf3d195 offset=95 bits=0):   org.jml.Operations::reduce@17 (line 64)
+PcDesc(pc=0x000000011cf3d197 offset=97 bits=0):   org.jml.Operations::reduce@19 (line 63)
+PcDesc(pc=0x000000011cf3d19c offset=9c bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf3d1ec offset=ec bits=0):   org.jml.Operations::reduce@22 (line 63)
+PcDesc(pc=0x000000011cf3d1f5 offset=f5 bits=1):   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg r12 [24],oop
+    - l2: 0
+    - l3: reg xmm0 [48],double
+    - l4: reg rbx [6],int
+PcDesc(pc=0x000000011cf3d1f8 offset=f8 bits=0):   org.jml.Operations::reduce@22 (line 63)
+PcDesc(pc=0x000000011cf3d220 offset=120 bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x000000011cf3d25b offset=15b bits=0):   org.jml.Operations::reduce@17 (line 64)
+PcDesc(pc=0x000000011cf3d25e offset=15e bits=0):   org.jml.Operations::reduce@19 (line 63)
+PcDesc(pc=0x000000011cf3d265 offset=165 bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf3d26c offset=16c bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x000000011cf3d278 offset=178 bits=0):   org.jml.Operations::reduce@17 (line 64)
+PcDesc(pc=0x000000011cf3d27a offset=17a bits=0):   org.jml.Operations::reduce@19 (line 63)
+PcDesc(pc=0x000000011cf3d28a offset=18a bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf3d2a4 offset=1a4 bits=1):   org.jml.Operations::reduce@9 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: stack[0],oop
+    - l2: 0
+    - l3: reg rbp [10],double
+    - l4: stack[12]
+   Expression stack
+    - @0: stack[12]
+    - @1: stack[16]
+PcDesc(pc=0x000000011cf3d2b8 offset=1b8 bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf3d2d0 offset=1d0 bits=0):   org.jml.Operations::reduce@16 (line 64)
+   Locals
+    - l0: empty
+    - l1: stack[16],oop
+    - l2: empty
+    - l3: empty
+    - l4: stack[12]
+   Expression stack
+    - @0: 0
+    - @1: reg rbp [10],double
+    - @2: stack[16],oop
+    - @3: stack[12]
+PcDesc(pc=0x000000011cf3d2e4 offset=1e4 bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x000000011cf3d33c offset=23c bits=0):   org.jml.Operations::reduce@5 (line 63)
+   Locals
+    - l0: empty
+    - l1: reg rbp [10],oop
+    - l2: 0
+    - l3: stack[0],double
+    - l4: stack[8]
+PcDesc(pc=0x000000011cf3d368 offset=268 bits=0):   org.jml.Operations::reduce@5 (line 63)
+   Locals
+    - l0: empty
+    - l1: NULL
+    - l2: 0
+    - l3: reg rbp [10],double
+    - l4: stack[0]
+PcDesc(pc=0x000000011cf3d37c offset=27c bits=0):   org.jml.Operations::reduce@5 (line 63)
+PcDesc(pc=0x000000011cf3d399 offset=299 bits=0):
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+oop maps:ImmutableOopMapSet contains 5 OopMaps
+
+ImmutableOopMap {r12=Oop } pc offsets: 245 
+ImmutableOopMap {[0]=Oop } pc offsets: 420 
+ImmutableOopMap {[16]=Oop } pc offsets: 464 
+ImmutableOopMap {rbp=Oop } pc offsets: 572 
+ImmutableOopMap {} pc offsets: 616 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+scopes:
+ScopeDesc(pc=0x000000011cf3d152 offset=52):
+   org.jml.Operations::reduce@5 (line 63)
+ScopeDesc(pc=0x000000011cf3d157 offset=57):
+   org.jml.Operations::reduce@8 (line 63)
+ScopeDesc(pc=0x000000011cf3d166 offset=66):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf3d17c offset=7c):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x000000011cf3d195 offset=95):
+   org.jml.Operations::reduce@17 (line 64)
+ScopeDesc(pc=0x000000011cf3d197 offset=97):
+   org.jml.Operations::reduce@19 (line 63)
+ScopeDesc(pc=0x000000011cf3d19c offset=9c):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf3d1ec offset=ec):
+   org.jml.Operations::reduce@22 (line 63)
+ScopeDesc(pc=0x000000011cf3d1f5 offset=f5):
+   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg r12 [24],oop
+    - l2: 0
+    - l3: reg xmm0 [48],double
+    - l4: reg rbx [6],int
+ScopeDesc(pc=0x000000011cf3d1f8 offset=f8):
+   org.jml.Operations::reduce@22 (line 63)
+ScopeDesc(pc=0x000000011cf3d220 offset=120):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x000000011cf3d25b offset=15b):
+   org.jml.Operations::reduce@17 (line 64)
+ScopeDesc(pc=0x000000011cf3d25e offset=15e):
+   org.jml.Operations::reduce@19 (line 63)
+ScopeDesc(pc=0x000000011cf3d265 offset=165):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf3d26c offset=16c):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x000000011cf3d278 offset=178):
+   org.jml.Operations::reduce@17 (line 64)
+ScopeDesc(pc=0x000000011cf3d27a offset=17a):
+   org.jml.Operations::reduce@19 (line 63)
+ScopeDesc(pc=0x000000011cf3d28a offset=18a):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf3d2a4 offset=1a4):
+   org.jml.Operations::reduce@9 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: stack[0],oop
+    - l2: 0
+    - l3: reg rbp [10],double
+    - l4: stack[12]
+   Expression stack
+    - @0: stack[12]
+    - @1: stack[16]
+ScopeDesc(pc=0x000000011cf3d2b8 offset=1b8):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf3d2d0 offset=1d0):
+   org.jml.Operations::reduce@16 (line 64)
+   Locals
+    - l0: empty
+    - l1: stack[16],oop
+    - l2: empty
+    - l3: empty
+    - l4: stack[12]
+   Expression stack
+    - @0: 0
+    - @1: reg rbp [10],double
+    - @2: stack[16],oop
+    - @3: stack[12]
+ScopeDesc(pc=0x000000011cf3d2e4 offset=1e4):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x000000011cf3d33c offset=23c):
+   org.jml.Operations::reduce@5 (line 63)
+   Locals
+    - l0: empty
+    - l1: reg rbp [10],oop
+    - l2: 0
+    - l3: stack[0],double
+    - l4: stack[8]
+ScopeDesc(pc=0x000000011cf3d368 offset=268):
+   org.jml.Operations::reduce@5 (line 63)
+   Locals
+    - l0: empty
+    - l1: NULL
+    - l2: 0
+    - l3: reg rbp [10],double
+    - l4: stack[0]
+ScopeDesc(pc=0x000000011cf3d37c offset=27c):
+   org.jml.Operations::reduce@5 (line 63)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+relocations:
+         @0x000000011cf3d088: 6400
+relocInfo@0x000000011cf3d088 [type=6(runtime_call) addr=0x000000011cf3d100 offset=0 format=1] | [destination=0x0000000111e77fa0]
+         @0x000000011cf3d08a: f001cc45
+relocInfo@0x000000011cf3d08c [type=12(metadata) addr=0x000000011cf3d145 offset=69 format=3 data=1] | [metadata_addr=0x000000011cf3d3a0 *=0x000000022e440618 offset=0]metadata_value=0x000000022e440618: {type array double}
+         @0x000000011cf3d08e: a0b0
+relocInfo@0x000000011cf3d08e [type=10(poll) addr=0x000000011cf3d1f5 offset=176]
+         @0x000000011cf3d090: 64aa
+relocInfo@0x000000011cf3d090 [type=6(runtime_call) addr=0x000000011cf3d29f offset=170 format=1] | [destination=0x00000001154d0540]
+         @0x000000011cf3d092: f803123a777700017005
+relocInfo@0x000000011cf3d09a [type=7(external_word) addr=0x000000011cf3d2a4 offset=5 data={123a77770001}] | [target=0x00000001123a7777]
+         @0x000000011cf3d09c: 640e
+relocInfo@0x000000011cf3d09c [type=6(runtime_call) addr=0x000000011cf3d2b2 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf3d09e: 6419
+relocInfo@0x000000011cf3d09e [type=6(runtime_call) addr=0x000000011cf3d2cb offset=25 format=1] | [destination=0x00000001154d0540]
+         @0x000000011cf3d0a0: f803123a777700017005
+relocInfo@0x000000011cf3d0a8 [type=7(external_word) addr=0x000000011cf3d2d0 offset=5 data={123a77770001}] | [target=0x00000001123a7777]
+         @0x000000011cf3d0aa: 640e
+relocInfo@0x000000011cf3d0aa [type=6(runtime_call) addr=0x000000011cf3d2de offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf3d0ac: f80312422da60001700b
+relocInfo@0x000000011cf3d0b4 [type=7(external_word) addr=0x000000011cf3d2e9 offset=11 data={12422da60001}] | [target=0x0000000112422da6]
+         @0x000000011cf3d0b6: 640e
+relocInfo@0x000000011cf3d0b6 [type=6(runtime_call) addr=0x000000011cf3d2f7 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf3d0b8: f8031242253100017006
+relocInfo@0x000000011cf3d0c0 [type=7(external_word) addr=0x000000011cf3d2fd offset=6 data={124225310001}] | [target=0x0000000112422531]
+         @0x000000011cf3d0c2: 640e
+relocInfo@0x000000011cf3d0c2 [type=6(runtime_call) addr=0x000000011cf3d30b offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf3d0c4: f8031242253100017006
+relocInfo@0x000000011cf3d0cc [type=7(external_word) addr=0x000000011cf3d311 offset=6 data={124225310001}] | [target=0x0000000112422531]
+         @0x000000011cf3d0ce: 640e
+relocInfo@0x000000011cf3d0ce [type=6(runtime_call) addr=0x000000011cf3d31f offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf3d0d0: 6418
+relocInfo@0x000000011cf3d0d0 [type=6(runtime_call) addr=0x000000011cf3d337 offset=24 format=1] | [destination=0x00000001154d0540]
+         @0x000000011cf3d0d2: f803123a777700017005
+relocInfo@0x000000011cf3d0da [type=7(external_word) addr=0x000000011cf3d33c offset=5 data={123a77770001}] | [target=0x00000001123a7777]
+         @0x000000011cf3d0dc: 640e
+relocInfo@0x000000011cf3d0dc [type=6(runtime_call) addr=0x000000011cf3d34a offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf3d0de: 6419
+relocInfo@0x000000011cf3d0de [type=6(runtime_call) addr=0x000000011cf3d363 offset=25 format=1] | [destination=0x00000001154d0540]
+         @0x000000011cf3d0e0: f803123a777700017005
+relocInfo@0x000000011cf3d0e8 [type=7(external_word) addr=0x000000011cf3d368 offset=5 data={123a77770001}] | [target=0x00000001123a7777]
+         @0x000000011cf3d0ea: 640e
+relocInfo@0x000000011cf3d0ea [type=6(runtime_call) addr=0x000000011cf3d376 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf3d0ec: 000a
+relocInfo@0x000000011cf3d0ec [type=0(none) addr=0x000000011cf3d380 offset=10]
+         @0x000000011cf3d0ee: 6400
+relocInfo@0x000000011cf3d0ee [type=6(runtime_call) addr=0x000000011cf3d380 offset=0 format=1] | [destination=0x000000011541be20]
+         @0x000000011cf3d0f0: 640f
+relocInfo@0x000000011cf3d0f0 [type=6(runtime_call) addr=0x000000011cf3d38f offset=15 format=1] | [destination=0x00000001154d0a60]
+         @0x000000011cf3d0f2: 0000
+relocInfo@0x000000011cf3d0f2 [type=0(none) addr=0x000000011cf3d38f offset=0]
+         @0x000000011cf3d0f4: 0000
+relocInfo@0x000000011cf3d0f4 [type=0(none) addr=0x000000011cf3d38f offset=0]
+         @0x000000011cf3d0f6: 0000
+relocInfo@0x000000011cf3d0f6 [type=0(none) addr=0x000000011cf3d38f offset=0]
+         @0x000000011cf3d0f8: 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Dependencies:
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ExceptionHandlerTable (size = 0 bytes)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ImplicitExceptionTable (size = 1 entries, 12 bytes):
+{
+   < 0x000000011cf3d140, 0x000000011cf3d358 > 
+}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded oops:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded metadata:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x000000022e440618 {type array double}
+#2: 0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+============================= C1-compiled nmethod ==============================
+----------------------------------- Assembly -----------------------------------
+
+Compiled method (c1)    2939  998 %     3       org.jml.Operations::reduce @ 5 (27 bytes)
+ total in heap  [0x0000000115ae7510,0x0000000115ae7ad8] = 1480
+ relocation     [0x0000000115ae7688,0x0000000115ae76e0] = 88
+ main code      [0x0000000115ae76e0,0x0000000115ae7900] = 544
+ stub code      [0x0000000115ae7900,0x0000000115ae7958] = 88
+ oops           [0x0000000115ae7958,0x0000000115ae7960] = 8
+ metadata       [0x0000000115ae7960,0x0000000115ae7968] = 8
+ scopes data    [0x0000000115ae7968,0x0000000115ae79d0] = 104
+ scopes pcs     [0x0000000115ae79d0,0x0000000115ae7ac0] = 240
+ dependencies   [0x0000000115ae7ac0,0x0000000115ae7ac8] = 8
+ nul chk table  [0x0000000115ae7ac8,0x0000000115ae7ad8] = 16
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+ ;;  block B5 [0, 0]
+  0x0000000115ae76e0: 448b 5608 | 49c1 e203 
+
+  0x0000000115ae76e8: ;   {runtime_call ic_miss_stub}
+  0x0000000115ae76e8: 4c3b d00f | 852f 829e | ff90 9090 | 9090 9090 | 9090 9090 | 9090 9090 
+[Verified Entry Point]
+  0x0000000115ae7700: 8984 2400 | a0fe ff55 | 4883 ec50 
+
+  0x0000000115ae770c: ;   {metadata(method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115ae770c: 48bf 884d | 3070 0200 | 0000 8b9f | 1c01 0000 | 83c3 0289 | 9f1c 0100 | 0081 e3fe | 0700 0083 
+  0x0000000115ae772c: fb00 0f84 
+
+  0x0000000115ae7730: ;*dconst_0 {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@0 (line 61)
+  0x0000000115ae7730: 0801 0000 
+ ;;  block B6 [0, 0]
+ ;;  block B0 [0, 5]
+  0x0000000115ae7734: be00 0000 | 0066 0f57 | c0e9 6400 
+
+  0x0000000115ae7740: ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x0000000115ae7740: 0000 9090 | 9090 9090 
+ ;;  block B2 [12, 22]
+  0x0000000115ae7748: 3b72 0c0f | 830c 0100 | 0048 63fe | f20f 104c 
+
+  0x0000000115ae7758: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x0000000115ae7758: fa10 f20f | 58c8 ffc6 
+
+  0x0000000115ae7760: ;   {metadata(method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115ae7760: 48bf 884d | 3070 0200 | 0000 8b9f | 2001 0000 | 83c3 0289 | 9f20 0100 | 0081 e3fe | 3f00 0083 
+  0x0000000115ae7780: fb00 0f84 
+
+  0x0000000115ae7784: ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@22 (line 63)
+  0x0000000115ae7784: f700 0000 | 4d8b 9730 
+
+  0x0000000115ae778c: ; ImmutableOopMap {rdx=Oop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) org.jml.Operations::reduce@22 (line 63)
+                      ;   {poll}
+  0x0000000115ae778c: 0100 0041 
+
+  0x0000000115ae7790: ;   {metadata(method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115ae7790: 8502 48bf | 884d 3070 | 0200 0000 | ff87 8001 | 0000 660f 
+
+  0x0000000115ae77a4: ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@22 (line 63)
+  0x0000000115ae77a4: 28c1 8b7a 
+
+  0x0000000115ae77a8: ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@8 (line 63)
+                      ;   {metadata(method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115ae77a8: 0c3b f748 | bf88 4d30 | 7002 0000 | 0048 bb70 | 0100 0000 | 0000 000f | 8c0a 0000 | 0048 bb60 
+  0x0000000115ae77c8: 0100 0000 | 0000 0048 | 8b04 1f48 | 8d40 0148 | 8904 1f0f | 8c67 ffff 
+
+  0x0000000115ae77e0: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x0000000115ae77e0: ff48 83c4 
+
+  0x0000000115ae77e4: ;   {poll_return}
+  0x0000000115ae77e4: 505d 493b | a728 0100 | 000f 87c6 
+
+  0x0000000115ae77f0: ;*dreturn {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@26 (line 67)
+  0x0000000115ae77f0: 0000 00c3 
+ ;;  block B4 [5, 5]
+  0x0000000115ae77f4: 8984 2400 | a0fe ff55 | 4883 ec50 | 488b 5e18 | f20f 1046 | 088b 0648 | 8bfe 4889 | 5c24 3089 
+  0x0000000115ae7814: 4424 28f2 | 0f11 4424 
+
+  0x0000000115ae781c: ;   {runtime_call SharedRuntime::OSR_migration_end(long*)}
+  0x0000000115ae781c: 38e8 7e98 | 49fc 8b44 | 2428 488b | f0f2 0f10 | 4424 3848 | 8b5c 2430 | 488b d3e9 | 6aff ffff 
+ ;; CounterOverflowStub slow case
+  0x0000000115ae783c: ;   {metadata({method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115ae783c: 49ba 0040 | 3070 0200 | 0000 4c89 | 5424 0848 | c704 24ff 
+
+  0x0000000115ae7850: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x0000000115ae7850: ffff ffe8 
+
+  0x0000000115ae7854: ; ImmutableOopMap {rsi=Oop rdx=Oop }
+                      ;*synchronization entry
+                      ; - org.jml.Operations::reduce@-1 (line 61)
+  0x0000000115ae7854: 68da 92ff | e9d7 feff | ff48 8934 | 2448 8954 
+
+  0x0000000115ae7864: ;   {runtime_call throw_range_check_failed Runtime1 stub}
+  0x0000000115ae7864: 2408 e8d5 
+
+  0x0000000115ae7868: ; ImmutableOopMap {rdx=Oop }
+                      ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+                      ;   {external_word}
+  0x0000000115ae7868: 4293 ff48 | bf69 6b32 | 1201 0000 | 0048 83e4 
+
+  0x0000000115ae7878: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x0000000115ae7878: f0e8 d296 
+
+  0x0000000115ae787c: ;   {metadata({method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations')}
+  0x0000000115ae787c: 1ffc f449 | ba00 4030 | 7002 0000 | 004c 8954 | 2408 48c7 | 0424 1600 
+
+  0x0000000115ae7894: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x0000000115ae7894: 0000 e825 
+
+  0x0000000115ae7898: ; ImmutableOopMap {rdx=Oop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) org.jml.Operations::reduce@22 (line 63)
+  0x0000000115ae7898: da92 ffe9 | e8fe ffff 
+ ;; ImplicitNullCheckStub slow case
+  0x0000000115ae78a0: ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x0000000115ae78a0: e89b 3993 
+
+  0x0000000115ae78a4: ; ImmutableOopMap {rdx=Oop }
+                      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@8 (line 63)
+                      ;   {external_word}
+  0x0000000115ae78a4: ff48 bf69 | 6b32 1201 | 0000 0048 
+
+  0x0000000115ae78b0: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x0000000115ae78b0: 83e4 f0e8 | 9896 1ffc 
+
+  0x0000000115ae78b8: ;   {internal_word}
+  0x0000000115ae78b8: f449 bae6 | 77ae 1501 | 0000 004d | 8997 e803 
+
+  0x0000000115ae78c8: ;   {runtime_call SafepointBlob}
+  0x0000000115ae78c8: 0000 e951 | 749e ff90 | 9049 8b87 | 5004 0000 | 49c7 8750 | 0400 0000 | 0000 0049 | c787 5804 
+  0x0000000115ae78e8: 0000 0000 | 0000 4883 
+
+  0x0000000115ae78f0: ;   {runtime_call unwind_exception Runtime1 stub}
+  0x0000000115ae78f0: c450 5de9 | 484c 93ff | f4f4 f4f4 | f4f4 f4f4 
+[Exception Handler]
+  0x0000000115ae7900: ;   {no_reloc}
+  0x0000000115ae7900: 48bb adde | 0000 0000 | 0000 48b9 | adde 0000 | 0000 0000 | 48be adde | 0000 0000 | 0000 48bf 
+  0x0000000115ae7920: adde 0000 | 0000 0000 
+
+  0x0000000115ae7928: ;   {runtime_call handle_exception_from_callee Runtime1 stub}
+  0x0000000115ae7928: e8b3 1493 
+
+  0x0000000115ae792c: ;   {external_word}
+  0x0000000115ae792c: ff48 bf69 | 6b32 1201 | 0000 0048 
+
+  0x0000000115ae7938: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x0000000115ae7938: 83e4 f0e8 | 1096 1ffc 
+
+  0x0000000115ae7940: ;   {section_word}
+  0x0000000115ae7940: f449 ba41 | 79ae 1501 | 0000 0041 
+
+  0x0000000115ae794c: ;   {runtime_call DeoptimizationBlob}
+  0x0000000115ae794c: 52e9 0e91 | 9eff f4f4 | f4f4 f4f4 
+[/MachCode]
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Oops:
+  0x0000000115ae7958:   0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Metadata:
+  0x0000000115ae7960:   0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+pc-bytecode offsets:
+PcDesc(pc=0x0000000115ae76df offset=ffffffff bits=0):
+PcDesc(pc=0x0000000115ae7734 offset=54 bits=0):   org.jml.Operations::reduce@0 (line 61)
+PcDesc(pc=0x0000000115ae7742 offset=62 bits=0):   org.jml.Operations::reduce@5 (line 63)
+PcDesc(pc=0x0000000115ae775a offset=7a bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x0000000115ae7788 offset=a8 bits=0):   org.jml.Operations::reduce@22 (line 63)
+PcDesc(pc=0x0000000115ae778f offset=af bits=1):   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm1 [64],double
+    - l4: reg rsi [12],int
+PcDesc(pc=0x0000000115ae77a6 offset=c6 bits=0):   org.jml.Operations::reduce@22 (line 63)
+PcDesc(pc=0x0000000115ae77a9 offset=c9 bits=0):   org.jml.Operations::reduce@8 (line 63)
+PcDesc(pc=0x0000000115ae77e1 offset=101 bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x0000000115ae77f4 offset=114 bits=0):   org.jml.Operations::reduce@26 (line 67)
+PcDesc(pc=0x0000000115ae7858 offset=178 bits=0):   org.jml.Operations::reduce@-1 (line 61)
+   Locals
+    - l0: reg rsi [12],oop
+    - l1: reg rdx [4],oop
+    - l2: empty
+    - l3: empty
+    - l4: empty
+PcDesc(pc=0x0000000115ae786b offset=18b bits=0):   org.jml.Operations::reduce@16 (line 64)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+PcDesc(pc=0x0000000115ae789b offset=1bb bits=1):   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm1 [64],double
+    - l4: reg rsi [12],int
+PcDesc(pc=0x0000000115ae78a5 offset=1c5 bits=0):   org.jml.Operations::reduce@8 (line 63)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+PcDesc(pc=0x0000000115ae7959 offset=279 bits=0):
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+oop maps:ImmutableOopMapSet contains 5 OopMaps
+
+ImmutableOopMap {rdx=Oop } pc offsets: 175 
+ImmutableOopMap {rsi=Oop rdx=Oop } pc offsets: 376 
+ImmutableOopMap {rdx=Oop } pc offsets: 395 443 453 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+scopes:
+ScopeDesc(pc=0x0000000115ae7734 offset=54):
+   org.jml.Operations::reduce@0 (line 61)
+ScopeDesc(pc=0x0000000115ae7742 offset=62):
+   org.jml.Operations::reduce@5 (line 63)
+ScopeDesc(pc=0x0000000115ae775a offset=7a):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x0000000115ae7788 offset=a8):
+   org.jml.Operations::reduce@22 (line 63)
+ScopeDesc(pc=0x0000000115ae778f offset=af):
+   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm1 [64],double
+    - l4: reg rsi [12],int
+ScopeDesc(pc=0x0000000115ae77a6 offset=c6):
+   org.jml.Operations::reduce@22 (line 63)
+ScopeDesc(pc=0x0000000115ae77a9 offset=c9):
+   org.jml.Operations::reduce@8 (line 63)
+ScopeDesc(pc=0x0000000115ae77e1 offset=101):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x0000000115ae77f4 offset=114):
+   org.jml.Operations::reduce@26 (line 67)
+ScopeDesc(pc=0x0000000115ae7858 offset=178):
+   org.jml.Operations::reduce@-1 (line 61)
+   Locals
+    - l0: reg rsi [12],oop
+    - l1: reg rdx [4],oop
+    - l2: empty
+    - l3: empty
+    - l4: empty
+ScopeDesc(pc=0x0000000115ae786b offset=18b):
+   org.jml.Operations::reduce@16 (line 64)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+ScopeDesc(pc=0x0000000115ae789b offset=1bb):
+   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm1 [64],double
+    - l4: reg rsi [12],int
+ScopeDesc(pc=0x0000000115ae78a5 offset=1c5):
+   org.jml.Operations::reduce@8 (line 63)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+relocations:
+         @0x0000000115ae7688: 600b
+relocInfo@0x0000000115ae7688 [type=6(runtime_call) addr=0x0000000115ae76eb offset=11] | [destination=0x00000001154cf920]
+         @0x0000000115ae768a: c021
+relocInfo@0x0000000115ae768a [type=12(metadata) addr=0x0000000115ae770c offset=33] | [metadata_addr=0x0000000115ae770e *=0x0000000270304d88 offset=0]metadata_value=0x0000000270304d88: method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115ae768c: c054
+relocInfo@0x0000000115ae768c [type=12(metadata) addr=0x0000000115ae7760 offset=84] | [metadata_addr=0x0000000115ae7762 *=0x0000000270304d88 offset=0]metadata_value=0x0000000270304d88: method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115ae768e: a02f
+relocInfo@0x0000000115ae768e [type=10(poll) addr=0x0000000115ae778f offset=47]
+         @0x0000000115ae7690: c003
+relocInfo@0x0000000115ae7690 [type=12(metadata) addr=0x0000000115ae7792 offset=3] | [metadata_addr=0x0000000115ae7794 *=0x0000000270304d88 offset=0]metadata_value=0x0000000270304d88: method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115ae7692: c019
+relocInfo@0x0000000115ae7692 [type=12(metadata) addr=0x0000000115ae77ab offset=25] | [metadata_addr=0x0000000115ae77ad *=0x0000000270304d88 offset=0]metadata_value=0x0000000270304d88: method data for {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115ae7694: b03b
+relocInfo@0x0000000115ae7694 [type=11(poll_return) addr=0x0000000115ae77e6 offset=59]
+         @0x0000000115ae7696: 6437
+relocInfo@0x0000000115ae7696 [type=6(runtime_call) addr=0x0000000115ae781d offset=55 format=1] | [destination=0x0000000111f810a0]
+         @0x0000000115ae7698: c01f
+relocInfo@0x0000000115ae7698 [type=12(metadata) addr=0x0000000115ae783c offset=31] | [metadata_addr=0x0000000115ae783e *=0x0000000270304000 offset=0]metadata_value=0x0000000270304000: {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115ae769a: 6417
+relocInfo@0x0000000115ae769a [type=6(runtime_call) addr=0x0000000115ae7853 offset=23 format=1] | [destination=0x00000001154152c0]
+         @0x0000000115ae769c: 6413
+relocInfo@0x0000000115ae769c [type=6(runtime_call) addr=0x0000000115ae7866 offset=19 format=1] | [destination=0x000000011541bb40]
+         @0x0000000115ae769e: f80312326b6900017005
+relocInfo@0x0000000115ae76a6 [type=7(external_word) addr=0x0000000115ae786b offset=5 data={12326b690001}] | [target=0x0000000112326b69]
+         @0x0000000115ae76a8: 640e
+relocInfo@0x0000000115ae76a8 [type=6(runtime_call) addr=0x0000000115ae7879 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x0000000115ae76aa: c006
+relocInfo@0x0000000115ae76aa [type=12(metadata) addr=0x0000000115ae787f offset=6] | [metadata_addr=0x0000000115ae7881 *=0x0000000270304000 offset=0]metadata_value=0x0000000270304000: {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+         @0x0000000115ae76ac: 6417
+relocInfo@0x0000000115ae76ac [type=6(runtime_call) addr=0x0000000115ae7896 offset=23 format=1] | [destination=0x00000001154152c0]
+         @0x0000000115ae76ae: 640a
+relocInfo@0x0000000115ae76ae [type=6(runtime_call) addr=0x0000000115ae78a0 offset=10 format=1] | [destination=0x000000011541b240]
+         @0x0000000115ae76b0: f80312326b6900017005
+relocInfo@0x0000000115ae76b8 [type=7(external_word) addr=0x0000000115ae78a5 offset=5 data={12326b690001}] | [target=0x0000000112326b69]
+         @0x0000000115ae76ba: 640e
+relocInfo@0x0000000115ae76ba [type=6(runtime_call) addr=0x0000000115ae78b3 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x0000000115ae76bc: f0d38006
+relocInfo@0x0000000115ae76be [type=8(internal_word) addr=0x0000000115ae78b9 offset=6 data=211] | [target=0x0000000115ae77e6]
+         @0x0000000115ae76c0: 6411
+relocInfo@0x0000000115ae76c0 [type=6(runtime_call) addr=0x0000000115ae78ca offset=17 format=1] | [destination=0x00000001154ced20]
+         @0x0000000115ae76c2: 6429
+relocInfo@0x0000000115ae76c2 [type=6(runtime_call) addr=0x0000000115ae78f3 offset=41 format=1] | [destination=0x000000011541c540]
+         @0x0000000115ae76c4: 000d
+relocInfo@0x0000000115ae76c4 [type=0(none) addr=0x0000000115ae7900 offset=13]
+         @0x0000000115ae76c6: 6428
+relocInfo@0x0000000115ae76c6 [type=6(runtime_call) addr=0x0000000115ae7928 offset=40 format=1] | [destination=0x0000000115418de0]
+         @0x0000000115ae76c8: f80312326b6900017005
+relocInfo@0x0000000115ae76d0 [type=7(external_word) addr=0x0000000115ae792d offset=5 data={12326b690001}] | [target=0x0000000112326b69]
+         @0x0000000115ae76d2: 640e
+relocInfo@0x0000000115ae76d2 [type=6(runtime_call) addr=0x0000000115ae793b offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x0000000115ae76d4: f801fefe9006
+relocInfo@0x0000000115ae76d8 [type=9(section_word) addr=0x0000000115ae7941 offset=6 data=-258] | [target=0x0000000115ae7941]
+         @0x0000000115ae76da: 640c
+relocInfo@0x0000000115ae76da [type=6(runtime_call) addr=0x0000000115ae794d offset=12 format=1] | [destination=0x00000001154d0a60]
+         @0x0000000115ae76dc: 0000
+relocInfo@0x0000000115ae76dc [type=0(none) addr=0x0000000115ae794d offset=0]
+         @0x0000000115ae76de: 0000
+relocInfo@0x0000000115ae76de [type=0(none) addr=0x0000000115ae794d offset=0]
+         @0x0000000115ae76e0: 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Dependencies:
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ExceptionHandlerTable (size = 0 bytes)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ImplicitExceptionTable (size = 1 entries, 12 bytes):
+{
+   < 0x0000000115ae77a6, 0x0000000115ae78a0 > 
+}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded oops:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded metadata:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+74.126 ms/op
+# Warmup Iteration   2: 33.981 ms/op
+# Warmup Iteration   3: 
+============================= C2-compiled nmethod ==============================
+----------------------- MetaData before Compile_id = 999 ------------------------
+{method}
+ - this oop:          0x0000000270304000
+ - method holder:     'org/jml/Operations'
+ - constants:         0x000000027008f450 constant pool [162]/operands[25] {0x000000027008f450} for 'org/jml/Operations' cache=0x0000000270304800
+ - access:            0xc1000001  public 
+ - name:              'reduce'
+ - signature:         '([D)D'
+ - max stack:         5
+ - max locals:        5
+ - size of params:    2
+ - method size:       13
+ - vtable index:      6
+ - i2i entry:         0x00000001153c7d60
+ - adapters:          AHE@0x00007f8d740a9640: 0xbb000000 i2c: 0x00000001154420e0 c2i: 0x00000001154421bb c2iUV: 0x000000011544218e c2iNCI: 0x00000001154421f8
+ - compiled entry     0x00000001154421bb
+ - code size:         27
+ - code start:        0x000000027008ffa0
+ - code end (excl):   0x000000027008ffbb
+ - method data:       0x0000000270304d88
+ - checked ex length: 0
+ - linenumber start:  0x000000027008ffbb
+ - localvar length:   4
+ - localvar start:    0x000000027008ffc6
+
+------------------------ OptoAssembly for Compile_id = 999 -----------------------
+#
+#  double/half ( rawptr:BotPTR )
+#
+#r018 rsi:rsi   : parm 0: rawptr:BotPTR
+# -- Old rsp -- Framesize: 64 --
+#r583 rsp+60: in_preserve
+#r582 rsp+56: return address
+#r581 rsp+52: in_preserve
+#r580 rsp+48: saved fp register
+#r579 rsp+44: pad2, stack alignment
+#r578 rsp+40: pad2, stack alignment
+#r577 rsp+36: Fixed slot 1
+#r576 rsp+32: Fixed slot 0
+#r591 rsp+28: spill
+#r590 rsp+24: spill
+#r589 rsp+20: spill
+#r588 rsp+16: spill
+#r587 rsp+12: spill
+#r586 rsp+ 8: spill
+#r585 rsp+ 4: spill
+#r584 rsp+ 0: spill
+#
+000     N249: #	out( B1 ) <- BLOCK HEAD IS JUNK  Freq: 1
+000     # breakpoint
+        nop 	# 11 bytes pad for loops and calls
+
+010     B1: #	out( B29 B2 ) <- BLOCK HEAD IS JUNK  Freq: 1
+010     # stack bang (168 bytes)
+	pushq   rbp	# Save rbp
+	subq    rsp, #48	# Create frame
+
+01c     movq    R13, [RSI + #24 (8-bit)]	# ptr
+020     movsd   XMM0, [RSI + #8 (8-bit)]	# double
+025     movdq   RBX, XMM0	# spill
+02a     movl    R12, [RSI]	# int
+02d     movq    RDI, RSI	# spill
+030     call_leaf,runtime  OSR_migration_end
+        No JVM State Info
+        # 
+        nop 	# 3 bytes pad for loops and calls
+040     movl    R10, [R13 + #8 (8-bit)]	# compressed klass ptr
+044     NullCheck R13
+
+044     B2: #	out( B28 B3 ) <- in( B1 )  Freq: 0.999999
+044     cmpl    R10, narrowklass: precise klass [D: 0x00007f8d76f0a730:Constant:exact *	# compressed klass ptr
+04b     jne,u   B28  P=0.000001 C=-1.000000
+
+051     B3: #	out( B24 B4 ) <- in( B2 )  Freq: 0.999998
+051     # checkcastPP of R13
+051     movl    R9, [R13 + #12 (8-bit)]	# range
+055     cmpl    R12, R9
+058     jge     B24  P=0.000001 C=16463624.000000
+
+05e     B4: #	out( B5 ) <- in( B3 )  Freq: 0.999997
+05e     movl    R11, R12	# spill
+061     incl    R11	# int
+064     xorl    RDI, RDI	# int
+066     cmpl    R11, RDI
+069     cmovllt R11, RDI	# max
+06d     cmpl    R11, R9
+070     cmovlgt R11, R9	# min
+
+074     B5: #	out( B21 B6 ) <- in( B4 B7 ) Loop( B5-B7 inner pre of N243) Freq: 1.99999
+074     cmpl    R12, R9	# unsigned
+077     jnb,u   B21  P=0.000001 C=-1.000000
+
+07d     B6: #	out( B8 B7 ) <- in( B5 )  Freq: 1.99999
+07d     movdq   XMM0, RBX	# spill
+082     addsd   XMM0, [R13 + #16 + R12 << #3]
+089     incl    R12	# int
+08c     cmpl    R12, R11
+08f     jge,s   B8	# loop end  P=0.500000 C=16463624.000000
+
+091     B7: #	out( B5 ) <- in( B6 )  Freq: 0.999995
+091     movdq   RBX, XMM0	# spill
+096     jmp,s   B5
+
+098     B8: #	out( B16 B9 ) <- in( B6 )  Freq: 0.999995
+098     movl    RCX, R9	# spill
+09b     addl    RCX, #-7	# int
+09e     movl    R10, #-2147483648	# int
+0a4     cmpl    R9, RCX
+0a7     cmovll RCX, R10	# signed, int
+0ab     cmpl    R12, RCX
+0ae     jge     B16  P=0.000001 C=-1.000000
+
+0b4     B9: #	out( B25 B10 ) <- in( B8 )  Freq: 0.999994
+0b4     # castII of R12
+0b4     cmpl    R12, R9	# unsigned
+0b7     jnb,u   B25  P=0.000001 C=-1.000000
+
+0bd     B10: #	out( B26 B11 ) <- in( B9 )  Freq: 0.999993
+0bd     movl    R10, R12	# spill
+0c0     addl    R10, #7	# int
+0c4     cmpl    R10, R9	# unsigned
+0c7     jnb,u   B26  P=0.000001 C=-1.000000
+
+0cd     B11: #	out( B27 B12 ) <- in( B10 )  Freq: 0.999992
+0cd     cmpl    R12, R9	# unsigned
+0d0     jnb,u   B27  P=0.000001 C=-1.000000
+
+0d6     B12: #	out( B13 ) <- in( B11 )  Freq: 0.999991
+0d6     movl    R11, #8000	# int
+0dc     # TLS is in R15
+
+0dc     B13: #	out( B14 ) <- in( B12 B15 ) Loop( B13-B15 ) Freq: 986886
+0dc     movl    R8, RCX	# spill
+0df     subl    R8, R12	# int
+0e2     cmpl    RCX, R12
+0e5     cmovll R8, RDI	# signed, int
+0e9     cmpl    R8, #8000	# unsigned
+0f0     cmovlnbe R8, R11	# unsigned, int
+0f4     addl    R8, R12	# int
+        nop 	# 9 bytes pad for loops and calls
+
+100     B14: #	out( B14 B15 ) <- in( B13 B14 ) Loop( B14-B14 inner main of N117 strip mined) Freq: 9.73953e+11
+100     addsd   XMM0, [R13 + #16 + R12 << #3]
+107     movslq  R10, R12	# i2l
+10a     addsd   XMM0, [R13 + #24 + R10 << #3]
+111     addsd   XMM0, [R13 + #32 + R10 << #3]
+118     addsd   XMM0, [R13 + #40 + R10 << #3]
+11f     addsd   XMM0, [R13 + #48 + R10 << #3]
+126     addsd   XMM0, [R13 + #56 + R10 << #3]
+12d     addsd   XMM0, [R13 + #64 + R10 << #3]
+134     addsd   XMM0, [R13 + #72 + R10 << #3]
+13b     addl    R12, #8	# int
+        nop 	# 1 bytes pad for loops and calls
+140     cmpl    R12, R8
+143     jl,s   B14	# loop end  P=0.999999 C=16463624.000000
+
+145     B15: #	out( B13 B16 ) <- in( B14 )  Freq: 986886
+145     movq    R8, [R15 + #304 (32-bit)]	# ptr
+14c     testl   rax, [R8]	# Safepoint: poll for GC        # org.jml.Operations::reduce @ bci:22 (line 63) L[0]=_ L[1]=R13 L[2]=XMM0 L[3]=_ L[4]=R12
+        # OopMap {r13=Oop off=332/0x14c}
+14f     cmpl    R12, RCX
+152     jl,s   B13  P=0.999999 C=16463624.000000
+
+154     B16: #	out( B20 B17 ) <- in( B8 B15 )  Freq: 0.999992
+154     cmpl    R12, R9
+157     jge,s   B20  P=0.500000 C=-1.000000
+
+159     B17: #	out( B18 ) <- in( B16 )  Freq: 0.499996
+159     # castII of R12
+        nop 	# 3 bytes pad for loops and calls
+
+15c     B18: #	out( B22 B19 ) <- in( B17 B19 ) Loop( B18-B19 inner post of N243) Freq: 0.999991
+        nop 	# 4 bytes pad for loops and calls
+160     cmpl    R12, R9	# unsigned
+163     jnb,us  B22  P=0.000001 C=-1.000000
+
+165     B19: #	out( B18 B20 ) <- in( B18 )  Freq: 0.99999
+165     addsd   XMM0, [R13 + #16 + R12 << #3]
+16c     incl    R12	# int
+16f     cmpl    R12, R9
+172     jl,s   B18	# loop end  P=0.500000 C=16463624.000000
+
+174     B20: #	out( N249 ) <- in( B24 B19 B16 )  Freq: 0.999992
+174     addq    rsp, 48	# Destroy frame
+	popq    rbp
+	cmpq     rsp, poll_offset[r15_thread] 
+	ja       #safepoint_stub	# Safepoint: poll for GC
+
+186     ret
+
+187     B21: #	out( B23 ) <- in( B5 )  Freq: 2.02655e-06
+187     movq    RBP, RBX	# spill
+18a     jmp,s   B23
+
+18c     B22: #	out( B23 ) <- in( B18 )  Freq: 1.01327e-06
+18c     movdq   RBP, XMM0	# spill
+
+191     B23: #	out( N249 ) <- in( B22 B21 )  Freq: 3.03982e-06
+191     movl    RSI, #-28	# int
+196     movq    [rsp + #16], R13	# spill
+19b     movl    [rsp + #12], R12	# spill
+        nop 	# 3 bytes pad for loops and calls
+1a3     call,static  wrapper for: uncommon_trap(reason='range_check' action='make_not_entrant' debug_id='0')
+        # org.jml.Operations::reduce @ bci:16 (line 64) L[0]=_ L[1]=rsp + #16 L[2]=_ L[3]=_ L[4]=rsp + #12 STK[0]=RBP STK[1]=_ STK[2]=rsp + #16 STK[3]=rsp + #12
+        # OopMap {[16]=Oop off=424/0x1a8}
+1a8     stop	# ShouldNotReachHere
+
+1bc     B24: #	out( B20 ) <- in( B3 )  Freq: 1.01328e-06
+1bc     movdq   XMM0, RBX	# spill
+1c1     jmp,s   B20
+
+1c3     B25: #	out( N249 ) <- in( B9 )  Freq: 1.01327e-06
+1c3     stop	# ShouldNotReachHere
+
+1d7     B26: #	out( N249 ) <- in( B10 )  Freq: 1.01327e-06
+1d7     stop	# ShouldNotReachHere
+
+1eb     B27: #	out( N249 ) <- in( B11 )  Freq: 1.01327e-06
+1eb     stop	# ShouldNotReachHere
+
+1ff     B28: #	out( N249 ) <- in( B2 )  Freq: 9.99999e-07
+1ff     movl    RSI, #-115	# int
+204     movq    RBP, R13	# spill
+207     movq    [rsp + #0], RBX	# spill
+20b     movl    [rsp + #8], R12	# spill
+        nop 	# 3 bytes pad for loops and calls
+213     call,static  wrapper for: uncommon_trap(reason='constraint' action='reinterpret' debug_id='0')
+        # org.jml.Operations::reduce @ bci:5 (line 63) L[0]=_ L[1]=RBP L[2]=rsp + #0 L[3]=_ L[4]=rsp + #8
+        # OopMap {rbp=Oop off=536/0x218}
+218     stop	# ShouldNotReachHere
+
+22c     B29: #	out( N249 ) <- in( B1 )  Freq: 1.01328e-06
+22c     movl    RSI, #-138	# int
+231     movq    RBP, RBX	# spill
+234     movl    [rsp + #0], R12	# spill
+        nop 	# 3 bytes pad for loops and calls
+23b     call,static  wrapper for: uncommon_trap(reason='predicate' action='maybe_recompile' debug_id='0')
+        # org.jml.Operations::reduce @ bci:5 (line 63) L[0]=_ L[1]=#NULL L[2]=RBP L[3]=_ L[4]=rsp + #0
+        # OopMap {off=576/0x240}
+240     stop	# ShouldNotReachHere
+
+--------------------------------------------------------------------------------
+----------------------------------- Assembly -----------------------------------
+
+Compiled method (c2)    2986  999 %     4       org.jml.Operations::reduce @ 5 (27 bytes)
+ total in heap  [0x000000011cf42f10,0x000000011cf435c8] = 1720
+ relocation     [0x000000011cf43088,0x000000011cf430f0] = 104
+ main code      [0x000000011cf43100,0x000000011cf43380] = 640
+ stub code      [0x000000011cf43380,0x000000011cf43398] = 24
+ oops           [0x000000011cf43398,0x000000011cf433a0] = 8
+ metadata       [0x000000011cf433a0,0x000000011cf433b0] = 16
+ scopes data    [0x000000011cf433b0,0x000000011cf43430] = 128
+ scopes pcs     [0x000000011cf43430,0x000000011cf435b0] = 384
+ dependencies   [0x000000011cf435b0,0x000000011cf435b8] = 8
+ nul chk table  [0x000000011cf435b8,0x000000011cf435c8] = 16
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Verified Entry Point]
+  # {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+ ;; N249: #	out( B1 ) <- BLOCK HEAD IS JUNK  Freq: 1
+  0x000000011cf43100: ;   {runtime_call os::breakpoint()}
+  0x000000011cf43100: e89b 4ef3 | f490 9090 | 9090 9090 | 9090 9090 
+ ;; B1: #	out( B29 B2 ) <- BLOCK HEAD IS JUNK  Freq: 1
+  0x000000011cf43110: 8984 2400 | a0fe ff55 | 4883 ec30 | 4c8b 6e18 | f20f 1046 | 0866 480f | 7ec3 448b | 2648 8bfe 
+  0x000000011cf43130: 49ba a010 | f811 0100 | 0000 41ff | d290 9090 
+
+  0x000000011cf43140: ; implicit exception: dispatches to 0x000000011cf4332c
+  0x000000011cf43140: 458b 5508 
+ ;; B2: #	out( B28 B3 ) <- in( B1 )  Freq: 0.999999
+  0x000000011cf43144: ;   {metadata({type array double})}
+  0x000000011cf43144: 4181 fac3 | 80c8 450f | 85ae 0100 
+
+  0x000000011cf43150: ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x000000011cf43150: 0045 8b4d 
+
+  0x000000011cf43154: ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@8 (line 63)
+  0x000000011cf43154: 0c45 3be1 | 0f8d 5e01 
+
+  0x000000011cf4315c: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf4315c: 0000 458b | dc41 ffc3 | 33ff 443b | df44 0f4c | df45 3bd9 
+
+  0x000000011cf43170: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf43170: 450f 4fd9 
+ ;; B5: #	out( B21 B6 ) <- in( B4 B7 ) Loop( B5-B7 inner pre of N243) Freq: 1.99999
+  0x000000011cf43174: 453b e10f | 830a 0100 | 0066 480f | 6ec3 f243 | 0f58 44e5 
+
+  0x000000011cf43188: ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@17 (line 64)
+  0x000000011cf43188: 1041 ffc4 | 453b e37d 
+
+  0x000000011cf43190: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf43190: 0766 480f | 7ec3 ebdc 
+ ;; B8: #	out( B16 B9 ) <- in( B6 )  Freq: 0.999995
+  0x000000011cf43198: 418b c983 | c1f9 41ba | 0000 0080 | 443b c941 | 0f4c ca44 | 3be1 0f8d | a000 0000 
+ ;; B9: #	out( B25 B10 ) <- in( B8 )  Freq: 0.999994
+  0x000000011cf431b4: 453b e10f | 8306 0100 | 0045 8bd4 | 4183 c207 | 453b d10f | 830a 0100 | 0045 3be1 | 0f83 1501 
+  0x000000011cf431d4: 0000 41bb | 401f 0000 
+ ;; B13: #	out( B14 ) <- in( B12 B15 ) Loop( B13-B15 ) Freq: 986886
+  0x000000011cf431dc: 448b c145 | 2bc4 413b | cc44 0f4c | c741 81f8 | 401f 0000 | 450f 47c3 | 4503 c490 | 9090 9090 
+  0x000000011cf431fc: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf431fc: 9090 9090 
+ ;; B14: #	out( B14 B15 ) <- in( B13 B14 ) Loop( B14-B14 inner main of N117 strip mined) Freq: 9.73953e+11
+  0x000000011cf43200: f243 0f58 | 44e5 104d | 63d4 f243 | 0f58 44d5 | 18f2 430f | 5844 d520 | f243 0f58 | 44d5 28f2 
+  0x000000011cf43220: 430f 5844 | d530 f243 | 0f58 44d5 | 38f2 430f | 5844 d540 | f243 0f58 
+
+  0x000000011cf43238: ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@17 (line 64)
+  0x000000011cf43238: 44d5 4841 
+
+  0x000000011cf4323c: ;*iinc {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@19 (line 63)
+  0x000000011cf4323c: 83c4 0890 | 453b e07c 
+
+  0x000000011cf43244: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf43244: bb4d 8b87 
+
+  0x000000011cf43248: ; ImmutableOopMap {r13=Oop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) org.jml.Operations::reduce@22 (line 63)
+  0x000000011cf43248: 3001 0000 
+
+  0x000000011cf4324c: ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@22 (line 63)
+                      ;   {poll}
+  0x000000011cf4324c: 4185 0044 | 3be1 7c88 
+ ;; B16: #	out( B20 B17 ) <- in( B8 B15 )  Freq: 0.999992
+  0x000000011cf43254: 453b e17d 
+
+  0x000000011cf43258: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf43258: 1b90 9090 
+ ;; B18: #	out( B22 B19 ) <- in( B17 B19 ) Loop( B18-B19 inner post of N243) Freq: 0.999991
+  0x000000011cf4325c: 9090 9090 | 453b e173 | 27f2 430f 
+
+  0x000000011cf43268: ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@17 (line 64)
+  0x000000011cf43268: 5844 e510 
+
+  0x000000011cf4326c: ;*iinc {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@19 (line 63)
+  0x000000011cf4326c: 41ff c445 
+
+  0x000000011cf43270: ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x000000011cf43270: 3be1 7ce8 
+ ;; B20: #	out( N249 ) <- in( B24 B19 B16 )  Freq: 0.999992
+  0x000000011cf43274: 4883 c430 
+
+  0x000000011cf43278: ;   {poll_return}
+  0x000000011cf43278: 5d49 3ba7 | 2801 0000 | 0f87 ce00 | 0000 c348 | 8beb eb05 
+ ;; B22: #	out( B23 ) <- in( B18 )  Freq: 1.01327e-06
+  0x000000011cf4328c: 6648 0f7e | c5be e4ff | ffff 4c89 | 6c24 1044 | 8964 240c 
+
+  0x000000011cf432a0: ;   {runtime_call UncommonTrapBlob}
+  0x000000011cf432a0: 9090 90e8 
+
+  0x000000011cf432a4: ; ImmutableOopMap {[16]=Oop }
+                      ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf432a4: 98d2 58f8 
+
+  0x000000011cf432a8: ;   {external_word}
+  0x000000011cf432a8: 48bf 7777 | 3a12 0100 | 0000 4883 
+
+  0x000000011cf432b4: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf432b4: e4f0 e895 
+
+  0x000000011cf432b8: ;*daload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@16 (line 64)
+  0x000000011cf432b8: dcd9 f4f4 
+ ;; B24: #	out( B20 ) <- in( B3 )  Freq: 1.01328e-06
+  0x000000011cf432bc: 6648 0f6e 
+
+  0x000000011cf432c0: ;   {external_word}
+  0x000000011cf432c0: c3eb b148 | bfa6 2d42 | 1201 0000 | 0048 83e4 
+
+  0x000000011cf432d0: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf432d0: f0e8 7adc 
+
+  0x000000011cf432d4: ;   {external_word}
+  0x000000011cf432d4: d9f4 f448 | bf31 2542 | 1201 0000 | 0048 83e4 
+
+  0x000000011cf432e4: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf432e4: f0e8 66dc 
+
+  0x000000011cf432e8: ;   {external_word}
+  0x000000011cf432e8: d9f4 f448 | bf31 2542 | 1201 0000 | 0048 83e4 
+
+  0x000000011cf432f8: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf432f8: f0e8 52dc | d9f4 f4be | 8dff ffff | 498b ed48 | 891c 2444 | 8964 2408 
+
+  0x000000011cf43310: ;   {runtime_call UncommonTrapBlob}
+  0x000000011cf43310: 9090 90e8 
+
+  0x000000011cf43314: ; ImmutableOopMap {rbp=Oop }
+                      ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x000000011cf43314: 28d2 58f8 
+
+  0x000000011cf43318: ;   {external_word}
+  0x000000011cf43318: 48bf 7777 | 3a12 0100 | 0000 4883 
+
+  0x000000011cf43324: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf43324: e4f0 e825 | dcd9 f4f4 
+ ;; B29: #	out( N249 ) <- in( B1 )  Freq: 1.01328e-06
+  0x000000011cf4332c: be76 ffff | ff48 8beb | 4489 2424 
+
+  0x000000011cf43338: ;   {runtime_call UncommonTrapBlob}
+  0x000000011cf43338: 9090 90e8 
+
+  0x000000011cf4333c: ; ImmutableOopMap {}
+                      ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x000000011cf4333c: 00d2 58f8 
+
+  0x000000011cf43340: ;   {external_word}
+  0x000000011cf43340: 48bf 7777 | 3a12 0100 | 0000 4883 
+
+  0x000000011cf4334c: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf4334c: e4f0 e8fd 
+
+  0x000000011cf43350: ;*iload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@5 (line 63)
+  0x000000011cf43350: dbd9 f4f4 
+
+  0x000000011cf43354: ;   {internal_word}
+  0x000000011cf43354: 49ba 7932 | f41c 0100 | 0000 4d89 | 97e8 0300 
+
+  0x000000011cf43364: ;   {runtime_call SafepointBlob}
+  0x000000011cf43364: 00e9 b6b9 | 58f8 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 
+[Exception Handler]
+  0x000000011cf43380: ;   {no_reloc}
+  0x000000011cf43380: e99b 8a4d | f8e8 0000 | 0000 4883 
+
+  0x000000011cf4338c: ;   {runtime_call DeoptimizationBlob}
+  0x000000011cf4338c: 2c24 05e9 | ccd6 58f8 | f4f4 f4f4 
+[/MachCode]
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Oops:
+  0x000000011cf43398:   0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Metadata:
+  0x000000011cf433a0:   0x000000022e440618 {type array double}
+  0x000000011cf433a8:   0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+pc-bytecode offsets:
+PcDesc(pc=0x000000011cf430ff offset=ffffffff bits=0):
+PcDesc(pc=0x000000011cf43151 offset=51 bits=0):   org.jml.Operations::reduce@5 (line 63)
+PcDesc(pc=0x000000011cf43155 offset=55 bits=0):   org.jml.Operations::reduce@8 (line 63)
+PcDesc(pc=0x000000011cf4315e offset=5e bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf43174 offset=74 bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x000000011cf43189 offset=89 bits=0):   org.jml.Operations::reduce@17 (line 64)
+PcDesc(pc=0x000000011cf4318c offset=8c bits=0):   org.jml.Operations::reduce@19 (line 63)
+PcDesc(pc=0x000000011cf43191 offset=91 bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf43200 offset=100 bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x000000011cf4323b offset=13b bits=0):   org.jml.Operations::reduce@17 (line 64)
+PcDesc(pc=0x000000011cf4323f offset=13f bits=0):   org.jml.Operations::reduce@19 (line 63)
+PcDesc(pc=0x000000011cf43245 offset=145 bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf4324c offset=14c bits=1):   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg r13 [26],oop
+    - l2: 0
+    - l3: reg xmm0 [48],double
+    - l4: reg r12 [24],int
+PcDesc(pc=0x000000011cf4324f offset=14f bits=0):   org.jml.Operations::reduce@22 (line 63)
+PcDesc(pc=0x000000011cf4325c offset=15c bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x000000011cf4326c offset=16c bits=0):   org.jml.Operations::reduce@17 (line 64)
+PcDesc(pc=0x000000011cf4326f offset=16f bits=0):   org.jml.Operations::reduce@19 (line 63)
+PcDesc(pc=0x000000011cf43274 offset=174 bits=0):   org.jml.Operations::reduce@5 (line 63)
+PcDesc(pc=0x000000011cf432a8 offset=1a8 bits=0):   org.jml.Operations::reduce@16 (line 64)
+   Locals
+    - l0: empty
+    - l1: stack[16],oop
+    - l2: empty
+    - l3: empty
+    - l4: stack[12]
+   Expression stack
+    - @0: 0
+    - @1: reg rbp [10],double
+    - @2: stack[16],oop
+    - @3: stack[12]
+PcDesc(pc=0x000000011cf432bc offset=1bc bits=0):   org.jml.Operations::reduce@16 (line 64)
+PcDesc(pc=0x000000011cf43318 offset=218 bits=0):   org.jml.Operations::reduce@5 (line 63)
+   Locals
+    - l0: empty
+    - l1: reg rbp [10],oop
+    - l2: 0
+    - l3: stack[0],double
+    - l4: stack[8]
+PcDesc(pc=0x000000011cf43340 offset=240 bits=0):   org.jml.Operations::reduce@5 (line 63)
+   Locals
+    - l0: empty
+    - l1: NULL
+    - l2: 0
+    - l3: reg rbp [10],double
+    - l4: stack[0]
+PcDesc(pc=0x000000011cf43354 offset=254 bits=0):   org.jml.Operations::reduce@5 (line 63)
+PcDesc(pc=0x000000011cf43399 offset=299 bits=0):
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+oop maps:ImmutableOopMapSet contains 4 OopMaps
+
+ImmutableOopMap {r13=Oop } pc offsets: 332 
+ImmutableOopMap {[16]=Oop } pc offsets: 424 
+ImmutableOopMap {rbp=Oop } pc offsets: 536 
+ImmutableOopMap {} pc offsets: 576 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+scopes:
+ScopeDesc(pc=0x000000011cf43151 offset=51):
+   org.jml.Operations::reduce@5 (line 63)
+ScopeDesc(pc=0x000000011cf43155 offset=55):
+   org.jml.Operations::reduce@8 (line 63)
+ScopeDesc(pc=0x000000011cf4315e offset=5e):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf43174 offset=74):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x000000011cf43189 offset=89):
+   org.jml.Operations::reduce@17 (line 64)
+ScopeDesc(pc=0x000000011cf4318c offset=8c):
+   org.jml.Operations::reduce@19 (line 63)
+ScopeDesc(pc=0x000000011cf43191 offset=91):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf43200 offset=100):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x000000011cf4323b offset=13b):
+   org.jml.Operations::reduce@17 (line 64)
+ScopeDesc(pc=0x000000011cf4323f offset=13f):
+   org.jml.Operations::reduce@19 (line 63)
+ScopeDesc(pc=0x000000011cf43245 offset=145):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf4324c offset=14c):
+   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg r13 [26],oop
+    - l2: 0
+    - l3: reg xmm0 [48],double
+    - l4: reg r12 [24],int
+ScopeDesc(pc=0x000000011cf4324f offset=14f):
+   org.jml.Operations::reduce@22 (line 63)
+ScopeDesc(pc=0x000000011cf4325c offset=15c):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x000000011cf4326c offset=16c):
+   org.jml.Operations::reduce@17 (line 64)
+ScopeDesc(pc=0x000000011cf4326f offset=16f):
+   org.jml.Operations::reduce@19 (line 63)
+ScopeDesc(pc=0x000000011cf43274 offset=174):
+   org.jml.Operations::reduce@5 (line 63)
+ScopeDesc(pc=0x000000011cf432a8 offset=1a8):
+   org.jml.Operations::reduce@16 (line 64)
+   Locals
+    - l0: empty
+    - l1: stack[16],oop
+    - l2: empty
+    - l3: empty
+    - l4: stack[12]
+   Expression stack
+    - @0: 0
+    - @1: reg rbp [10],double
+    - @2: stack[16],oop
+    - @3: stack[12]
+ScopeDesc(pc=0x000000011cf432bc offset=1bc):
+   org.jml.Operations::reduce@16 (line 64)
+ScopeDesc(pc=0x000000011cf43318 offset=218):
+   org.jml.Operations::reduce@5 (line 63)
+   Locals
+    - l0: empty
+    - l1: reg rbp [10],oop
+    - l2: 0
+    - l3: stack[0],double
+    - l4: stack[8]
+ScopeDesc(pc=0x000000011cf43340 offset=240):
+   org.jml.Operations::reduce@5 (line 63)
+   Locals
+    - l0: empty
+    - l1: NULL
+    - l2: 0
+    - l3: reg rbp [10],double
+    - l4: stack[0]
+ScopeDesc(pc=0x000000011cf43354 offset=254):
+   org.jml.Operations::reduce@5 (line 63)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+relocations:
+         @0x000000011cf43088: 6400
+relocInfo@0x000000011cf43088 [type=6(runtime_call) addr=0x000000011cf43100 offset=0 format=1] | [destination=0x0000000111e77fa0]
+         @0x000000011cf4308a: f001cc44
+relocInfo@0x000000011cf4308c [type=12(metadata) addr=0x000000011cf43144 offset=68 format=3 data=1] | [metadata_addr=0x000000011cf433a0 *=0x000000022e440618 offset=0]metadata_value=0x000000022e440618: {type array double}
+         @0x000000011cf4308e: a108
+relocInfo@0x000000011cf4308e [type=10(poll) addr=0x000000011cf4324c offset=264]
+         @0x000000011cf43090: b02d
+relocInfo@0x000000011cf43090 [type=11(poll_return) addr=0x000000011cf43279 offset=45]
+         @0x000000011cf43092: 642a
+relocInfo@0x000000011cf43092 [type=6(runtime_call) addr=0x000000011cf432a3 offset=42 format=1] | [destination=0x00000001154d0540]
+         @0x000000011cf43094: f803123a777700017005
+relocInfo@0x000000011cf4309c [type=7(external_word) addr=0x000000011cf432a8 offset=5 data={123a77770001}] | [target=0x00000001123a7777]
+         @0x000000011cf4309e: 640e
+relocInfo@0x000000011cf4309e [type=6(runtime_call) addr=0x000000011cf432b6 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf430a0: f80312422da60001700d
+relocInfo@0x000000011cf430a8 [type=7(external_word) addr=0x000000011cf432c3 offset=13 data={12422da60001}] | [target=0x0000000112422da6]
+         @0x000000011cf430aa: 640e
+relocInfo@0x000000011cf430aa [type=6(runtime_call) addr=0x000000011cf432d1 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf430ac: f8031242253100017006
+relocInfo@0x000000011cf430b4 [type=7(external_word) addr=0x000000011cf432d7 offset=6 data={124225310001}] | [target=0x0000000112422531]
+         @0x000000011cf430b6: 640e
+relocInfo@0x000000011cf430b6 [type=6(runtime_call) addr=0x000000011cf432e5 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf430b8: f8031242253100017006
+relocInfo@0x000000011cf430c0 [type=7(external_word) addr=0x000000011cf432eb offset=6 data={124225310001}] | [target=0x0000000112422531]
+         @0x000000011cf430c2: 640e
+relocInfo@0x000000011cf430c2 [type=6(runtime_call) addr=0x000000011cf432f9 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf430c4: 641a
+relocInfo@0x000000011cf430c4 [type=6(runtime_call) addr=0x000000011cf43313 offset=26 format=1] | [destination=0x00000001154d0540]
+         @0x000000011cf430c6: f803123a777700017005
+relocInfo@0x000000011cf430ce [type=7(external_word) addr=0x000000011cf43318 offset=5 data={123a77770001}] | [target=0x00000001123a7777]
+         @0x000000011cf430d0: 640e
+relocInfo@0x000000011cf430d0 [type=6(runtime_call) addr=0x000000011cf43326 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf430d2: 6415
+relocInfo@0x000000011cf430d2 [type=6(runtime_call) addr=0x000000011cf4333b offset=21 format=1] | [destination=0x00000001154d0540]
+         @0x000000011cf430d4: f803123a777700017005
+relocInfo@0x000000011cf430dc [type=7(external_word) addr=0x000000011cf43340 offset=5 data={123a77770001}] | [target=0x00000001123a7777]
+         @0x000000011cf430de: 640e
+relocInfo@0x000000011cf430de [type=6(runtime_call) addr=0x000000011cf4334e offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf430e0: f0db8006
+relocInfo@0x000000011cf430e2 [type=8(internal_word) addr=0x000000011cf43354 offset=6 data=219] | [target=0x000000011cf43279]
+         @0x000000011cf430e4: 6411
+relocInfo@0x000000011cf430e4 [type=6(runtime_call) addr=0x000000011cf43365 offset=17 format=1] | [destination=0x00000001154ced20]
+         @0x000000011cf430e6: 001b
+relocInfo@0x000000011cf430e6 [type=0(none) addr=0x000000011cf43380 offset=27]
+         @0x000000011cf430e8: 6400
+relocInfo@0x000000011cf430e8 [type=6(runtime_call) addr=0x000000011cf43380 offset=0 format=1] | [destination=0x000000011541be20]
+         @0x000000011cf430ea: 640f
+relocInfo@0x000000011cf430ea [type=6(runtime_call) addr=0x000000011cf4338f offset=15 format=1] | [destination=0x00000001154d0a60]
+         @0x000000011cf430ec: 0000
+relocInfo@0x000000011cf430ec [type=0(none) addr=0x000000011cf4338f offset=0]
+         @0x000000011cf430ee: 0000
+relocInfo@0x000000011cf430ee [type=0(none) addr=0x000000011cf4338f offset=0]
+         @0x000000011cf430f0: 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Dependencies:
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ExceptionHandlerTable (size = 0 bytes)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ImplicitExceptionTable (size = 1 entries, 12 bytes):
+{
+   < 0x000000011cf43140, 0x000000011cf4332c > 
+}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded oops:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded metadata:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x000000022e440618 {type array double}
+#2: 0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+20.691 ms/op
+# Warmup Iteration   4: 10.778 ms/op
+# Warmup Iteration   5: 
+============================= C2-compiled nmethod ==============================
+----------------------- MetaData before Compile_id = 1009 ------------------------
+{method}
+ - this oop:          0x0000000270304000
+ - method holder:     'org/jml/Operations'
+ - constants:         0x000000027008f450 constant pool [162]/operands[25] {0x000000027008f450} for 'org/jml/Operations' cache=0x0000000270304800
+ - access:            0xc1000001  public 
+ - name:              'reduce'
+ - signature:         '([D)D'
+ - max stack:         5
+ - max locals:        5
+ - size of params:    2
+ - method size:       13
+ - vtable index:      6
+ - i2i entry:         0x00000001153c7d60
+ - adapters:          AHE@0x00007f8d740a9640: 0xbb000000 i2c: 0x00000001154420e0 c2i: 0x00000001154421bb c2iUV: 0x000000011544218e c2iNCI: 0x00000001154421f8
+ - compiled entry     0x00000001154421bb
+ - code size:         27
+ - code start:        0x000000027008ffa0
+ - code end (excl):   0x000000027008ffbb
+ - method data:       0x0000000270304d88
+ - checked ex length: 0
+ - linenumber start:  0x000000027008ffbb
+ - localvar length:   4
+ - localvar start:    0x000000027008ffc6
+
+------------------------ OptoAssembly for Compile_id = 1009 -----------------------
+#
+#  double/half ( org/jml/Operations:NotNull *, double[int:>=0]:exact * )
+#
+#r018 rsi:rsi   : parm 0: org/jml/Operations:NotNull *
+#r016 rdx:rdx   : parm 1: double[int:>=0]:exact *
+# -- Old rsp -- Framesize: 48 --
+#r583 rsp+44: in_preserve
+#r582 rsp+40: return address
+#r581 rsp+36: in_preserve
+#r580 rsp+32: saved fp register
+#r579 rsp+28: pad2, stack alignment
+#r578 rsp+24: pad2, stack alignment
+#r577 rsp+20: Fixed slot 1
+#r576 rsp+16: Fixed slot 0
+#r587 rsp+12: spill
+#r586 rsp+ 8: spill
+#r585 rsp+ 4: spill
+#r584 rsp+ 0: spill
+#
+000     N166: #	out( B1 ) <- BLOCK HEAD IS JUNK  Freq: 1
+000     movl    rscratch1, [j_rarg0 + oopDesc::klass_offset_in_bytes()]	# compressed klass
+	decode_klass_not_null rscratch1, rscratch1
+	cmpq    rax, rscratch1	 # Inline cache check
+	jne     SharedRuntime::_ic_miss_stub
+	nop	# nops to align entry point
+
+        nop 	# 12 bytes pad for loops and calls
+
+020     B1: #	out( B18 B2 ) <- BLOCK HEAD IS JUNK  Freq: 1
+020     # stack bang (168 bytes)
+	pushq   rbp	# Save rbp
+	subq    rsp, #32	# Create frame
+
+02c     movl    RBP, [RDX + #12 (8-bit)]	# range
+02f     NullCheck RDX
+
+02f     B2: #	out( B14 B3 ) <- in( B1 )  Freq: 0.999999
+02f     xorpd   XMM0, XMM0	# double 0.0
+033     testl   RBP, RBP	# unsigned
+035     jbe,u   B14  P=0.000001 C=18787328.000000
+
+03b     B3: #	out( B15 B4 ) <- in( B2 )  Freq: 0.999998
+03b     movl    R11, RBP	# spill
+03e     decl    R11	# int
+041     cmpl    R11, RBP	# unsigned
+044     jnb,u   B15  P=0.000001 C=-1.000000
+
+04a     B4: #	out( B11 B5 ) <- in( B3 )  Freq: 0.999997
+04a     addsd   XMM0, [RDX + #16 (8-bit)]
+04f     movl    R10, RBP	# spill
+052     addl    R10, #-7	# int
+056     movl    R8, #1	# int
+05c     movl    R12, #-2147483648	# int
+062     cmpl    R11, R10
+065     cmovll R10, R12	# signed, int
+069     cmpl    R10, #1
+06d     jle     B11  P=0.000001 C=-1.000000
+
+073     B5: #	out( B16 B6 ) <- in( B4 )  Freq: 0.999996
+073     cmpl    RBP, #1	# unsigned
+076     jbe,u   B16  P=0.000001 C=-1.000000
+
+07c     B6: #	out( B17 B7 ) <- in( B5 )  Freq: 0.999995
+        nop 	# 4 bytes pad for loops and calls
+080     cmpl    RBP, #8	# unsigned
+083     jbe,u   B17  P=0.000001 C=-1.000000
+
+089     B7: #	out( B8 ) <- in( B6 )  Freq: 0.999994
+089     xorl    R11, R11	# int
+08c     # TLS is in R15
+08c     movl    R9, #8000	# int
+
+092     B8: #	out( B9 ) <- in( B7 B10 ) Loop( B8-B10 ) Freq: 986889
+092     movl    RCX, R10	# spill
+095     subl    RCX, R8	# int
+098     cmpl    R10, R8
+09b     cmovll RCX, R11	# signed, int
+09f     cmpl    RCX, #8000	# unsigned
+0a5     cmovlnbe RCX, R9	# unsigned, int
+0a9     addl    RCX, R8	# int
+        nop 	# 4 bytes pad for loops and calls
+
+0b0     B9: #	out( B9 B10 ) <- in( B8 B9 ) Loop( B9-B9 inner main of N80 strip mined) Freq: 9.73956e+11
+0b0     addsd   XMM0, [RDX + #16 + R8 << #3]
+0b7     addsd   XMM0, [RDX + #24 + R8 << #3]
+0be     addsd   XMM0, [RDX + #32 + R8 << #3]
+0c5     addsd   XMM0, [RDX + #40 + R8 << #3]
+0cc     addsd   XMM0, [RDX + #48 + R8 << #3]
+0d3     addsd   XMM0, [RDX + #56 + R8 << #3]
+0da     addsd   XMM0, [RDX + #64 + R8 << #3]
+0e1     addsd   XMM0, [RDX + #72 + R8 << #3]
+0e8     addl    R8, #8	# int
+0ec     cmpl    R8, RCX
+0ef     jl,s   B9	# loop end  P=0.999999 C=18787326.000000
+
+0f1     B10: #	out( B8 B11 ) <- in( B9 )  Freq: 986889
+0f1     movq    R12, [R15 + #304 (32-bit)]	# ptr
+0f8     testl   rax, [R12]	# Safepoint: poll for GC        # org.jml.Operations::reduce @ bci:22 (line 63) L[0]=_ L[1]=RDX L[2]=XMM0 L[3]=_ L[4]=R8
+        # OopMap {rdx=Oop off=248/0xf8}
+        nop 	# 4 bytes pad for loops and calls
+100     cmpl    R8, R10
+103     jl,s   B8  P=0.999999 C=18787326.000000
+
+105     B11: #	out( B14 B12 ) <- in( B4 B10 )  Freq: 0.999995
+105     cmpl    R8, RBP
+108     jge,s   B14  P=0.500000 C=-1.000000
+
+10a     B12: #	out( B13 ) <- in( B11 )  Freq: 0.499997
+10a     # castII of R8
+        nop 	# 2 bytes pad for loops and calls
+
+10c     B13: #	out( B13 B14 ) <- in( B12 B13 ) Loop( B13-B13 inner post of N162) Freq: 0.999995
+10c     addsd   XMM0, [RDX + #16 + R8 << #3]
+113     incl    R8	# int
+116     cmpl    R8, RBP
+119     jl,s   B13	# loop end  P=0.500000 C=18787326.000000
+
+11b     B14: #	out( N166 ) <- in( B13 B11 B2 )  Freq: 0.999996
+11b     addq    rsp, 32	# Destroy frame
+	popq    rbp
+	cmpq     rsp, poll_offset[r15_thread] 
+	ja       #safepoint_stub	# Safepoint: poll for GC
+
+12d     ret
+
+12e     B15: #	out( N166 ) <- in( B3 )  Freq: 1.01328e-06
+12e     movl    RSI, #-138	# int
+133     movq    [rsp + #0], RDX	# spill
+137     call,static  wrapper for: uncommon_trap(reason='predicate' action='maybe_recompile' debug_id='0')
+        # org.jml.Operations::reduce @ bci:9 (line 63) L[0]=_ L[1]=rsp + #0 L[2]=#0.000000D L[3]=_ L[4]=#0 STK[0]=#0 STK[1]=RBP
+        # OopMap {[0]=Oop off=316/0x13c}
+13c     stop	# ShouldNotReachHere
+
+150     B16: #	out( N166 ) <- in( B5 )  Freq: 9.99996e-07
+150     stop	# ShouldNotReachHere
+
+164     B17: #	out( N166 ) <- in( B6 )  Freq: 9.99995e-07
+164     stop	# ShouldNotReachHere
+
+178     B18: #	out( N166 ) <- in( B1 )  Freq: 1.01328e-06
+178     movl    RSI, #-10	# int
+        nop 	# 2 bytes pad for loops and calls
+17f     call,static  wrapper for: uncommon_trap(reason='null_check' action='maybe_recompile' debug_id='0')
+        # org.jml.Operations::reduce @ bci:8 (line 63) L[0]=_ L[1]=_ L[2]=_ L[3]=_ L[4]=_ STK[0]=_ STK[1]=#NULL
+        # OopMap {off=388/0x184}
+184     stop	# ShouldNotReachHere
+
+--------------------------------------------------------------------------------
+----------------------------------- Assembly -----------------------------------
+
+Compiled method (c2)    3010 1009       4       org.jml.Operations::reduce (27 bytes)
+ total in heap  [0x000000011cf44110,0x000000011cf446a0] = 1424
+ relocation     [0x000000011cf44288,0x000000011cf442d0] = 72
+ main code      [0x000000011cf442e0,0x000000011cf444a0] = 448
+ stub code      [0x000000011cf444a0,0x000000011cf444b8] = 24
+ oops           [0x000000011cf444b8,0x000000011cf444c0] = 8
+ metadata       [0x000000011cf444c0,0x000000011cf444c8] = 8
+ scopes data    [0x000000011cf444c8,0x000000011cf44538] = 112
+ scopes pcs     [0x000000011cf44538,0x000000011cf44688] = 336
+ dependencies   [0x000000011cf44688,0x000000011cf44690] = 8
+ nul chk table  [0x000000011cf44690,0x000000011cf446a0] = 16
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+  # this:     rsi:rsi   = 'org/jml/Operations'
+  # parm0:    rdx:rdx   = '[D'
+  #           [sp+0x30]  (sp of caller)
+ ;; N166: #	out( B1 ) <- BLOCK HEAD IS JUNK  Freq: 1
+  0x000000011cf442e0: 448b 5608 | 49c1 e203 
+
+  0x000000011cf442e8: ;   {runtime_call ic_miss_stub}
+  0x000000011cf442e8: 493b c20f | 852f b658 | f890 9090 | 9090 9090 | 9090 9090 | 9090 9090 
+[Verified Entry Point]
+ ;; B1: #	out( B18 B2 ) <- BLOCK HEAD IS JUNK  Freq: 1
+  0x000000011cf44300: 8984 2400 | a0fe ff55 
+
+  0x000000011cf44308: ;*synchronization entry
+                      ; - org.jml.Operations::reduce@-1 (line 61)
+  0x000000011cf44308: 4883 ec20 
+
+  0x000000011cf4430c: ; implicit exception: dispatches to 0x000000011cf44458
+                      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@8 (line 63)
+  0x000000011cf4430c: 8b6a 0c66 | 0f57 c085 | ed0f 86e0 
+
+  0x000000011cf44318: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf44318: 0000 0044 | 8bdd 41ff | cb44 3bdd | 0f83 e400 | 0000 f20f 
+
+  0x000000011cf4432c: ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@17 (line 64)
+  0x000000011cf4432c: 5842 1044 | 8bd5 4183 | c2f9 41b8 | 0100 0000 | 41bc 0000 | 0080 453b | da45 0f4c | d441 83fa 
+  0x000000011cf4434c: 010f 8e92 | 0000 0083 | fd01 0f86 | d400 0000 
+ ;; B6: #	out( B17 B7 ) <- in( B5 )  Freq: 0.999995
+  0x000000011cf4435c: 9090 9090 | 83fd 080f | 86db 0000 
+
+  0x000000011cf44368: ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@22 (line 63)
+  0x000000011cf44368: 0045 33db | 41b9 401f | 0000 418b | ca41 2bc8 | 453b d041 | 0f4c cb81 | f940 1f00 | 0041 0f47 
+  0x000000011cf44388: c941 03c8 
+
+  0x000000011cf4438c: ;*dload_2 {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@12 (line 64)
+  0x000000011cf4438c: 9090 9090 
+ ;; B9: #	out( B9 B10 ) <- in( B8 B9 ) Loop( B9-B9 inner main of N80 strip mined) Freq: 9.73956e+11
+  0x000000011cf44390: f242 0f58 | 44c2 10f2 | 420f 5844 | c218 f242 | 0f58 44c2 | 20f2 420f | 5844 c228 | f242 0f58 
+  0x000000011cf443b0: 44c2 30f2 | 420f 5844 | c238 f242 | 0f58 44c2 | 40f2 420f 
+
+  0x000000011cf443c4: ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@17 (line 64)
+  0x000000011cf443c4: 5844 c248 
+
+  0x000000011cf443c8: ;*iinc {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@19 (line 63)
+  0x000000011cf443c8: 4183 c008 | 443b c17c 
+
+  0x000000011cf443d0: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf443d0: bf4d 8ba7 
+
+  0x000000011cf443d4: ; ImmutableOopMap {rdx=Oop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) org.jml.Operations::reduce@22 (line 63)
+  0x000000011cf443d4: 3001 0000 
+
+  0x000000011cf443d8: ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@22 (line 63)
+                      ;   {poll}
+  0x000000011cf443d8: 4185 0424 | 9090 9090 | 453b c27c | 8d44 3bc5 
+
+  0x000000011cf443e8: ;*dload_2 {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@12 (line 64)
+  0x000000011cf443e8: 7d11 9090 
+ ;; B13: #	out( B13 B14 ) <- in( B12 B13 ) Loop( B13-B13 inner post of N162) Freq: 0.999995
+  0x000000011cf443ec: f242 0f58 
+
+  0x000000011cf443f0: ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@17 (line 64)
+  0x000000011cf443f0: 44c2 1041 
+
+  0x000000011cf443f4: ;*iinc {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@19 (line 63)
+  0x000000011cf443f4: ffc0 443b 
+
+  0x000000011cf443f8: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf443f8: c57c f148 | 83c4 205d 
+
+  0x000000011cf44400: ;   {poll_return}
+  0x000000011cf44400: 493b a728 | 0100 000f | 876b 0000 | 00c3 be76 | ffff ff48 
+
+  0x000000011cf44414: ;   {runtime_call UncommonTrapBlob}
+  0x000000011cf44414: 8914 24e8 
+
+  0x000000011cf44418: ; ImmutableOopMap {[0]=Oop }
+                      ;*if_icmpge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf44418: 24c1 58f8 
+
+  0x000000011cf4441c: ;   {external_word}
+  0x000000011cf4441c: 48bf 7777 | 3a12 0100 | 0000 4883 
+
+  0x000000011cf44428: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf44428: e4f0 e821 
+
+  0x000000011cf4442c: ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@9 (line 63)
+  0x000000011cf4442c: cbd9 f4f4 
+ ;; B16: #	out( N166 ) <- in( B5 )  Freq: 9.99996e-07
+  0x000000011cf44430: ;   {external_word}
+  0x000000011cf44430: 48bf 3125 | 4212 0100 | 0000 4883 
+
+  0x000000011cf4443c: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf4443c: e4f0 e80d | cbd9 f4f4 
+ ;; B17: #	out( N166 ) <- in( B6 )  Freq: 9.99995e-07
+  0x000000011cf44444: ;   {external_word}
+  0x000000011cf44444: 48bf 3125 | 4212 0100 | 0000 4883 
+
+  0x000000011cf44450: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf44450: e4f0 e8f9 | cad9 f4f4 
+ ;; B18: #	out( N166 ) <- in( B1 )  Freq: 1.01328e-06
+  0x000000011cf44458: bef6 ffff 
+
+  0x000000011cf4445c: ;   {runtime_call UncommonTrapBlob}
+  0x000000011cf4445c: ff90 90e8 
+
+  0x000000011cf44460: ; ImmutableOopMap {}
+                      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@8 (line 63)
+  0x000000011cf44460: dcc0 58f8 
+
+  0x000000011cf44464: ;   {external_word}
+  0x000000011cf44464: 48bf 7777 | 3a12 0100 | 0000 4883 
+
+  0x000000011cf44470: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x000000011cf44470: e4f0 e8d9 
+
+  0x000000011cf44474: ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - org.jml.Operations::reduce@8 (line 63)
+  0x000000011cf44474: cad9 f4f4 
+
+  0x000000011cf44478: ;   {internal_word}
+  0x000000011cf44478: 49ba 0044 | f41c 0100 | 0000 4d89 | 97e8 0300 
+
+  0x000000011cf44488: ;   {runtime_call SafepointBlob}
+  0x000000011cf44488: 00e9 92a8 | 58f8 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 
+[Exception Handler]
+  0x000000011cf444a0: ;   {no_reloc}
+  0x000000011cf444a0: e97b 794d | f8e8 0000 | 0000 4883 
+
+  0x000000011cf444ac: ;   {runtime_call DeoptimizationBlob}
+  0x000000011cf444ac: 2c24 05e9 | acc5 58f8 | f4f4 f4f4 
+[/MachCode]
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Oops:
+  0x000000011cf444b8:   0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Metadata:
+  0x000000011cf444c0:   0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+pc-bytecode offsets:
+PcDesc(pc=0x000000011cf442df offset=ffffffff bits=0):
+PcDesc(pc=0x000000011cf4430c offset=2c bits=0):   org.jml.Operations::reduce@-1 (line 61)
+PcDesc(pc=0x000000011cf4430f offset=2f bits=0):   org.jml.Operations::reduce@8 (line 63)
+PcDesc(pc=0x000000011cf4431b offset=3b bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf4432f offset=4f bits=0):   org.jml.Operations::reduce@17 (line 64)
+PcDesc(pc=0x000000011cf4436c offset=8c bits=0):   org.jml.Operations::reduce@22 (line 63)
+PcDesc(pc=0x000000011cf44390 offset=b0 bits=0):   org.jml.Operations::reduce@12 (line 64)
+PcDesc(pc=0x000000011cf443c8 offset=e8 bits=0):   org.jml.Operations::reduce@17 (line 64)
+PcDesc(pc=0x000000011cf443cc offset=ec bits=0):   org.jml.Operations::reduce@19 (line 63)
+PcDesc(pc=0x000000011cf443d1 offset=f1 bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf443d8 offset=f8 bits=1):   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm0 [48],double
+    - l4: reg r8 [16],int
+PcDesc(pc=0x000000011cf443dc offset=fc bits=0):   org.jml.Operations::reduce@22 (line 63)
+PcDesc(pc=0x000000011cf443ec offset=10c bits=0):   org.jml.Operations::reduce@12 (line 64)
+PcDesc(pc=0x000000011cf443f3 offset=113 bits=0):   org.jml.Operations::reduce@17 (line 64)
+PcDesc(pc=0x000000011cf443f6 offset=116 bits=0):   org.jml.Operations::reduce@19 (line 63)
+PcDesc(pc=0x000000011cf443fb offset=11b bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf4441c offset=13c bits=1):   org.jml.Operations::reduce@9 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: stack[0],oop
+    - l2: 0
+    - l3: 0.000000
+    - l4: 0
+   Expression stack
+    - @0: 0
+    - @1: reg rbp [10],int
+PcDesc(pc=0x000000011cf44430 offset=150 bits=0):   org.jml.Operations::reduce@9 (line 63)
+PcDesc(pc=0x000000011cf44464 offset=184 bits=0):   org.jml.Operations::reduce@8 (line 63)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+   Expression stack
+    - @0: empty
+    - @1: NULL
+PcDesc(pc=0x000000011cf44478 offset=198 bits=0):   org.jml.Operations::reduce@8 (line 63)
+PcDesc(pc=0x000000011cf444b9 offset=1d9 bits=0):
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+oop maps:ImmutableOopMapSet contains 3 OopMaps
+
+ImmutableOopMap {rdx=Oop } pc offsets: 248 
+ImmutableOopMap {[0]=Oop } pc offsets: 316 
+ImmutableOopMap {} pc offsets: 388 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+scopes:
+ScopeDesc(pc=0x000000011cf4430c offset=2c):
+   org.jml.Operations::reduce@-1 (line 61)
+ScopeDesc(pc=0x000000011cf4430f offset=2f):
+   org.jml.Operations::reduce@8 (line 63)
+ScopeDesc(pc=0x000000011cf4431b offset=3b):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf4432f offset=4f):
+   org.jml.Operations::reduce@17 (line 64)
+ScopeDesc(pc=0x000000011cf4436c offset=8c):
+   org.jml.Operations::reduce@22 (line 63)
+ScopeDesc(pc=0x000000011cf44390 offset=b0):
+   org.jml.Operations::reduce@12 (line 64)
+ScopeDesc(pc=0x000000011cf443c8 offset=e8):
+   org.jml.Operations::reduce@17 (line 64)
+ScopeDesc(pc=0x000000011cf443cc offset=ec):
+   org.jml.Operations::reduce@19 (line 63)
+ScopeDesc(pc=0x000000011cf443d1 offset=f1):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf443d8 offset=f8):
+   org.jml.Operations::reduce@22 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: reg rdx [4],oop
+    - l2: 0
+    - l3: reg xmm0 [48],double
+    - l4: reg r8 [16],int
+ScopeDesc(pc=0x000000011cf443dc offset=fc):
+   org.jml.Operations::reduce@22 (line 63)
+ScopeDesc(pc=0x000000011cf443ec offset=10c):
+   org.jml.Operations::reduce@12 (line 64)
+ScopeDesc(pc=0x000000011cf443f3 offset=113):
+   org.jml.Operations::reduce@17 (line 64)
+ScopeDesc(pc=0x000000011cf443f6 offset=116):
+   org.jml.Operations::reduce@19 (line 63)
+ScopeDesc(pc=0x000000011cf443fb offset=11b):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf4441c offset=13c):
+   org.jml.Operations::reduce@9 (line 63)  reexecute=true
+   Locals
+    - l0: empty
+    - l1: stack[0],oop
+    - l2: 0
+    - l3: 0.000000
+    - l4: 0
+   Expression stack
+    - @0: 0
+    - @1: reg rbp [10],int
+ScopeDesc(pc=0x000000011cf44430 offset=150):
+   org.jml.Operations::reduce@9 (line 63)
+ScopeDesc(pc=0x000000011cf44464 offset=184):
+   org.jml.Operations::reduce@8 (line 63)
+   Locals
+    - l0: empty
+    - l1: empty
+    - l2: empty
+    - l3: empty
+    - l4: empty
+   Expression stack
+    - @0: empty
+    - @1: NULL
+ScopeDesc(pc=0x000000011cf44478 offset=198):
+   org.jml.Operations::reduce@8 (line 63)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+relocations:
+         @0x000000011cf44288: 600b
+relocInfo@0x000000011cf44288 [type=6(runtime_call) addr=0x000000011cf442eb offset=11] | [destination=0x00000001154cf920]
+         @0x000000011cf4428a: a0ed
+relocInfo@0x000000011cf4428a [type=10(poll) addr=0x000000011cf443d8 offset=237]
+         @0x000000011cf4428c: b028
+relocInfo@0x000000011cf4428c [type=11(poll_return) addr=0x000000011cf44400 offset=40]
+         @0x000000011cf4428e: 6417
+relocInfo@0x000000011cf4428e [type=6(runtime_call) addr=0x000000011cf44417 offset=23 format=1] | [destination=0x00000001154d0540]
+         @0x000000011cf44290: f803123a777700017005
+relocInfo@0x000000011cf44298 [type=7(external_word) addr=0x000000011cf4441c offset=5 data={123a77770001}] | [target=0x00000001123a7777]
+         @0x000000011cf4429a: 640e
+relocInfo@0x000000011cf4429a [type=6(runtime_call) addr=0x000000011cf4442a offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf4429c: f8031242253100017006
+relocInfo@0x000000011cf442a4 [type=7(external_word) addr=0x000000011cf44430 offset=6 data={124225310001}] | [target=0x0000000112422531]
+         @0x000000011cf442a6: 640e
+relocInfo@0x000000011cf442a6 [type=6(runtime_call) addr=0x000000011cf4443e offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf442a8: f8031242253100017006
+relocInfo@0x000000011cf442b0 [type=7(external_word) addr=0x000000011cf44444 offset=6 data={124225310001}] | [target=0x0000000112422531]
+         @0x000000011cf442b2: 640e
+relocInfo@0x000000011cf442b2 [type=6(runtime_call) addr=0x000000011cf44452 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf442b4: 640d
+relocInfo@0x000000011cf442b4 [type=6(runtime_call) addr=0x000000011cf4445f offset=13 format=1] | [destination=0x00000001154d0540]
+         @0x000000011cf442b6: f803123a777700017005
+relocInfo@0x000000011cf442be [type=7(external_word) addr=0x000000011cf44464 offset=5 data={123a77770001}] | [target=0x00000001123a7777]
+         @0x000000011cf442c0: 640e
+relocInfo@0x000000011cf442c0 [type=6(runtime_call) addr=0x000000011cf44472 offset=14 format=1] | [destination=0x0000000111ce0f50]
+         @0x000000011cf442c2: f0788006
+relocInfo@0x000000011cf442c4 [type=8(internal_word) addr=0x000000011cf44478 offset=6 data=120] | [target=0x000000011cf44400]
+         @0x000000011cf442c6: 6411
+relocInfo@0x000000011cf442c6 [type=6(runtime_call) addr=0x000000011cf44489 offset=17 format=1] | [destination=0x00000001154ced20]
+         @0x000000011cf442c8: 0017
+relocInfo@0x000000011cf442c8 [type=0(none) addr=0x000000011cf444a0 offset=23]
+         @0x000000011cf442ca: 6400
+relocInfo@0x000000011cf442ca [type=6(runtime_call) addr=0x000000011cf444a0 offset=0 format=1] | [destination=0x000000011541be20]
+         @0x000000011cf442cc: 640f
+relocInfo@0x000000011cf442cc [type=6(runtime_call) addr=0x000000011cf444af offset=15 format=1] | [destination=0x00000001154d0a60]
+         @0x000000011cf442ce: 0000
+relocInfo@0x000000011cf442ce [type=0(none) addr=0x000000011cf444af offset=0]
+         @0x000000011cf442d0: 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Dependencies:
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ExceptionHandlerTable (size = 0 bytes)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ImplicitExceptionTable (size = 1 entries, 12 bytes):
+{
+   < 0x000000011cf4430c, 0x000000011cf44458 > 
+}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded oops:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x00000001247648a8 a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000001247648a8}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Recorded metadata:
+#0: 0x0000000000000000 NULL-oop
+#1: 0x0000000270304000 {method} {0x0000000270304000} 'reduce' '([D)D' in 'org/jml/Operations'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+11.067 ms/op
+# Warmup Iteration   6: 10.449 ms/op
+# Warmup Iteration   7: 10.616 ms/op
+# Warmup Iteration   8: 10.775 ms/op
+# Warmup Iteration   9: 11.823 ms/op
+# Warmup Iteration  10: 11.266 ms/op
+# Warmup Iteration  11: 10.424 ms/op
+# Warmup Iteration  12: 10.329 ms/op
+# Warmup Iteration  13: 10.202 ms/op
+# Warmup Iteration  14: 11.551 ms/op
+# Warmup Iteration  15: 11.805 ms/op
+# Warmup Iteration  16: 11.790 ms/op
+# Warmup Iteration  17: 11.791 ms/op
+# Warmup Iteration  18: 11.800 ms/op
+# Warmup Iteration  19: 11.758 ms/op
+# Warmup Iteration  20: 11.826 ms/op
+# Warmup Iteration  21: 11.766 ms/op
+# Warmup Iteration  22: 11.761 ms/op
+# Warmup Iteration  23: 11.795 ms/op
+# Warmup Iteration  24: 11.770 ms/op
+# Warmup Iteration  25: 11.793 ms/op
+# Warmup Iteration  26: 11.765 ms/op
+# Warmup Iteration  27: 11.735 ms/op
+# Warmup Iteration  28: 10.391 ms/op
+# Warmup Iteration  29: 11.409 ms/op
+# Warmup Iteration  30: 11.786 ms/op
+# Warmup Iteration  31: 11.573 ms/op
+# Warmup Iteration  32: 11.521 ms/op
+# Warmup Iteration  33: 11.725 ms/op
+# Warmup Iteration  34: 11.862 ms/op
+# Warmup Iteration  35: 11.810 ms/op
+# Warmup Iteration  36: 11.778 ms/op
+# Warmup Iteration  37: 11.806 ms/op
+# Warmup Iteration  38: 11.869 ms/op
+# Warmup Iteration  39: 11.055 ms/op
+# Warmup Iteration  40: 11.436 ms/op
+# Warmup Iteration  41: 11.762 ms/op
+# Warmup Iteration  42: 11.775 ms/op
+# Warmup Iteration  43: 11.367 ms/op
+# Warmup Iteration  44: 10.528 ms/op
+# Warmup Iteration  45: 11.776 ms/op
+# Warmup Iteration  46: 11.788 ms/op
+# Warmup Iteration  47: 11.759 ms/op
+# Warmup Iteration  48: 11.786 ms/op
+# Warmup Iteration  49: 11.775 ms/op
+# Warmup Iteration  50: 11.759 ms/op
+# Warmup Iteration  51: 11.758 ms/op
+# Warmup Iteration  52: 11.803 ms/op
+# Warmup Iteration  53: 11.778 ms/op
+# Warmup Iteration  54: 11.759 ms/op
+# Warmup Iteration  55: 11.774 ms/op
+# Warmup Iteration  56: 11.844 ms/op
+# Warmup Iteration  57: 11.769 ms/op
+# Warmup Iteration  58: 11.805 ms/op
+# Warmup Iteration  59: 11.797 ms/op
+# Warmup Iteration  60: 11.759 ms/op
+# Warmup Iteration  61: 11.758 ms/op
+# Warmup Iteration  62: 11.864 ms/op
+# Warmup Iteration  63: 11.801 ms/op
+# Warmup Iteration  64: 11.769 ms/op
+# Warmup Iteration  65: 11.877 ms/op
+# Warmup Iteration  66: 11.764 ms/op
+# Warmup Iteration  67: 11.766 ms/op
+# Warmup Iteration  68: 11.881 ms/op
+# Warmup Iteration  69: 11.856 ms/op
+# Warmup Iteration  70: 11.824 ms/op
+# Warmup Iteration  71: 11.810 ms/op
+# Warmup Iteration  72: 11.781 ms/op
+# Warmup Iteration  73: 11.732 ms/op
+# Warmup Iteration  74: 11.808 ms/op
+# Warmup Iteration  75: 11.791 ms/op
+# Warmup Iteration  76: 11.765 ms/op
+# Warmup Iteration  77: 11.750 ms/op
+# Warmup Iteration  78: 11.581 ms/op
+# Warmup Iteration  79: 11.910 ms/op
+# Warmup Iteration  80: 11.489 ms/op
+# Warmup Iteration  81: 10.878 ms/op
+# Warmup Iteration  82: 11.811 ms/op
+# Warmup Iteration  83: 11.764 ms/op
+# Warmup Iteration  84: 11.779 ms/op
+# Warmup Iteration  85: 11.704 ms/op
+# Warmup Iteration  86: 11.770 ms/op
+# Warmup Iteration  87: 11.803 ms/op
+# Warmup Iteration  88: 11.775 ms/op
+# Warmup Iteration  89: 11.808 ms/op
+# Warmup Iteration  90: 11.788 ms/op
+# Warmup Iteration  91: 11.804 ms/op
+# Warmup Iteration  92: 11.763 ms/op
+# Warmup Iteration  93: 11.784 ms/op
+# Warmup Iteration  94: 11.763 ms/op
+# Warmup Iteration  95: 11.773 ms/op
+# Warmup Iteration  96: 11.800 ms/op
+# Warmup Iteration  97: 11.772 ms/op
+# Warmup Iteration  98: 11.762 ms/op
+# Warmup Iteration  99: 11.809 ms/op
+# Warmup Iteration 100: 11.725 ms/op
+Iteration   1: 11.859 ms/op
+Iteration   2: 11.888 ms/op
+Iteration   3: 11.779 ms/op
+Iteration   4: 11.812 ms/op
+Iteration   5: 11.786 ms/op
+Iteration   6: 11.792 ms/op
+Iteration   7: 11.763 ms/op
+Iteration   8: 11.780 ms/op
+Iteration   9: 11.794 ms/op
+Iteration  10: 11.835 ms/op
+------------------------------------------------------------------------
+org.jml.Operations::reduce([D)D
+  interpreter_invocation_count:        5 
+  invocation_counter:                  5 
+  backedge_counter:             18884660 
+  mdo size: 456 bytes
+
+0 dconst_0
+1 dstore_2
+2 iconst_0
+3 istore #4
+5 fast_iload #4
+7 aload_1
+8 arraylength
+9 if_icmpge 25
+  0   bci: 9    BranchData          trap(intrinsic_or_type_checked_inlining recompiled) taken(2) displacement(56)
+                                    not taken(18787326)
+12 dload_2
+13 aload_1
+14 fast_iload #4
+16 daload
+17 dadd
+18 dstore_2
+19 iinc #4 1
+22 goto 5
+  32  bci: 22   JumpData            taken(18787326) displacement(-32)
+25 dload_2
+26 dreturn
+------------------------------------------------------------------------
+Total MDO size: 456 bytes
+
+
+Result "org.jml.regression.linear.BenchmarkLinearRegression.testReduceSingle":
+  N = 10
+  mean =     11.809 ±(99.9%) 0.060 ms/op
+
+  Histogram, ms/op:
+    [11.700, 11.713) = 0 
+    [11.713, 11.725) = 0 
+    [11.725, 11.738) = 0 
+    [11.738, 11.750) = 0 
+    [11.750, 11.763) = 0 
+    [11.763, 11.775) = 1 
+    [11.775, 11.788) = 3 
+    [11.788, 11.800) = 2 
+    [11.800, 11.813) = 1 
+    [11.813, 11.825) = 0 
+    [11.825, 11.838) = 1 
+    [11.838, 11.850) = 0 
+    [11.850, 11.863) = 1 
+    [11.863, 11.875) = 0 
+    [11.875, 11.888) = 0 
+
+  Percentiles, ms/op:
+      p(0.0000) =     11.763 ms/op
+     p(50.0000) =     11.793 ms/op
+     p(90.0000) =     11.885 ms/op
+     p(95.0000) =     11.888 ms/op
+     p(99.0000) =     11.888 ms/op
+     p(99.9000) =     11.888 ms/op
+     p(99.9900) =     11.888 ms/op
+     p(99.9990) =     11.888 ms/op
+     p(99.9999) =     11.888 ms/op
+    p(100.0000) =     11.888 ms/op
+
+
+# Run complete. Total time: 00:00:04
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                                   Mode  Cnt   Score   Error  Units
+BenchmarkLinearRegression.testReduceSingle    ss   10  11.809 ± 0.060  ms/op
