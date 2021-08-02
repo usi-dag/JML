@@ -15,6 +15,19 @@ java  -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:PrintAssemblyOptions
 java --add-modules jdk.incubator.vector -cp target/benchmarks.jar org.openjdk.jmh.Main -f 1 -wi 100 -i 10 -bm SingleShotTime
 ```
 
+#### Results
+###### Linear Regression
+```
+Benchmark                                                   Mode  Cnt     Score    Error  Units
+BenchmarkLinearRegression.testDoubleLinearRegression          ss   10  1479.897 ± 11.109  ms/op
+BenchmarkLinearRegression.testDoubleVectorLinearRegression    ss   10  1062.418 ±  5.506  ms/op
+BenchmarkLinearRegression.testIntLinearRegression             ss   10   716.094 ±  7.511  ms/op
+BenchmarkLinearRegression.testIntVectorLinearRegression       ss   10   445.963 ±  5.477  ms/op
+BenchmarkLinearRegression.testLongLinearRegression            ss   10  1517.387 ± 18.518  ms/op
+BenchmarkLinearRegression.testLongVectorLinearRegression      ss   10  1151.612 ± 13.486  ms/op
+
+```
+
 ### Readings
 - [chapter 12 using vector operations](https://www.agner.org/optimize/optimizing_cpp.pdf)  - agner.org
 - [processor micro-architecture](https://www.agner.org/optimize/microarchitecture.pdf) - agner.org
