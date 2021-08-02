@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+// no test for double vector as result depends on random operation
 class DoubleLinearRegressionTest {
 
     private static DoubleLinearRegression doubleLinearRegression;
