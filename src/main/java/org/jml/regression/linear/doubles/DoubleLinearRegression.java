@@ -1,25 +1,27 @@
-package org.jml.regression.linear;
+package org.jml.regression.linear.doubles;
 
 
-public class LongLinearRegression {
-    private long intercept, slope;
 
 
-    public void fit(long[] x, long[] y) {
+public class DoubleLinearRegression {
+    private double intercept, slope;
+
+
+    public void fit(double[] x, double[] y) {
         if (x.length != y.length) throw new IllegalArgumentException("Arrays length are not equals");
 
-        long sumx = 0, sumy = 0;
+        double sumx = 0.0, sumy = 0.0;
 
         for (int i = 0; i < x.length; i++) {
             sumx += x[i];
             sumy += y[i];
         }
 
-        long xbar = sumx / x.length;
-        long ybar = sumy / x.length;
+        double xbar = sumx / x.length;
+        double ybar = sumy / x.length;
 
 
-        long xxbar = 0, xybar = 0;
+        double xxbar = 0.0, xybar = 0.0;
         for (int i = 0; i < x.length; i++) {
             xxbar += (x[i] - xbar) * (x[i] - xbar);
             xybar += (x[i] - xbar) * (y[i] - ybar);
@@ -30,15 +32,17 @@ public class LongLinearRegression {
         intercept = ybar - slope * xbar;
     }
 
-    public long getIntercept() {
+
+
+    public double getIntercept() {
         return intercept;
     }
 
-    public long getSlope() {
+    public double getSlope() {
         return slope;
     }
 
-    public long predict(long x) {
+    public double predict(double x) {
         return slope*x + intercept;
     }
 

@@ -1,29 +1,29 @@
-package org.jml.regression.linear;
+package org.jml.regression.linear.doubles;
 
-import jdk.incubator.vector.LongVector;
+import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.VectorOperators;
 import jdk.incubator.vector.VectorSpecies;
 
-public class LongVectorLinearRegression {
+public class DoubleVectorLinearRegression {
 
-    private long intercept;
-    private long slope;
-    static final VectorSpecies<Long> SPECIES = LongVector.SPECIES_PREFERRED;
+    static final VectorSpecies<Double> SPECIES = DoubleVector.SPECIES_PREFERRED;
     static final int SPECIES_LENGTH = SPECIES.length();
+    private double intercept;
+    private double slope;
 
-    public void fit(long[] x, long[] y) {
+    public void fit(double[] x, double[] y) {
         if (x.length != y.length) throw new IllegalArgumentException("Arrays length are not equals");
 
 
-        long sumx = 0, sumy = 0;
+        double sumx = 0, sumy = 0;
 
         int i = 0; // number of elements for vector
-        int upperBound = SPECIES.loopBound(x.length); // defines the upperbound of array length in which a vector transformation can be applied
-        LongVector sumxV = LongVector.zero(SPECIES);
-        LongVector sumyV = LongVector.zero(SPECIES);
+        double upperBound = SPECIES.loopBound(x.length); // defines the upperbound of array length in which a vector transformation can be applied
+        DoubleVector sumxV = DoubleVector.zero(SPECIES);
+        DoubleVector sumyV = DoubleVector.zero(SPECIES);
         for (; i < upperBound; i += SPECIES_LENGTH) {
-            sumxV = sumxV.add(LongVector.fromArray(SPECIES, x, i));
-            sumyV = sumyV.add(LongVector.fromArray(SPECIES, y, i));
+            sumxV = sumxV.add(DoubleVector.fromArray(SPECIES, x, i));
+            sumyV = sumyV.add(DoubleVector.fromArray(SPECIES, y, i));
         }
 
         sumx += sumxV.reduceLanes(VectorOperators.ADD);
@@ -34,18 +34,18 @@ public class LongVectorLinearRegression {
             sumy += y[i];
         }
 
-        long xbar = sumx / x.length;
-        long ybar = sumy / x.length;
+        double xbar = sumx / x.length;
+        double ybar = sumy / x.length;
 
-        long xxbar = 0;
-        long xybar = 0;
+        double xxbar = 0;
+        double xybar = 0;
 
         i = 0;
-        LongVector xxbarV = LongVector.zero(SPECIES);
-        LongVector xybarV = LongVector.zero(SPECIES);
+        DoubleVector xxbarV = DoubleVector.zero(SPECIES);
+        DoubleVector xybarV = DoubleVector.zero(SPECIES);
         for (; i < upperBound; i += SPECIES_LENGTH) {
-            var xs = LongVector.fromArray(SPECIES, x, i).sub(xbar);
-            xxbarV = xxbarV.add(LongVector.fromArray(SPECIES, y, i).sub(ybar).mul(xs));
+            var xs = DoubleVector.fromArray(SPECIES, x, i).sub(xbar);
+            xxbarV = xxbarV.add(DoubleVector.fromArray(SPECIES, y, i).sub(ybar).mul(xs));
             xybarV = xybarV.add(xs.mul(xs));
         }
 
@@ -61,16 +61,17 @@ public class LongVectorLinearRegression {
         intercept = ybar - slope * xbar;
     }
 
-    public long getIntercept() {
+
+    public double getIntercept() {
         return intercept;
     }
 
-    public long getSlope() {
+    public double getSlope() {
         return slope;
     }
 
-    public long predict(long x) {
-        return slope*x + intercept;
+    public double predict(double x) {
+        return slope * x + intercept;
     }
 
     @Override

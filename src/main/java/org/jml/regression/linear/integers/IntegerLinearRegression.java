@@ -1,4 +1,4 @@
-package org.jml.regression.linear;
+package org.jml.regression.linear.integers;
 
 // -XX:UseAVX=0
 //-XX:+TraceLoopOtps
