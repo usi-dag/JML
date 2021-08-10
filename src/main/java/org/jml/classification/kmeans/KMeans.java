@@ -1,6 +1,7 @@
 package org.jml.classification.kmeans;
 
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -8,10 +9,11 @@ import java.util.Random;
 public class KMeans {
 
     private int size;
+    private int dimension;
     private int n_cluster;
-    private double[][] distanceMatrix = new double[size][n_cluster];
-    private final double[][] centroids = new double[n_cluster][];
-    private int[] cluster_ids = new int[size];
+    private double[][] distanceMatrix;
+    private double[][] centroids;
+    private int[] cluster_ids;
     private final Random random = new Random();
 
 
@@ -22,28 +24,41 @@ public class KMeans {
      */
     public void fit(final double[][] x, final int n_cluster) {
         this.n_cluster = n_cluster;
-        this.size = x[0].length;
+        this.size = x.length;
+        this.dimension = x[0].length;
+        this.distanceMatrix = new double[size][n_cluster];
+        this.centroids = new double[n_cluster][dimension];
+        this.cluster_ids = new int[size];
         //TODO use kmeans++ to choose the centroid instead of simple randomization
         randomCentroid(x);
 
         // compute the distance matrix of the centroid
-        l2Matrix(x);
+        boolean updated = true;
+        while (updated) { // new centroid
+            l2Matrix(x, centroids, distanceMatrix);
 
-        //assign each point
-        for (int i = 0; i < size; i++) {
-            double min = distanceMatrix[i][0];
-            int min_pos = 0;
-            for (int j = 0; j < n_cluster; j++) {
-                if (distanceMatrix[i][j] < min) {
-                    min = distanceMatrix[i][j];
-                    min_pos = j;
+            //assign each point
+            for (int i = 0; i < size; i++) {
+                double min = distanceMatrix[i][0];
+                int min_pos = 0;
+                for (int j = 0; j < n_cluster; j++) {
+                    if (distanceMatrix[i][j] < min) {
+                        min = distanceMatrix[i][j];
+                        min_pos = j;
+                    }
                 }
+
+                cluster_ids[i] = min_pos;
             }
+            System.out.println(Arrays.deepToString(centroids));
+            System.out.println(Arrays.toString(cluster_ids));
+//            System.out.println(Arrays.deepToString(distanceMatrix));
+//            System.out.println("DM " + Arrays.deepToString(distanceMatrix));
+            double[][] newCentroids = recomputeCentroid(x);
 
-            cluster_ids[i] = min_pos;
+            updated = !Arrays.deepEquals(newCentroids, centroids);
+            centroids = newCentroids;
         }
-
-        //TODO recompute centroid
     }
 
     /**
@@ -68,11 +83,21 @@ public class KMeans {
      * calculate all the euclidean distances for all points
      * in the dataset and store it in the distance matrix
      */
-    private void l2Matrix(double[][] x) {
+    private void l2Matrix(double[][] x, double[][] centroids, double[][] distanceMatrix) {
 
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < n_cluster; j++) {
+                distanceMatrix[i][j] = euclideanDistance(centroids[j], x[i]);
+            }
+        }
+
+
+    }
+
+    private void l2HorizontalMatrix(double[][] x, double[][] medeoids, double[][] distanceMatrix) {
         for (int i = 0; i < n_cluster; i++) {
             for (int j = 0; j < size; j++) {
-                distanceMatrix[j][i] = euclideanDistance(centroids[i], x[j]);
+                distanceMatrix[i][j] = euclideanDistance(medeoids[i], x[j]);
             }
         }
     }
@@ -80,7 +105,7 @@ public class KMeans {
     private double euclideanDistance(double[] x, double[] y) {
         double dist = 0;
 
-        for (int i = 0; i < x.length; i++) {
+        for (int i = 0; i < this.dimension; i++) {
             dist += x[i] * x[i] + y[i] * y[i] + -2 * x[i] * y[i];
         }
 
@@ -92,7 +117,7 @@ public class KMeans {
      */
     private void randomCentroid(double[][] x) {
         for(int i = 0; i < this.n_cluster; ++i) {
-            centroids[i] = x[random.nextInt()];
+            centroids[i] = x[random.nextInt(size)];
         }
     }
 
@@ -102,21 +127,77 @@ public class KMeans {
      * set as centroid the point with minimum of
      * this point.
      */
-    private void recomputeCentroid(double[][] x) {
-        double[][] meanCentroids = new double[n_cluster][x[0].length];
+    private double[][] recomputeCentroid(double[][] x) {
+        double[][] medeoids = new double[n_cluster][dimension];
 
         for (int i = 0; i < n_cluster; i++) {
+            int counter = 0;
+            for (int j = 0; j < size; j++) {
+                if (i == cluster_ids[j]) counter++;
+            }
             for (int j = 0; j < size; j++) {
                 if (i == cluster_ids[j]) {
-                    for (int k = 0; k < x[0].length; k++) {
-                        //TODO mean centroid -> better to save centroid in hashmap (id -> point (double[]))
-                        meanCentroids[i][k] += x[i][k] / x.length;
+                    for (int k = 0; k < dimension; k++) {
+                        medeoids[i][k] += x[j][k] / counter;
+
                     }
                 }
             }
         }
 
-        //TODO find minimum distance point to mean centroid and check if they differ from previous one
+        double[][] medeoidDistanceMatrix = new double[n_cluster][size];
 
+
+        // find near point to medeoid with a new distance matrix
+        l2HorizontalMatrix(x, medeoids, medeoidDistanceMatrix);
+
+        // assign point with minimum distance to be new cluster
+        double[][] updatedCentroids = new double[n_cluster][dimension];
+
+        for (int i = 0; i < n_cluster; i++) {
+            double minDist = Double.POSITIVE_INFINITY;
+            for (int j = 0; j < size; j++) {
+                if (medeoidDistanceMatrix[i][j] < minDist) {
+                    minDist = medeoidDistanceMatrix[i][j];
+                    updatedCentroids[i] = x[j];
+                }
+            }
+        }
+        return updatedCentroids;
+    }
+
+    public double[][] getCentroids() {
+        return centroids;
+    }
+
+    public static void main(String[] args) {
+        KMeans kMeans = new KMeans();
+
+        double[][] dataset = new double[18][2];
+
+        dataset[0] = new double[]{0, 0};
+        dataset[1] = new double[]{0, 1};
+        dataset[2] = new double[]{0, 2};
+        dataset[3] = new double[]{1, 0};
+        dataset[4] = new double[]{1, 1};
+        dataset[5] = new double[]{1, 2};
+        dataset[6] = new double[]{2, 0};
+        dataset[7] = new double[]{2, 1};
+        dataset[8] = new double[]{2, 2};
+        dataset[9] = new double[]{5, 5};
+        dataset[10] = new double[]{5, 6};
+        dataset[11] = new double[]{5, 7};
+        dataset[12] = new double[]{6, 5};
+        dataset[13] = new double[]{6, 6};
+        dataset[14] = new double[]{6, 7};
+        dataset[15] = new double[]{7, 5};
+        dataset[16] = new double[]{7, 6};
+        dataset[17] = new double[]{7, 7};
+
+        kMeans.fit(dataset, 2);
+
+        System.out.println("Predict: " + kMeans.predict(new double[]{4, 8}));
+
+        System.out.println(Arrays.deepToString(kMeans.getCentroids()));
     }
 }
