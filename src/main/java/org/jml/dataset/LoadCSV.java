@@ -1,38 +1,23 @@
 package org.jml.dataset;
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.Buffer;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class LoadCSV {
 
-    public static void main(String[] args) {
-        LoadCSV loader = new LoadCSV("weatherHistory.csv");
+    public static void main(String[] args) throws IOException {
+        LoadCSV loader = new LoadCSV("sample.csv");
         Map<String, List<String>> records = loader.getRecords();
+        ArrayList<String> C = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+                .map(Object::toString)
+                .collect(Collectors.toCollection(ArrayList::new));
+        loader.addRecord("C", C);
 
-
-
-        long size = 100_000_000;
-
-
-
-        double[] dxs = records.get("Temperature (C)").stream()
-                .mapToDouble(Double::parseDouble)
-                .toArray();
-
-        double[] xxs = Collections.nCopies(500, dxs)
-                .stream()
-                .flatMapToDouble(Arrays::stream)
-                .limit(size)
-                .toArray();
-
-
-
-
-
-        System.out.println(xxs.length);
 
     }
 
@@ -62,6 +47,34 @@ public class LoadCSV {
             e.printStackTrace();
         }
     }
+
+    public void saveCSV(String filename) throws IOException {
+
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+            for (int i = 0; i < index.size(); i++) {
+
+                bw.write(index.get(i));
+                if (i != index.size() -1) bw.write(COMMA_DELIMITER);
+            }
+            bw.newLine();
+
+            int size = records.get(index.get(0)).size();
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < records.size(); j++) {
+                    bw.write(records.get(index.get(j)).get(i));
+                    if (j != records.size() - 1)  bw.write(COMMA_DELIMITER);
+                }
+                bw.newLine();
+            }
+
+        }
+    }
+
+    public void addRecord(String indexName, List<String> record) {
+        index.put(index.size(), indexName);
+        records.put(indexName, record);
+    }
+
 
     public Map<String, List<String>> getRecords() {
         return records;
