@@ -103,7 +103,7 @@ public class KMeans {
     private double euclideanDistance(double[] x, double[] y) {
         double dist = 0;
 
-        for (int i = 0; i < this.dimension; i++) {
+        for (int i = 0; i < dimension; i++) {
             dist += x[i] * x[i] + y[i] * y[i] + -2 * x[i] * y[i];
         }
 
