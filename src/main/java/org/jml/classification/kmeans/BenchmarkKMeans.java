@@ -41,7 +41,7 @@ public class BenchmarkKMeans {
     public void testKMeans(MyState state, Blackhole sink) {
         KMeans kMeans = new KMeans();
         for (int i = 0; i < 100; i++) {
-            kMeans.fit(state.dataset, 2);
+            kMeans.fit(state.dataset, 8);
             sink.consume(kMeans.predict(new double[]{3, 0.5}));
         }
     }
@@ -51,7 +51,7 @@ public class BenchmarkKMeans {
     public void testKMeansVector(MyState state, Blackhole sink) {
         KMeansVector kMeans = new KMeansVector();
         for (int i = 0; i < 100; i++) {
-            kMeans.fit(state.dataset, 2);
+            kMeans.fit(state.dataset, 8);
             sink.consume(kMeans.predict(new double[]{3, 0.5}));
         }
     }

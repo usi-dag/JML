@@ -4,6 +4,7 @@ import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.VectorMask;
 import jdk.incubator.vector.VectorOperators;
 import jdk.incubator.vector.VectorSpecies;
+import org.apache.commons.math3.util.DoubleArray;
 import org.jml.dataset.LoadCSV;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 public class KMeansVector{
 
@@ -49,22 +51,10 @@ public class KMeansVector{
 
             //assign each point
             for (int i = 0; i < size; i++) {
-//                cluster_ids[i] = findMinIndex(distanceMatrix[i]);
-//TODO check how to initialize vector if has less than SPECIES elements (possible with DOUBLE.POSITIVE_INFINITE)
-                double min = distanceMatrix[i][0];
-                int min_pos = 0;
-                for (int j = 0; j < n_cluster; j++) {
-                    if (distanceMatrix[i][j] < min) {
-                        //TODO vectorize min point cluster search [-- n_cluster --] where n_cluster > 2
-                         min = distanceMatrix[i][j];
-                        min_pos = j;
-                    }
-                }
-
-                cluster_ids[i] = min_pos;
+                cluster_ids[i] = findMinIndex(distanceMatrix[i]);
             }
-            double[][] newCentroids = recomputeCentroid(x);
 
+            double[][] newCentroids = recomputeCentroid(x);
             updated = !Arrays.deepEquals(newCentroids, centroids);
             centroids = newCentroids;
         }
@@ -185,36 +175,49 @@ public class KMeansVector{
     }
 
     private int findMinIndex(double[] data) {
-//        System.out.println(Arrays.toString(data));
-        int upperBound = SPECIES.loopBound(data.length);
-        DoubleVector minValues = DoubleVector.fromArray(SPECIES, data, 0);
-        DoubleVector indices = DoubleVector.fromArray(SPECIES, new double[]{0, 1, 2, 3}, 0);
-        int i;
-        for (i = SPECIES_LENGTH; i < upperBound; i += SPECIES_LENGTH) {
-            DoubleVector mask = DoubleVector.fromArray(SPECIES, data, i);
-            VectorMask<Double> less = mask.lt(minValues);
-            minValues = minValues.min(mask);
-            DoubleVector current_indices = DoubleVector.fromArray(SPECIES, new double[]{i, i+1, i+2, i+3}, 0);
-            indices = indices.blend(current_indices, less);
-        }
 
-
-        // scalar part to find min inside the 4 double element index
-        double[] values = minValues.toDoubleArray();
-        double min = values[0];
         int index = 0;
-        for (int j = 1; j < values.length; j++) {
-            if (values[j] < min) {
-                min = values[j];
-                index = j;
+        int i = 0;
+        double min = Double.POSITIVE_INFINITY;
+        double[] ind = new double[]{0, 1, 2, 3};
+        if (SPECIES_LENGTH < data.length) {
+            int upperBound = SPECIES.loopBound(data.length);
+            DoubleVector minValues = DoubleVector.fromArray(SPECIES, data, 0);
+            DoubleVector indices = DoubleVector.fromArray(SPECIES, ind, 0);
+            DoubleVector currentIndices = indices;
+            for (i = SPECIES_LENGTH; i < upperBound; i += SPECIES_LENGTH) {
+                DoubleVector mask = DoubleVector.fromArray(SPECIES, data, i);
+                VectorMask<Double> less = mask.lt(minValues);
+                minValues = minValues.min(mask);
+                // todo 512 arch
+                currentIndices =  currentIndices.add(SPECIES_LENGTH);
+                indices = indices.blend(currentIndices, less);
             }
+//        #define X
+//        #ifdef X
+//                #define create_indices(i) __mm__256(...)
+//        #else
+//                #define create_indices(i) __mm__128(...)
+//        #endif
+//
+//                create_indices(0);
+
+
+            // scalar part to find min inside the 4 double element index
+            double[] values = minValues.toDoubleArray();
+            min = values[0];
+            for (int j = 0; j < values.length; j++) {
+                if (values[j] < min) {
+                    min = values[j];
+                    index = j;
+                }
+            }
+
+            index = indices.toIntArray()[index];
         }
 
-        index = indices.toIntArray()[index];
         // scalar to find min in residuals
-
         for (; i < data.length; i++) {
-            System.out.println();
             if (data[i] < min) {
                 min = data[i];
                 index = i;
