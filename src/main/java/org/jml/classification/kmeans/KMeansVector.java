@@ -49,6 +49,8 @@ public class KMeansVector{
 
             //assign each point
             for (int i = 0; i < size; i++) {
+//                cluster_ids[i] = findMinIndex(distanceMatrix[i]);
+//TODO check how to initialize vector if has less than SPECIES elements (possible with DOUBLE.POSITIVE_INFINITE)
                 double min = distanceMatrix[i][0];
                 int min_pos = 0;
                 for (int j = 0; j < n_cluster; j++) {
@@ -168,7 +170,6 @@ public class KMeansVector{
 
         double[][] medeoidDistanceMatrix = new double[n_cluster][size];
 
-
         // find near point to medeoid with a new distance matrix
         l2HorizontalMatrix(x, medeoids, medeoidDistanceMatrix);
 
@@ -176,16 +177,51 @@ public class KMeansVector{
         double[][] updatedCentroids = new double[n_cluster][dimension];
 
         for (int i = 0; i < n_cluster; i++) {
-            double minDist = Double.POSITIVE_INFINITY;
-            for (int j = 0; j < size; j++) {
-                if (medeoidDistanceMatrix[i][j] < minDist) {
-                    //TODO vecrtorize points to single centroid serch [--- size ----] <-- min
-                    minDist = medeoidDistanceMatrix[i][j];
-                    updatedCentroids[i] = x[j];
-                }
+            int index = findMinIndex(medeoidDistanceMatrix[i]);
+            updatedCentroids[i] = x[index];
+        }
+
+        return updatedCentroids;
+    }
+
+    private int findMinIndex(double[] data) {
+//        System.out.println(Arrays.toString(data));
+        int upperBound = SPECIES.loopBound(data.length);
+        DoubleVector minValues = DoubleVector.fromArray(SPECIES, data, 0);
+        DoubleVector indices = DoubleVector.fromArray(SPECIES, new double[]{0, 1, 2, 3}, 0);
+        int i;
+        for (i = SPECIES_LENGTH; i < upperBound; i += SPECIES_LENGTH) {
+            DoubleVector mask = DoubleVector.fromArray(SPECIES, data, i);
+            VectorMask<Double> less = mask.lt(minValues);
+            minValues = minValues.min(mask);
+            DoubleVector current_indices = DoubleVector.fromArray(SPECIES, new double[]{i, i+1, i+2, i+3}, 0);
+            indices = indices.blend(current_indices, less);
+        }
+
+
+        // scalar part to find min inside the 4 double element index
+        double[] values = minValues.toDoubleArray();
+        double min = values[0];
+        int index = 0;
+        for (int j = 1; j < values.length; j++) {
+            if (values[j] < min) {
+                min = values[j];
+                index = j;
             }
         }
-        return updatedCentroids;
+
+        index = indices.toIntArray()[index];
+        // scalar to find min in residuals
+
+        for (; i < data.length; i++) {
+            System.out.println();
+            if (data[i] < min) {
+                min = data[i];
+                index = i;
+            }
+        }
+
+        return index;
     }
 
     public double[][] getCentroids() {
@@ -225,33 +261,12 @@ public class KMeansVector{
 //
 //        System.out.println(Arrays.deepToString(kMeans.getCentroids()));
 
-        double[] data = new double[]{1, 4, 2, 4, 5, 0, 10, 2, 7, 6, 1, 5};
-        int upperBound = SPECIES.loopBound(data.length);
-        DoubleVector minValues = DoubleVector.fromArray(SPECIES, data, 0);
-        DoubleVector indices = DoubleVector.fromArray(SPECIES, new double[]{0, 1, 2, 3}, 0);
-
-        for (int i = SPECIES_LENGTH; i < upperBound; i += SPECIES_LENGTH) {
-            DoubleVector mask = DoubleVector.fromArray(SPECIES, data, i);
-            VectorMask<Double> less = mask.lt(minValues);
-            minValues = minValues.min(mask);
-            DoubleVector current_indices = DoubleVector.fromArray(SPECIES, new double[]{i, i+1, i+2, i+3}, 0);
-            indices = indices.blend(current_indices, less);
-        }
-
-        // scalar part to find min inside the 4 double element index
-        double[] values = minValues.toDoubleArray();
-        double min = values[0];
-        int index = 0;
-        for (int i = 1; i < values.length; i++) {
-            if (values[i] < min) {
-                min = values[i];
-                index = i;
-            }
-        }
-
-        int cluster_index = indices.toIntArray()[index];
-
-        System.out.println("Min index is: " + cluster_index + ", minimum is: " + data[cluster_index]);
+//        double[] data = new double[]{1, 4, 2, 4, 5, 0, 10, 2, 7, 6, 1, 5, -1, 0};
+//
+//        KMeansVector kMeansVector = new KMeansVector();
+//
+//        int index = kMeansVector.findMinIndex(data);
+//        System.out.println("index is: " + index + ", min is: " + data[index]);
     }
 
 }
