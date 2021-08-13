@@ -189,8 +189,6 @@ public class KMeansVector{
                     }
                 }
             }
-
-            System.out.println(Arrays.deepToString(medeoids));
         }
 
         if (!calculateCentroids) {
