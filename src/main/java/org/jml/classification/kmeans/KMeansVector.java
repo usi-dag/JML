@@ -1,19 +1,11 @@
 package org.jml.classification.kmeans;
 
-import jdk.incubator.vector.DoubleVector;
-import jdk.incubator.vector.VectorMask;
-import jdk.incubator.vector.VectorOperators;
-import jdk.incubator.vector.VectorSpecies;
-import org.apache.commons.math3.util.DoubleArray;
-import org.jml.dataset.LoadCSV;
+import jdk.incubator.vector.*;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
+
 
 public class KMeansVector{
 
@@ -24,9 +16,18 @@ public class KMeansVector{
     private double[][] centroids;
     private int[] cluster_ids;
     private final Random random = new Random();
+    private boolean calculateCentroids = true;
+    static final VectorSpecies<Double> DOUBLE_SPECIES = DoubleVector.SPECIES_PREFERRED;
+    static final int DOUBLE_SPECIES_LENGTH = DOUBLE_SPECIES.length();
 
-    static final VectorSpecies<Double> SPECIES = DoubleVector.SPECIES_PREFERRED;
-    static final int SPECIES_LENGTH = SPECIES.length();
+    static final VectorSpecies<Integer> INTEGER_SPECIES = IntVector.SPECIES_PREFERRED;
+    static final int INTEGER_SPECIES_LENGTH = INTEGER_SPECIES.length();
+
+    KMeansVector() {}
+
+    KMeansVector(boolean calculateCentroids) {
+        this.calculateCentroids = calculateCentroids;
+    }
 
 
     /**
@@ -85,7 +86,6 @@ public class KMeansVector{
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < n_cluster; j++) {
-                //TODO is possible to vectorize this loop (for the same i calculate 2 js)
                 distanceMatrix[i][j] = euclideanDistance(centroids[j], x[i]);
             }
         }
@@ -96,7 +96,6 @@ public class KMeansVector{
     private void l2HorizontalMatrix(double[][] x, double[][] medeoids, double[][] distanceMatrix) {
         for (int i = 0; i < n_cluster; i++) {
             for (int j = 0; j < size; j++) {
-                //TODO is possible to vectorize this loop (for the same i calculate 2 js)
                 distanceMatrix[i][j] = euclideanDistance(medeoids[i], x[j]);
             }
         }
@@ -104,15 +103,15 @@ public class KMeansVector{
 
     private double euclideanDistance(double[] x, double[] y) {
         double dist = 0;
-        int upperBound = SPECIES.loopBound(x.length);
+        int upperBound = DOUBLE_SPECIES.loopBound(dimension);
 
         int i;
         DoubleVector xs;
         DoubleVector ys;
 
-        for (i = 0; i < upperBound; i += SPECIES_LENGTH) {
-            xs = DoubleVector.fromArray(SPECIES, x, i);
-            ys = DoubleVector.fromArray(SPECIES, y, i);
+        for (i = 0; i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
+            xs = DoubleVector.fromArray(DOUBLE_SPECIES, x, i);
+            ys = DoubleVector.fromArray(DOUBLE_SPECIES, y, i);
 
             xs = xs.sub(ys);
             dist +=  xs.mul(xs).reduceLanes(VectorOperators.ADD); ;
@@ -142,20 +141,60 @@ public class KMeansVector{
      */
     private double[][] recomputeCentroid(double[][] x) {
         double[][] medeoids = new double[n_cluster][dimension];
+        int [] clusterSizes = new int[n_cluster];
 
-        for (int i = 0; i < n_cluster; i++) {
-            int counter = 0;
-            for (int j = 0; j < size; j++) {
-                if (i == cluster_ids[j]) counter++;
+        int upperBound = INTEGER_SPECIES.loopBound(cluster_ids.length);
+        int i = 0;
+        // Count size of cluster only if the number of cluster are less than the species length
+        // n_cluster * (size / SPECIES_LENGTH) -> number of iteration --> if n_cluster > SPECIES_LENGTH then more access than scalar
+        if (n_cluster < INTEGER_SPECIES_LENGTH) {
+            for (i = 0; i < upperBound; i += INTEGER_SPECIES_LENGTH) {
+                IntVector points = IntVector.fromArray(INTEGER_SPECIES, cluster_ids, i);
+                IntVector id = IntVector.broadcast(INTEGER_SPECIES, 0);
+                for (int j = 0; j < n_cluster; j++) {
+                    VectorMask<Integer> mask = points.compare(VectorOperators.EQ, id);
+                    clusterSizes[j] += mask.trueCount();
+                    id = id.add(1);
+                }
             }
+        }
+
+        for (; i < size; i++) {
+            clusterSizes[cluster_ids[i]] += 1;
+        }
+
+        // vectorized if and only if dimension is greater than upperbound
+        upperBound = DOUBLE_SPECIES.loopBound(dimension);
+        i = 0;
+        for (; i < n_cluster; i++) {
+            DoubleVector medeoid = DoubleVector.zero(DOUBLE_SPECIES);
+            int k = 0;
+            for (; k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+                for (int j = 0; j < size; j++) {
+                    if (i == cluster_ids[j]) {
+                        medeoid = medeoid.add(DoubleVector.fromArray(DOUBLE_SPECIES, x[j], k));
+                    }
+                }
+                double[] meanMedeoid = medeoid.div(clusterSizes[i]).toDoubleArray();
+                for (int j = 0; j < meanMedeoid.length; j++) {
+                    medeoids[i][k+j] = meanMedeoid[j];
+                }
+            }
+            // scalar part for remaining points
             for (int j = 0; j < size; j++) {
                 if (i == cluster_ids[j]) {
-                    for (int k = 0; k < dimension; k++) {
-                        medeoids[i][k] += x[j][k] / counter; //TODO Vectorize
+                    for (int dim = k; dim < dimension; dim++) {
+                        medeoids[i][dim] += x[j][dim] / clusterSizes[i];
 
                     }
                 }
             }
+
+            System.out.println(Arrays.deepToString(medeoids));
+        }
+
+        if (!calculateCentroids) {
+            return medeoids;
         }
 
         double[][] medeoidDistanceMatrix = new double[n_cluster][size];
@@ -166,7 +205,7 @@ public class KMeansVector{
         // assign point with minimum distance to be new cluster
         double[][] updatedCentroids = new double[n_cluster][dimension];
 
-        for (int i = 0; i < n_cluster; i++) {
+        for (i = 0; i < n_cluster; i++) {
             int index = findMinIndex(medeoidDistanceMatrix[i]);
             updatedCentroids[i] = x[index];
         }
@@ -179,40 +218,33 @@ public class KMeansVector{
         int index = 0;
         int i = 0;
         double min = Double.POSITIVE_INFINITY;
-        double[] ind = new double[]{0, 1, 2, 3};
-        if (SPECIES_LENGTH < data.length) {
-            int upperBound = SPECIES.loopBound(data.length);
-            DoubleVector minValues = DoubleVector.fromArray(SPECIES, data, 0);
-            DoubleVector indices = DoubleVector.fromArray(SPECIES, ind, 0);
+
+        if (DOUBLE_SPECIES_LENGTH < data.length) {
+            double[] ind = new double[DOUBLE_SPECIES_LENGTH];
+            for (int j = 0; j < DOUBLE_SPECIES_LENGTH; j++) {
+                ind[j] = j;
+            }
+
+            int upperBound = DOUBLE_SPECIES.loopBound(data.length);
+            DoubleVector minValues = DoubleVector.fromArray(DOUBLE_SPECIES, data, 0);
+            DoubleVector indices = DoubleVector.fromArray(DOUBLE_SPECIES, ind, 0);
             DoubleVector currentIndices = indices;
-            for (i = SPECIES_LENGTH; i < upperBound; i += SPECIES_LENGTH) {
-                DoubleVector mask = DoubleVector.fromArray(SPECIES, data, i);
+            for (i = DOUBLE_SPECIES_LENGTH; i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
+                DoubleVector mask = DoubleVector.fromArray(DOUBLE_SPECIES, data, i);
                 VectorMask<Double> less = mask.lt(minValues);
                 minValues = minValues.min(mask);
-                // todo 512 arch
-                currentIndices =  currentIndices.add(SPECIES_LENGTH);
+                currentIndices =  currentIndices.add(DOUBLE_SPECIES_LENGTH);
                 indices = indices.blend(currentIndices, less);
             }
-//        #define X
-//        #ifdef X
-//                #define create_indices(i) __mm__256(...)
-//        #else
-//                #define create_indices(i) __mm__128(...)
-//        #endif
-//
-//                create_indices(0);
 
-
-            // scalar part to find min inside the 4 double element index
+            // scalar part to find min inside the DOUBLE_SPECIES_LENGTH double element index
             double[] values = minValues.toDoubleArray();
-            min = values[0];
             for (int j = 0; j < values.length; j++) {
                 if (values[j] < min) {
                     min = values[j];
                     index = j;
                 }
             }
-
             index = indices.toIntArray()[index];
         }
 
@@ -236,40 +268,15 @@ public class KMeansVector{
     }
 
     public static void main(String[] args) throws IOException {
-//        KMeansVector kMeans = new KMeansVector();
-//        LoadCSV loader = new LoadCSV("weatherHistory.csv");
-//
-//        Map<String, List<String>> records = loader.getRecords();
-//
-//        List<String> temperature = records.get("Temperature (C)");
-//        List<String> humidity = records.get("Humidity");
-//
-//        double[][] dataset = new double[temperature.size()][2];
-//        for (int i = 0; i < temperature.size(); i++) {
-//            dataset[i] = new double[]{Double.parseDouble(temperature.get(i)), Double.parseDouble(humidity.get(i))};
-//        }
-//
-//
-//
-//        kMeans.fit(dataset, 3);
-//
-//        List<String> clusters = Arrays
-//                .stream(kMeans.getCluster_ids())
-//                .mapToObj(Integer::toString)
-//                .collect(Collectors.toList());
-//
-//        loader.addRecord("Cluster", clusters);
-//
-//        loader.saveCSV("weather.csv");
-//
-//        System.out.println(Arrays.deepToString(kMeans.getCentroids()));
-
-//        double[] data = new double[]{1, 4, 2, 4, 5, 0, 10, 2, 7, 6, 1, 5, -1, 0};
-//
-//        KMeansVector kMeansVector = new KMeansVector();
-//
-//        int index = kMeansVector.findMinIndex(data);
-//        System.out.println("index is: " + index + ", min is: " + data[index]);
     }
 
 }
+
+//        #define X
+//        #ifdef X
+//                #define create_indices(i) __mm__256(...)
+//        #else
+//                #define create_indices(i) __mm__128(...)
+//        #endif
+//
+//                create_indices(0);

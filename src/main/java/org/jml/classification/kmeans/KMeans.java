@@ -127,16 +127,17 @@ public class KMeans {
      */
     private double[][] recomputeCentroid(double[][] x) {
         double[][] medeoids = new double[n_cluster][dimension];
+        int [] clusterSizes = new int[n_cluster];
+
+        for (int i = 0; i < size; i++) {
+            clusterSizes[cluster_ids[i]] += 1;
+        }
 
         for (int i = 0; i < n_cluster; i++) {
-            int counter = 0;
-            for (int j = 0; j < size; j++) {
-                if (i == cluster_ids[j]) counter++;
-            }
             for (int j = 0; j < size; j++) {
                 if (i == cluster_ids[j]) {
                     for (int k = 0; k < dimension; k++) {
-                        medeoids[i][k] += x[j][k] / counter;
+                        medeoids[i][k] += x[j][k] / clusterSizes[i]; //TODO Vectorize
 
                     }
                 }
