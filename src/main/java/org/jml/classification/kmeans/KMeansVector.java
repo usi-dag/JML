@@ -43,7 +43,7 @@ public class KMeansVector{
         this.centroids = new double[n_cluster][dimension];
         this.cluster_ids = new int[size];
 
-        randomCentroid(x);
+        fixedCentroid(x);
 
         // compute the distance matrix of the centroid
         boolean updated = true;
@@ -132,6 +132,16 @@ public class KMeansVector{
             centroids[i] = x[random.nextInt(size)];
         }
     }
+
+    private void fixedCentroid(double[][] x) {
+        int dist = x.length / this.n_cluster;
+        int centroid = 0;
+        for (int i = 0; i < n_cluster; i++) {
+            centroids[i] = x[centroid];
+            centroid += dist;
+        }
+    }
+
 
     /**
      * Recompute the centroid of each cluster

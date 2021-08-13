@@ -32,7 +32,7 @@ public class KMeans {
         this.centroids = new double[n_cluster][dimension];
         this.cluster_ids = new int[size];
         //TODO use kmeans++ to choose the centroid instead of simple randomization
-        randomCentroid(x);
+        fixedCentroid(x);
 
         // compute the distance matrix of the centroid
         boolean updated = true;
@@ -116,6 +116,15 @@ public class KMeans {
     private void randomCentroid(double[][] x) {
         for(int i = 0; i < this.n_cluster; ++i) {
             centroids[i] = x[random.nextInt(size)];
+        }
+    }
+
+    private void fixedCentroid(double[][] x) {
+        int dist = x.length / this.n_cluster;
+        int centroid = 0;
+        for (int i = 0; i < n_cluster; i++) {
+            centroids[i] = x[centroid];
+            centroid += dist;
         }
     }
 
