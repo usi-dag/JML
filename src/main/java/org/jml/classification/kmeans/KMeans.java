@@ -35,8 +35,9 @@ public class KMeans {
         fixedCentroid(x);
 
         // compute the distance matrix of the centroid
-        boolean updated = true;
-        while (updated) { // new centroid
+        while (true) { // new centroid
+            boolean converged = true;
+
             l2Matrix(x, centroids, distanceMatrix);
 
             //assign each point
@@ -50,12 +51,16 @@ public class KMeans {
                     }
                 }
 
+                if (cluster_ids[i] != min_pos) {
+                    converged = false;
+                }
                 cluster_ids[i] = min_pos;
+
             }
             double[][] newCentroids = recomputeCentroid(x);
-
-            updated = !Arrays.deepEquals(newCentroids, centroids);
             centroids = newCentroids;
+
+            if (converged) break;
         }
     }
 
@@ -146,7 +151,7 @@ public class KMeans {
             for (int j = 0; j < size; j++) {
                 if (i == cluster_ids[j]) {
                     for (int k = 0; k < dimension; k++) {
-                        medeoids[i][k] += x[j][k] / clusterSizes[i]; //TODO Vectorize
+                        medeoids[i][k] += x[j][k] / clusterSizes[i];
 
                     }
                 }

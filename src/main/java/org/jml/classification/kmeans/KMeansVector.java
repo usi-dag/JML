@@ -46,18 +46,25 @@ public class KMeansVector{
         fixedCentroid(x);
 
         // compute the distance matrix of the centroid
-        boolean updated = true;
-        while (updated) { // new centroids
+
+        while (true) { // new centroids
+            boolean converged = true;
             l2Matrix(x, centroids, distanceMatrix);
 
             //assign each point
             for (int i = 0; i < size; i++) {
+                int current_cluster = cluster_ids[i];
                 cluster_ids[i] = findMinIndex(distanceMatrix[i]);
+
+                if (current_cluster != cluster_ids[i]) {
+                    converged = false;
+                }
             }
 
             double[][] newCentroids = recomputeCentroid(x);
-            updated = !Arrays.deepEquals(newCentroids, centroids);
             centroids = newCentroids;
+
+            if (converged) break;
         }
     }
 
@@ -157,7 +164,7 @@ public class KMeansVector{
         int i = 0;
         // Count size of cluster only if the number of cluster are less than the species length
         // n_cluster * (size / SPECIES_LENGTH) -> number of iteration --> if n_cluster > SPECIES_LENGTH then more access than scalar
-        if (n_cluster < INTEGER_SPECIES_LENGTH) {
+        if (false && n_cluster < INTEGER_SPECIES_LENGTH) {
             for (i = 0; i < upperBound; i += INTEGER_SPECIES_LENGTH) {
                 IntVector points = IntVector.fromArray(INTEGER_SPECIES, cluster_ids, i);
                 IntVector id = IntVector.broadcast(INTEGER_SPECIES, 0);
@@ -173,23 +180,23 @@ public class KMeansVector{
             clusterSizes[cluster_ids[i]] += 1;
         }
 
-        // vectorized if and only if dimension is greater than upperbound
+
         upperBound = DOUBLE_SPECIES.loopBound(dimension);
         i = 0;
         for (; i < n_cluster; i++) {
             DoubleVector medeoid = DoubleVector.zero(DOUBLE_SPECIES);
             int k = 0;
-            for (; k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-                for (int j = 0; j < size; j++) {
-                    if (i == cluster_ids[j]) {
-                        medeoid = medeoid.add(DoubleVector.fromArray(DOUBLE_SPECIES, x[j], k));
-                    }
-                }
-                double[] meanMedeoid = medeoid.div(clusterSizes[i]).toDoubleArray();
-                for (int j = 0; j < meanMedeoid.length; j++) {
-                    medeoids[i][k+j] = meanMedeoid[j];
-                }
-            }
+//            for (; k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+//                for (int j = 0; j < size; j++) {
+//                    if (i == cluster_ids[j]) {
+//                        medeoid = medeoid.add(DoubleVector.fromArray(DOUBLE_SPECIES, x[j], k));
+//                    }
+//                }
+//                double[] meanMedeoid = medeoid.div(clusterSizes[i]).toDoubleArray();
+//                for (int j = 0; j < meanMedeoid.length; j++) {
+//                    medeoids[i][k+j] = meanMedeoid[j];
+//                }
+//            }
             // scalar part for remaining points
             for (int j = 0; j < size; j++) {
                 if (i == cluster_ids[j]) {

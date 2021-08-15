@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BenchmarkKMeans {
 
-    static int ITERATIONS = 10;
+    static int ITERATIONS = 1;
     @State(Scope.Benchmark)
     public static class MyState {
         static LoadCSV loader = new LoadCSV("weatherHistory.csv");
@@ -159,7 +159,7 @@ public class BenchmarkKMeans {
     public void testKMeansDimension7(MyState state, Blackhole sink) {
         KMeans kMeans = new KMeans();
         for (int i = 0; i < ITERATIONS; i++) {
-            kMeans.fit(state.dataset6, 4);
+            kMeans.fit(state.dataset7, 4);
             sink.consume(kMeans.predict(new double[]{3, 0.5, 15, 280, 15, 0, 1000}));
         }
     }
@@ -169,7 +169,7 @@ public class BenchmarkKMeans {
     public void testKMeansVectorDimension7(MyState state, Blackhole sink) {
         KMeansVector kMeans = new KMeansVector();
         for (int i = 0; i < ITERATIONS; i++) {
-            kMeans.fit(state.dataset6, 4);
+            kMeans.fit(state.dataset7, 4);
             sink.consume(kMeans.predict(new double[]{3, 0.5, 15, 280, 15, 0, 1000}));
         }
     }
