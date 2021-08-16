@@ -164,7 +164,7 @@ public class KMeansVector{
         int i = 0;
         // Count size of cluster only if the number of cluster are less than the species length
         // n_cluster * (size / SPECIES_LENGTH) -> number of iteration --> if n_cluster > SPECIES_LENGTH then more access than scalar
-        if (false && n_cluster < INTEGER_SPECIES_LENGTH) {
+        if (n_cluster < INTEGER_SPECIES_LENGTH) {
             for (i = 0; i < upperBound; i += INTEGER_SPECIES_LENGTH) {
                 IntVector points = IntVector.fromArray(INTEGER_SPECIES, cluster_ids, i);
                 IntVector id = IntVector.broadcast(INTEGER_SPECIES, 0);
@@ -186,17 +186,17 @@ public class KMeansVector{
         for (; i < n_cluster; i++) {
             DoubleVector medeoid = DoubleVector.zero(DOUBLE_SPECIES);
             int k = 0;
-//            for (; k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-//                for (int j = 0; j < size; j++) {
-//                    if (i == cluster_ids[j]) {
-//                        medeoid = medeoid.add(DoubleVector.fromArray(DOUBLE_SPECIES, x[j], k));
-//                    }
-//                }
-//                double[] meanMedeoid = medeoid.div(clusterSizes[i]).toDoubleArray();
-//                for (int j = 0; j < meanMedeoid.length; j++) {
-//                    medeoids[i][k+j] = meanMedeoid[j];
-//                }
-//            }
+            for (; k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+                for (int j = 0; j < size; j++) {
+                    if (i == cluster_ids[j]) {
+                        medeoid = medeoid.add(DoubleVector.fromArray(DOUBLE_SPECIES, x[j], k));
+                    }
+                }
+                double[] meanMedeoid = medeoid.div(clusterSizes[i]).toDoubleArray();
+                for (int j = 0; j < meanMedeoid.length; j++) {
+                    medeoids[i][k+j] = meanMedeoid[j];
+                }
+            }
             // scalar part for remaining points
             for (int j = 0; j < size; j++) {
                 if (i == cluster_ids[j]) {
@@ -286,12 +286,3 @@ public class KMeansVector{
     }
 
 }
-
-//        #define X
-//        #ifdef X
-//                #define create_indices(i) __mm__256(...)
-//        #else
-//                #define create_indices(i) __mm__128(...)
-//        #endif
-//
-//                create_indices(0);

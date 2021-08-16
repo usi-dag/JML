@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BenchmarkKMeans {
 
-    static int ITERATIONS = 1;
+    static int ITERATIONS = 100;
     @State(Scope.Benchmark)
     public static class MyState {
         static LoadCSV loader = new LoadCSV("weatherHistory.csv");

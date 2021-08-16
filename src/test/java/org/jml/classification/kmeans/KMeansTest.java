@@ -24,16 +24,16 @@ class KMeansTest {
         final int N_CLUSTER = 2;
 
         double[][] dataset = new double[SIZE][DIMENSION];
-        dataset[0] = new double[]{0, 0};
-        dataset[1] = new double[]{0, 1};
-        dataset[2] = new double[]{0, 2};
-        dataset[3] = new double[]{1, 0};
-        dataset[4] = new double[]{1, 1};
-        dataset[5] = new double[]{1, 2};
-        dataset[6] = new double[]{2, 0};
-        dataset[7] = new double[]{2, 1};
-        dataset[8] = new double[]{2, 2};
-        dataset[9] = new double[]{5, 5};
+        dataset[0] =  new double[]{0, 0};
+        dataset[1] =  new double[]{0, 1};
+        dataset[2] =  new double[]{0, 2};
+        dataset[3] =  new double[]{1, 0};
+        dataset[4] =  new double[]{1, 1};
+        dataset[5] =  new double[]{1, 2};
+        dataset[6] =  new double[]{2, 0};
+        dataset[7] =  new double[]{2, 1};
+        dataset[8] =  new double[]{2, 2};
+        dataset[9] =  new double[]{5, 5};
         dataset[10] = new double[]{5, 6};
         dataset[11] = new double[]{5, 7};
         dataset[12] = new double[]{6, 5};
