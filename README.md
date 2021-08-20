@@ -34,3 +34,7 @@ BenchmarkLinearRegression.testLongVectorLinearRegression      ss   10  1151.612 
 - [instruction tables](https://www.agner.org/optimize/instruction_tables.pdf) - agner.org
 - [instrinsic guide intel](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#) - software.intel.com
 - [VCL library for GNU compiler](https://raw.githubusercontent.com/vectorclass/manual/master/vcl_manual.pdf)
+
+
+https://linuxize.com/post/how-to-install-apache-maven-on-ubuntu-20-04/
+https://java.tutorials24x7.com/blog/how-to-install-openjdk-16-on-ubuntu-20-04-lts

@@ -20,8 +20,7 @@ public class KMeans {
 
 
     /**
-     *
-     * @param x array list of point (represented as array)
+     * @param x         array list of point (represented as array)
      * @param n_cluster the number of cluster
      */
     public void fit(final double[][] x, final int n_cluster) {
@@ -65,7 +64,6 @@ public class KMeans {
     }
 
     /**
-     *
      * @param x a double array (double[]) representing the point in the n-space
      * @return the cluster id belonging to the input point x
      */
@@ -74,7 +72,7 @@ public class KMeans {
         int cluster_id = 0;
         double min = Double.POSITIVE_INFINITY;
         for (int i = 0; i < n_cluster; i++) {
-            if (euclideanDistance(x ,centroids[i]) < min) {
+            if (euclideanDistance(x, centroids[i]) < min) {
                 min = euclideanDistance(x, centroids[i]);
                 cluster_id = i;
             }
@@ -119,7 +117,7 @@ public class KMeans {
      * Select the initial @n_cluster centroid
      */
     private void randomCentroid(double[][] x) {
-        for(int i = 0; i < this.n_cluster; ++i) {
+        for (int i = 0; i < this.n_cluster; ++i) {
             centroids[i] = x[random.nextInt(size)];
         }
     }
@@ -141,7 +139,7 @@ public class KMeans {
      */
     private double[][] recomputeCentroid(double[][] x) {
         double[][] medeoids = new double[n_cluster][dimension];
-        int [] clusterSizes = new int[n_cluster];
+        int[] clusterSizes = new int[n_cluster];
 
         for (int i = 0; i < size; i++) {
             clusterSizes[cluster_ids[i]] += 1;
@@ -188,32 +186,47 @@ public class KMeans {
     }
 
     public static void main(String[] args) throws IOException {
-        KMeans kMeans = new KMeans();
-        LoadCSV loader = new LoadCSV("weatherHistory.csv");
+//        KMeans kMeans = new KMeans();
+//        LoadCSV loader = new LoadCSV("weatherHistory.csv");
+//
+//        Map<String, List<String>> records = loader.getRecords();
+//
+//        List<String> temperature = records.get("Temperature (C)");
+//        List<String> humidity = records.get("Humidity");
+//
+//        double[][] dataset = new double[temperature.size()][2];
+//        for (int i = 0; i < temperature.size(); i++) {
+//            dataset[i] = new double[]{Double.parseDouble(temperature.get(i)), Double.parseDouble(humidity.get(i))};
+//        }
+//
+//
+//
+//        kMeans.fit(dataset, 3);
+//
+//        List<String> clusters = Arrays
+//                .stream(kMeans.getCluster_ids())
+//                .mapToObj(Integer::toString)
+//                .collect(Collectors.toList());
+//
+//        loader.addRecord("Cluster", clusters);
+//
+//        loader.saveCSV("weather.csv");
+//
+//        System.out.println(Arrays.deepToString(kMeans.getCentroids()));
 
-        Map<String, List<String>> records = loader.getRecords();
-
-        List<String> temperature = records.get("Temperature (C)");
-        List<String> humidity = records.get("Humidity");
-
-        double[][] dataset = new double[temperature.size()][2];
-        for (int i = 0; i < temperature.size(); i++) {
-            dataset[i] = new double[]{Double.parseDouble(temperature.get(i)), Double.parseDouble(humidity.get(i))};
-        }
-
-
-
-        kMeans.fit(dataset, 3);
-
-        List<String> clusters = Arrays
-                .stream(kMeans.getCluster_ids())
-                .mapToObj(Integer::toString)
-                .collect(Collectors.toList());
-
-        loader.addRecord("Cluster", clusters);
-
-        loader.saveCSV("weather.csv");
-
-        System.out.println(Arrays.deepToString(kMeans.getCentroids()));
+        System.out.println(0 % 10);
+        System.out.println(1 % 10);
+        System.out.println(2 % 10);
+        System.out.println(3 % 10);
+        System.out.println(4 % 10);
+        System.out.println(5 % 10);
+        System.out.println(6 % 10);
+        System.out.println(7 % 10);
+        System.out.println(8 % 10);
+        System.out.println(9 % 10);
+        System.out.println(10 % 10);
+        System.out.println(11 % 10);
+        System.out.println(12 % 10);
     }
+
 }

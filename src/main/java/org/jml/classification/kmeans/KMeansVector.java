@@ -164,7 +164,7 @@ public class KMeansVector{
         int i = 0;
         // Count size of cluster only if the number of cluster are less than the species length
         // n_cluster * (size / SPECIES_LENGTH) -> number of iteration --> if n_cluster > SPECIES_LENGTH then more access than scalar
-        if (n_cluster < INTEGER_SPECIES_LENGTH) {
+        if (false && n_cluster < INTEGER_SPECIES_LENGTH) { // mask is not optimized therefore skip this loop
             for (i = 0; i < upperBound; i += INTEGER_SPECIES_LENGTH) {
                 IntVector points = IntVector.fromArray(INTEGER_SPECIES, cluster_ids, i);
                 IntVector id = IntVector.broadcast(INTEGER_SPECIES, 0);
@@ -234,7 +234,7 @@ public class KMeansVector{
         int i = 0;
         double min = Double.POSITIVE_INFINITY;
 
-        if (DOUBLE_SPECIES_LENGTH < data.length) {
+        if (false && DOUBLE_SPECIES_LENGTH < data.length) {// mask is not optimized therefore skip this loop
             double[] ind = new double[DOUBLE_SPECIES_LENGTH];
             for (int j = 0; j < DOUBLE_SPECIES_LENGTH; j++) {
                 ind[j] = j;

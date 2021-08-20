@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 
 
 public class BenchmarkKMeans {
-
-    static int ITERATIONS = 100;
+    static int LIMIT = 1_000_000;
+    static int ITERATIONS = 10;
     @State(Scope.Benchmark)
     public static class MyState {
         static LoadCSV loader = new LoadCSV("weatherHistory.csv");
@@ -29,7 +29,7 @@ public class BenchmarkKMeans {
         static List<String> loudCover = records.get("Loud Cover");
         static List<String> visibility = records.get("Visibility (km)");
         static List<String> pressure = records.get("Pressure (millibars)");
-
+        static int SIZE = temperature.size();
 
         public double[][] dataset2 = dimension2();
         public double[][] dataset4 = dimension4();
@@ -38,22 +38,22 @@ public class BenchmarkKMeans {
 
 
         static double[][] dimension2() {
-            double[][] dataset = new double[temperature.size()][2];
-            for (int i = 0; i < temperature.size(); i++) {
-                dataset[i] = new double[]{Double.parseDouble(temperature.get(i)), Double.parseDouble(humidity.get(i))};
+            double[][] dataset = new double[LIMIT][2];
+            for (int i = 0; i < LIMIT; i++) {
+                dataset[i] = new double[]{Double.parseDouble(temperature.get(i%SIZE)), Double.parseDouble(humidity.get(i%SIZE))};
             }
 
             return dataset;
         }
 
         static double[][] dimension4() {
-            double[][] dataset = new double[temperature.size()][4];
-            for (int i = 0; i < temperature.size(); i++) {
+            double[][] dataset = new double[LIMIT][4];
+            for (int i = 0; i < LIMIT; i++) {
                 dataset[i] = new double[]{
-                        Double.parseDouble(temperature.get(i)),
-                        Double.parseDouble(humidity.get(i)),
-                        Double.parseDouble(windSpeed.get(i)),
-                        Double.parseDouble(windBearing.get(i))
+                        Double.parseDouble(temperature.get(i%SIZE)),
+                        Double.parseDouble(humidity.get(i%SIZE)),
+                        Double.parseDouble(windSpeed.get(i%SIZE)),
+                        Double.parseDouble(windBearing.get(i%SIZE))
                 };
             }
 
@@ -61,15 +61,15 @@ public class BenchmarkKMeans {
         }
 
         static double[][] dimension6() {
-            double[][] dataset = new double[temperature.size()][6];
-            for (int i = 0; i < temperature.size(); i++) {
+            double[][] dataset = new double[LIMIT][6];
+            for (int i = 0; i < LIMIT; i++) {
                 dataset[i] = new double[]{
-                        Double.parseDouble(temperature.get(i)),
-                        Double.parseDouble(humidity.get(i)),
-                        Double.parseDouble(windSpeed.get(i)),
-                        Double.parseDouble(windBearing.get(i)),
-                        Double.parseDouble(loudCover.get(i)),
-                        Double.parseDouble(visibility.get(i))
+                        Double.parseDouble(temperature.get(i%SIZE)),
+                        Double.parseDouble(humidity.get(i%SIZE)),
+                        Double.parseDouble(windSpeed.get(i%SIZE)),
+                        Double.parseDouble(windBearing.get(i%SIZE)),
+                        Double.parseDouble(loudCover.get(i%SIZE)),
+                        Double.parseDouble(visibility.get(i%SIZE))
                 };
             }
 
@@ -77,16 +77,16 @@ public class BenchmarkKMeans {
         }
 
         static double[][] dimension7() {
-            double[][] dataset = new double[temperature.size()][7];
-            for (int i = 0; i < temperature.size(); i++) {
+            double[][] dataset = new double[LIMIT][7];
+            for (int i = 0; i < LIMIT; i++) {
                 dataset[i] = new double[]{
-                        Double.parseDouble(temperature.get(i)),
-                        Double.parseDouble(humidity.get(i)),
-                        Double.parseDouble(windSpeed.get(i)),
-                        Double.parseDouble(windBearing.get(i)),
-                        Double.parseDouble(loudCover.get(i)),
-                        Double.parseDouble(visibility.get(i)),
-                        Double.parseDouble(pressure.get(i))
+                        Double.parseDouble(temperature.get(i%SIZE)),
+                        Double.parseDouble(humidity.get(i%SIZE)),
+                        Double.parseDouble(windSpeed.get(i%SIZE)),
+                        Double.parseDouble(windBearing.get(i%SIZE)),
+                        Double.parseDouble(loudCover.get(i%SIZE)),
+                        Double.parseDouble(visibility.get(i%SIZE)),
+                        Double.parseDouble(pressure.get(i%SIZE))
                 };
             }
 
@@ -253,7 +253,4 @@ public class BenchmarkKMeans {
             sink.consume(kMeans.predict(new double[]{3, 0.5, 15, 280}));
         }
     }
-
-
-
 }
