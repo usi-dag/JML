@@ -78,7 +78,6 @@ public class Svm {
             double learningRate = ((double) 1)/ ((double) epoch);
             for (int i = 0; i < size; i++) {
                 if (y[i] * (dot(x[i], w)) < 1) {
-                    // TODO vectorized this loop
                     int j = 0;
                     if (vectorize) {
                         int upperBound = SPECIES.loopBound(w.length);
@@ -157,7 +156,7 @@ public class Svm {
      * @return the id of class which point belongs, predicted from the model (either 1 or -1)
      */
     public int predict(double[] x) {
-        System.out.println("Prediction = sgn(dot(x, w) - intercept) = " + "sgn(dot(" + Arrays.toString(x) + ", " + Arrays.toString(w) + ") - " + intercept + ") = sgn(" + dot(x, w) + " + " + intercept + ") = sgn(" + (dot(x, w) - intercept) + ") = " + Math.signum(dot(x, w) - intercept));
+//        System.out.println("Prediction = sgn(dot(x, w) - intercept) = " + "sgn(dot(" + Arrays.toString(x) + ", " + Arrays.toString(w) + ") - " + intercept + ") = sgn(" + dot(x, w) + " + " + intercept + ") = sgn(" + (dot(x, w) - intercept) + ") = " + Math.signum(dot(x, w) - intercept));
         return (int) Math.signum(dot(x, w) /*- intercept*/);
     }
 
