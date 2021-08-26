@@ -1,17 +1,49 @@
 package org.jml.classification.svm;
+import jdk.incubator.vector.DoubleVector;
+import jdk.incubator.vector.VectorOperators;
+import jdk.incubator.vector.VectorSpecies;
+
 import java.lang.Math;
 import java.util.Arrays;
 
 public class Svm {
 
+    static VectorSpecies<Double> SPECIES = DoubleVector.SPECIES_PREFERRED;
+    static int DOUBLE_SPECIES_LENGTH = SPECIES.length();
+
     private double [] w;
     private double intercept = 0;
+    private boolean vectorize;
+
+    public Svm() {
+        this.vectorize = false;
+    }
+
+    public Svm(boolean vectorize) {
+        this.vectorize = vectorize;
+    }
 
     private double dot(double[] a, double[] b) {
+
+
+        int  i = 0;
         double result = 0;
-        for (int  i = 0; i < a.length; i++) {
+
+        if (vectorize) {
+            int upperBound = SPECIES.loopBound(a.length);
+            var res = DoubleVector.zero(SPECIES);
+
+            for (; this.vectorize && i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
+                res =  res.add(DoubleVector.fromArray(SPECIES, a, i).mul(DoubleVector.fromArray(SPECIES, b, i)));
+            }
+
+            result += res.reduceLanes(VectorOperators.ADD);
+        }
+
+        for (; i < a.length; i++) {
             result += a[i] * b[i];
         }
+
         return result;
     }
 
@@ -22,9 +54,19 @@ public class Svm {
      * @param y list of the class label related to the x point
      */
     public void fit(double[][] x, double[] y, double regParm, int epochs) {
-         final int size = x.length;
-         final int dimension = x[0].length;
-         w = new double[dimension];
+        final int size = x.length;
+        final int dimension = x[0].length;
+        // intialize vector species for the number of feature (x dimension)
+        if (dimension < 3) {
+            SPECIES = DoubleVector.SPECIES_128;
+        } else if (dimension < 7) {
+            SPECIES = DoubleVector.SPECIES_256;
+        } else {
+            SPECIES = DoubleVector.SPECIES_MAX;
+        }
+        DOUBLE_SPECIES_LENGTH = SPECIES.length();
+
+        w = new double[dimension];
 
          // check that y contains only binary number 1 or -1
         for (double v : y) {
@@ -36,18 +78,50 @@ public class Svm {
             double learningRate = ((double) 1)/ ((double) epoch);
             for (int i = 0; i < size; i++) {
                 if (y[i] * (dot(x[i], w)) < 1) {
-                    for (int j = 0; j < w.length; j++) {
+                    // TODO vectorized this loop
+                    int j = 0;
+                    if (vectorize) {
+                        int upperBound = SPECIES.loopBound(w.length);
+
+                        for (; j < upperBound; j += DOUBLE_SPECIES_LENGTH) {
+                            var wv = DoubleVector.fromArray(SPECIES, w, j);
+                            var lrv = DoubleVector.broadcast(SPECIES, learningRate);
+                            wv = (DoubleVector.broadcast(SPECIES, 1).sub(lrv))
+                                    .mul(wv)
+                                    .add(
+                                            lrv
+                                                    .mul(DoubleVector.broadcast(SPECIES, regParm))
+                                                    .mul(DoubleVector.broadcast(SPECIES, y[i]))
+                                                    .mul(DoubleVector.fromArray(SPECIES, x[i], j))
+                                    )
+                            ;
+
+                            wv.intoArray(w, j);
+                        }
+                    }
+                    for (; j < w.length; j++) {
                         w[j] = (1 - learningRate) * w[j] + learningRate * regParm * y[i] * x[i][j];
                     }
                 } else {
-                    for (int j = 0; j < w.length; j++) {
+                    int j = 0;
+                    if (vectorize) {
+                        int upperBound = SPECIES.loopBound(w.length);
+
+                        for (; j < upperBound; j += DOUBLE_SPECIES_LENGTH) {
+                            var wv = DoubleVector.fromArray(SPECIES, w, j);
+                            var lrv = DoubleVector.broadcast(SPECIES, learningRate);
+                            wv = (DoubleVector.broadcast(SPECIES, 1).sub(lrv)).mul(wv);
+                            wv.intoArray(w, j);
+                        }
+                    }
+                    for (; j < w.length; j++) {
                         w[j] = (1 - learningRate) * w[j] ;
                     }
                 }
             }
         }
 
-        double min = Double.POSITIVE_INFINITY;
+        /*double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
 
         for (int i = 0; i < size; i++) {
@@ -61,17 +135,17 @@ public class Svm {
             }
         }
 
-        intercept = -((max+min)/2);
+        intercept = -((max+min)/2);*/
     }
 
-    private double distance(double[] a, double[] b) {
-        double dist = 0;
-        for (int i = 0; i < a.length; i++) {
-            dist += a[i] - b[i];
-        }
-
-        return dist;
-    }
+//    private double distance(double[] a, double[] b) {
+//        double dist = 0;
+//        for (int i = 0; i < a.length; i++) {
+//            dist += a[i] - b[i];
+//        }
+//
+//        return dist;
+//    }
 
     public void fit(double[][] x, double[] y) {
         fit(x, y, 40, 100000);
@@ -148,14 +222,14 @@ public class Svm {
             else y[i] = 1;
         }
 
-        Svm svm = new Svm();
+        Svm svm = new Svm(true);
 
         svm.fit(dataset, y);
         double w[] = svm.getWeights();
         System.out.println("f(x) = a*x - b = " + (-w[0]/w[1]) + " + " + svm.getIntercept());
         System.out.println("i_: " + svm.getIntercept());
         System.out.println(Arrays.toString(svm.getWeights()));
-        System.out.println(svm.predict(new double[]{-3,4}));
+        System.out.println(svm.predict(new double[]{-3,-7}));
         System.out.println(svm.predict(new double[]{8, 8}));
 
     }
