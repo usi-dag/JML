@@ -429,9 +429,9 @@ class Solver {
 
 		int upperBound = DOUBLE_SPECIES.loopBound(l-active_size);
 		j=active_size;
-//		for (;this.vectorize && j < upperBound; j += DOUBLE_SPECIES_LENGTH) {
-//			DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, j).add(DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, j)).intoArray(G, j);
-//		}
+		for (;this.vectorize && j < upperBound; j += DOUBLE_SPECIES_LENGTH) {
+			DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, j).add(DoubleVector.fromArray(DOUBLE_SPECIES, p, j)).intoArray(G, j);
+		}
 
 		for(;j<l;j++)
 			G[j] = G_bar[j] + p[j];
@@ -548,7 +548,7 @@ class Solver {
 					double alpha_i = alpha[i];
 					int j = 0;
 //					for (;this.vectorize && j < upperBound; j += DOUBLE_SPECIES_LENGTH) {
-//						DoubleVector.fromArray(DOUBLE_SPECIES,Q_i, j).mul(alpha_i).intoArray(G, j);
+//						DoubleVector.fromArray(DOUBLE_SPECIES, G, j).add(DoubleVector.fromArray(DOUBLE_SPECIES,Q_i, j).mul(alpha_i)).intoArray(G, j);
 //					}
 
 					for(;j<l;j++)
@@ -734,16 +734,16 @@ class Solver {
 					k = 0;
 					upperBound = DOUBLE_SPECIES.loopBound(l);
 					if(ui) {
-						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).sub(DoubleVector.fromArray(DOUBLE_SPECIES, Q_i, k).mul(C_i));
-						}
+//						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+//							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).sub(DoubleVector.fromArray(DOUBLE_SPECIES, Q_i, k).mul(C_i)).intoArray(G_bar, k);
+//						}
 						for (; k < l; k++)
 							G_bar[k] -= C_i * Q_i[k];
 					}
 					else {
-						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).add(DoubleVector.fromArray(DOUBLE_SPECIES, Q_i, k).mul(C_i));
-						}
+//						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+//							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).add(DoubleVector.fromArray(DOUBLE_SPECIES, Q_i, k).mul(C_i)).intoArray(G_bar, k);
+//						}
 						for (k = 0; k < l; k++)
 							G_bar[k] += C_i * Q_i[k];
 					}
@@ -755,16 +755,16 @@ class Solver {
 					k = 0;
 					upperBound = DOUBLE_SPECIES.loopBound(l);
 					if(uj) {
-						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).sub(DoubleVector.fromArray(DOUBLE_SPECIES, Q_j, k).mul(C_j));
-						}
+//						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+//							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).sub(DoubleVector.fromArray(DOUBLE_SPECIES, Q_j, k).mul(C_j)).intoArray(G_bar, k);
+//						}
 						for (k = 0; k < l; k++)
 							G_bar[k] -= C_j * Q_j[k];
 					}
 					else {
-						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).add(DoubleVector.fromArray(DOUBLE_SPECIES, Q_j, k).mul(C_j));
-						}
+//						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+//							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).add(DoubleVector.fromArray(DOUBLE_SPECIES, Q_j, k).mul(C_j)).intoArray(G_bar, k);
+//						}
 						for (k = 0; k < l; k++)
 							G_bar[k] += C_j * Q_j[k];
 					}
@@ -796,11 +796,11 @@ class Solver {
 
 			int upperBound = DOUBLE_SPECIES.loopBound(l);
 			var v_v = DoubleVector.zero(DOUBLE_SPECIES);
-			for (;this.vectorize && i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
-				v_v = v_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, alpha, i).mul(
-						DoubleVector.fromArray(DOUBLE_SPECIES, G, i).add(DoubleVector.fromArray(DOUBLE_SPECIES, p, i))
-				));
-			}
+//			for (;this.vectorize && i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
+//				v_v = v_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, alpha, i).mul(
+//						DoubleVector.fromArray(DOUBLE_SPECIES, G, i).add(DoubleVector.fromArray(DOUBLE_SPECIES, p, i))
+//				));
+//			}
 			v += v_v.reduceLanes(VectorOperators.ADD);
 			for(;i<l;i++)
 				v += alpha[i] * (G[i] + p[i]);
@@ -1964,9 +1964,9 @@ public class svm {
 				j = 0;
 				int upperBound = DOUBLE_SPECIES.loopBound(k);
 				var Qp_v = DoubleVector.zero(DOUBLE_SPECIES);
-				for (;svm.vectorize &&  j < upperBound; j += DOUBLE_SPECIES_LENGTH) {
-					Qp_v = Qp_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, Q[t], j).mul(DoubleVector.fromArray(DOUBLE_SPECIES, p, j)));
-				}
+//				for (;svm.vectorize &&  j < upperBound; j += DOUBLE_SPECIES_LENGTH) {
+//					Qp_v = Qp_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, Q[t], j).mul(DoubleVector.fromArray(DOUBLE_SPECIES, p, j)));
+//				}
 				Qp[t] = Qp_v.reduceLanes(VectorOperators.ADD);
 				for (;j<k;j++)
 					Qp[t]+=Q[t][j]*p[j];
@@ -2553,10 +2553,10 @@ public class svm {
 				c = 0;
 				int upperBound = INT_SPECIES.loopBound(nr_class);
 				var fold_count_v = IntVector.zero(INT_SPECIES);
-				for (;svm.vectorize &&  c < upperBound; c += INT_SPECIES_LENGTH) {
-					var count_v = IntVector.fromArray(INT_SPECIES, count, c).div(nr_fold);
-					fold_count_v = fold_count_v.add(count_v.mul(i+1).div(nr_fold).sub(count_v.mul(i)));
-				}
+//				for (;svm.vectorize &&  c < upperBound; c += INT_SPECIES_LENGTH) {
+//					var count_v = IntVector.fromArray(INT_SPECIES, count, c).div(nr_fold);
+//					fold_count_v = fold_count_v.add(count_v.mul(i+1).div(nr_fold).sub(count_v.mul(i)));
+//				}
 				fold_count[i] = fold_count_v.reduceLanes(VectorOperators.ADD);
 				for (; c<nr_class;c++)
 					fold_count[i]+=(i+1)*count[c]/nr_fold-i*count[c]/nr_fold;
@@ -2741,18 +2741,18 @@ public class svm {
 					upperBound = DOUBLE_SPECIES.loopBound(ci);
 					k = 0;
 					var sum_v = DoubleVector.zero(DOUBLE_SPECIES);
-					for (;svm.vectorize &&  k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-						sum_v = sum_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, coef1, si+k).mul(DoubleVector.fromArray(DOUBLE_SPECIES, kvalue, si+k)));
-					}
+//					for (;svm.vectorize &&  k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+//						sum_v = sum_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, coef1, si+k).mul(DoubleVector.fromArray(DOUBLE_SPECIES, kvalue, si+k)));
+//					}
 					
 					for(;k<ci;k++)
 						sum += coef1[si+k] * kvalue[si+k];
 
 					upperBound = DOUBLE_SPECIES.loopBound(cj);
 					k = 0;
-					for (;svm.vectorize &&  k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-						sum_v = sum_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, coef2, sj+k).mul(DoubleVector.fromArray(DOUBLE_SPECIES, kvalue, sj+k)));
-					}
+//					for (;svm.vectorize &&  k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+//						sum_v = sum_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, coef2, sj+k).mul(DoubleVector.fromArray(DOUBLE_SPECIES, kvalue, sj+k)));
+//					}
 					sum += sum_v.reduceLanes(VectorOperators.ADD);
 					for(;k<cj;k++)
 						sum += coef2[sj+k] * kvalue[sj+k];
