@@ -6,7 +6,6 @@
 package org.jml.libsvm;
 
 import jdk.incubator.vector.*;
-import libsvm.*;
 
 import java.io.*;
 import java.util.Random;
@@ -142,7 +141,7 @@ abstract class QMatrix {
 
 abstract class Kernel extends QMatrix {
 	//TODO to be congruent with the Java vector api the svm node should become a double[][]
-	private svm_node[][] x;
+	private double[][] x;
 	private final double[] x_square;
 
 	// svm_parameter
@@ -151,17 +150,19 @@ abstract class Kernel extends QMatrix {
 	private final double gamma;
 	private final double coef0;
 	private final boolean vectorize;
+	private final boolean useMask;
 
 	// vector parameter
-	static final VectorSpecies<Double> SPECIES = DoubleVector.SPECIES_PREFERRED;
-	static final int SPECIES_LENGTH = SPECIES.length();
+	static final VectorSpecies<Double> DOUBLE_SPECIES = DoubleVector.SPECIES_PREFERRED;
+	static final int DOUBLE_SPECIES_LENGTH = DOUBLE_SPECIES.length();
 
 	abstract double[] get_Q(int column, int len);
 	abstract double[] get_QD();
 
 	void swap_index(int i, int j)
 	{
-		do {svm_node[] tmp=x[i]; x[i]=x[j]; x[j]=tmp;} while(false);
+		do {
+			double[] tmp=x[i]; x[i]=x[j]; x[j]=tmp;} while(false);
 		if(x_square != null) do {double tmp=x_square[i]; x_square[i]=x_square[j]; x_square[j]=tmp;} while(false);
 	}
 
@@ -191,21 +192,22 @@ abstract class Kernel extends QMatrix {
 			case svm_parameter.SIGMOID:
 				return Math.tanh(gamma*dot(x[i],x[j])+coef0);
 			case svm_parameter.PRECOMPUTED:
-				return x[i][(int)(x[j][0].value)].value;
+				return x[i][(int)(x[j][0])];
 			default:
 				return 0;	// Unreachable
 		}
 	}
 
-	Kernel(int l, svm_node[][] x_, svm_parameter param)
+	Kernel(int l, double[][] x_, svm_parameter param)
 	{
 		this.kernel_type = param.kernel_type;
 		this.degree = param.degree;
 		this.gamma = param.gamma;
 		this.coef0 = param.coef0;
 		this.vectorize = false;
+		this.useMask = false;
 
-		x = (svm_node[][])x_.clone();
+		x = (double[][])x_.clone();
 
 		if(kernel_type == svm_parameter.RBF)
 		{
@@ -217,15 +219,16 @@ abstract class Kernel extends QMatrix {
 			x_square = null;
 	}
 
-	Kernel(int l, svm_node[][] x_, svm_parameter param, boolean vectorize)
+	Kernel(int l, double[][] x_, svm_parameter param, boolean vectorize, boolean useMask)
 	{
 		this.kernel_type = param.kernel_type;
 		this.degree = param.degree;
 		this.gamma = param.gamma;
 		this.coef0 = param.coef0;
 		this.vectorize = vectorize;
+		this.useMask = useMask;
 
-		x = (svm_node[][])x_.clone();
+		x =(double[][])x_.clone();
 
 		if(kernel_type == svm_parameter.RBF)
 		{
@@ -239,39 +242,33 @@ abstract class Kernel extends QMatrix {
 
 
 
-	static double dot(svm_node[] x, svm_node[] y)
+	static double dot(double[] x, double[] y)
 	{
+
+		if (x.length != y.length)
+			throw new IllegalArgumentException(
+					"attribute size for array x and y must be equal, x.length: " + x.length +
+							" differ from y.length: " + y.length
+			);
 		double sum = 0;
 		int xlen = x.length;
-		int ylen = y.length;
 		int i = 0;
-		int j = 0;
-		while(i < xlen && j < ylen)
-		{	
-			//TODO candidate to vectorization after refactor svm_node model to double[][]
-			// now a row consist of multiple svm_node with index referring to col_number and value the 
-			// value of the column -> for now node with 0 value are not added and therefore we need
-			// a while loop that check that the index are the same
-			// CANDIDATE SOLUTION -> instead will be possible to eliminate the smv_node class and utilize the primitive
-			// double[] array containing also 0 values. Such that it will be possible to vectorize the loop as
-			// we get rid of the if else dependency check of the index column.
-			// possible vectorization if and only if all index are aligned in range SPECIES_LENGTH
-			// problem with smv_node -> not possible to load from vector
-			if(x[i].index == y[j].index)
-				sum += x[i++].value * y[j++].value; //
-			else
-			{
-				if(x[i].index > y[j].index)
-					++j;
-				else
-					++i;
-			}
+		int upperBound = DOUBLE_SPECIES.loopBound(xlen);
+		DoubleVector sum_v = DoubleVector.zero(DOUBLE_SPECIES);
+		for (; i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
+			sum_v = sum_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, x, i).mul(DoubleVector.fromArray(DOUBLE_SPECIES, y, i)));
+		}
+
+		sum += sum_v.reduceLanes(VectorOperators.ADD);
+
+		for (; i < xlen; i++) {
+			sum += x[i] * y[i];
 		}
 		return sum;
 	}
 
-	static double k_function(svm_node[] x, svm_node[] y,
-					svm_parameter param)
+	static double k_function(double[] x, double[] y,
+							 svm_parameter param)
 	{
 		switch(param.kernel_type)
 		{
@@ -288,30 +285,30 @@ abstract class Kernel extends QMatrix {
 				int j = 0;
 				while(i < xlen && j < ylen)
 				{
-					if(x[i].index == y[j].index)
+					if(i == j)
 					{
-						double d = x[i++].value - y[j++].value;
+						double d = x[i++] - y[j++];
 						sum += d*d;
 					}
-					else if(x[i].index > y[j].index)
+					else if(i > j)
 					{
-						sum += y[j].value * y[j].value;
+						sum += y[j] * y[j];
 						++j;
 					}
 					else
 					{
-						sum += x[i].value * x[i].value;
+						sum += x[i] * x[i];
 						++i;
 					}
 				}
 				while(i < xlen)
 				{
-					sum += x[i].value * x[i].value;
+					sum += x[i] * x[i];
 					++i;
 				}
 				while(j < ylen)
 				{
-					sum += y[j].value * y[j].value;
+					sum += y[j] * y[j];
 					++j;
 				}
 
@@ -320,7 +317,7 @@ abstract class Kernel extends QMatrix {
 			case svm_parameter.SIGMOID:
 				return Math.tanh(param.gamma*dot(x,y)+param.coef0);
 			case svm_parameter.PRECOMPUTED:  //x: test (validation), y: SV
-				return	x[(int)(y[0].value)].value;
+				return	x[(int)(y[0])];
 			default:
 				return 0;	// Unreachable
 		}
@@ -1458,9 +1455,14 @@ class SVR_Q extends Kernel
 		double[] buf = buffer[next_buffer];
 		next_buffer = 1 - next_buffer;
 		byte si = sign[i];
+		j = 0;
+		int upperBound = DOUBLE_SPECIES.loopBound(len) - BYTE_SPECIES_LENGTH;
+		for (; j < upperBound; j += DOUBLE_SPECIES_LENGTH) {
+			//TODO possible bug accessing index[j]
+			ByteVector.fromArray(BYTE_SPECIES, sign, j).reinterpretAsDoubles().mul(si).mul(DoubleVector.fromArray(DOUBLE_SPECIES, data[0], index[j])).intoArray(buf, j);
+		}
 
 		for(j=0;j<len;j++)
-			// having data saved in byte array limit the vectorization on doubles!
 			buf[j] = (float) si * sign[j] * data[0][index[j]];
 		return buf;
 	}
@@ -1520,6 +1522,7 @@ public class svm {
 	{
 		int l = prob.l;
 		double[] minus_ones = new double[l];
+		// WHY USE BYTE -> -128 - 128 range number -> PERFORMANCE???
 		byte[] y = new byte[l];
 
 		int i;
@@ -1567,6 +1570,7 @@ public class svm {
 
 		i = 0;
 		upperBound = DOUBLE_SPECIES.loopBound(l) - BYTE_SPECIES_LENGTH;
+		//TODO NOT GOOD
 //		for (;svm.vectorize && i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
 //			DoubleVector.fromArray(DOUBLE_SPECIES, alpha, i).mul(ByteVector.fromArray(BYTE_SPECIES, y, i).reinterpretAsDoubles()).intoArray(alpha, i);
 //		}
@@ -1600,11 +1604,10 @@ public class svm {
 
 		double sum_pos = nu*l/2;
 		double sum_neg = nu*l/2;
-
 		for(i=0;i<l;i++)
-			if(y[i] == +1) // possible vectorization with mask but could be inefficient
+			if(y[i] == +1)
 			{
-				alpha[i] = Math.min(1.0,sum_pos);
+				alpha[i] = Math.min(1.0,sum_pos); // -> dependecy with previous sum pos
 				sum_pos -= alpha[i];
 			}
 			else
@@ -2045,7 +2048,7 @@ public class svm {
 			svm_problem subprob = new svm_problem();
 
 			subprob.l = prob.l-(end-begin);
-			subprob.x = new svm_node[subprob.l][];
+			subprob.x = new double[subprob.l][];
 			subprob.y = new double[subprob.l];
 
 			k=0;
@@ -2164,11 +2167,12 @@ public class svm {
 		int[] count = new int[max_nr_class];
 		int[] data_label = new int[l];
 		int i;
-
+		// check the label of the class and count the number of instances
 		for(i=0;i<l;i++)
 		{
 			int this_label = (int)(prob.y[i]);
 			int j;
+			// TODO candidate for vectorization with mask compare
 			for(j=0;j<nr_class;j++)
 			{
 				if(this_label == label[j])
@@ -2286,14 +2290,15 @@ public class svm {
 			for(;i<prob.l;i++)
 				if(Math.abs(f.alpha[i]) > 0) ++nSV;
 			model.l = nSV;
-			model.SV = new svm_node[nSV][];
+			model.SV = new double[nSV][];
 			model.sv_coef[0] = new double[nSV];
 			model.sv_indices = new int[nSV];
 			int j = 0;
+
 			for(i=0;i<prob.l;i++)
 				if(Math.abs(f.alpha[i]) > 0)
 				{
-					model.SV[j] = prob.x[i]; // possible vectorization but mixed types and svm_node
+					model.SV[j] = prob.x[i];
 					model.sv_coef[0][j] = f.alpha[i];
 					model.sv_indices[j] = i+1;
 					++j;
@@ -2319,7 +2324,7 @@ public class svm {
 			if(nr_class == 1)
 				svm.info("WARNING: training data in only one class. See README.md for details.\n");
 
-			svm_node[][] x = new svm_node[l][];
+			double[][] x = new double[l][];
 			int i;
 			for(i=0;i<l;i++)
 				x[i] = prob.x[perm[i]];
@@ -2375,7 +2380,7 @@ public class svm {
 					int si = start[i], sj = start[j];
 					int ci = count[i], cj = count[j];
 					sub_prob.l = ci+cj;
-					sub_prob.x = new svm_node[sub_prob.l][];
+					sub_prob.x = new double[sub_prob.l][];
 					sub_prob.y = new double[sub_prob.l];
 					int k;
 					for(k=0;k<ci;k++)
@@ -2467,7 +2472,7 @@ public class svm {
 			svm.info("Total nSV = "+total_sv+"\n");
 
 			model.l = total_sv;
-			model.SV = new svm_node[total_sv][];
+			model.SV = new double[total_sv][];
 			model.sv_indices = new int[total_sv];
 			p = 0;
 			for(i=0;i<l;i++)
@@ -2615,7 +2620,7 @@ public class svm {
 			svm_problem subprob = new svm_problem();
 
 			subprob.l = l-(end-begin);
-			subprob.x = new svm_node[subprob.l][];
+			subprob.x = new double[subprob.l][];
 			subprob.y = new double[subprob.l];
 
 			k=0;
@@ -2687,7 +2692,7 @@ public class svm {
 		}
 	}
 
-	public static double svm_predict_values(svm_model model, svm_node[] x, double[] dec_values)
+	public static double svm_predict_values(svm_model model, double[] x, double[] dec_values)
 	{
 		int i;
 		if(model.param.svm_type == svm_parameter.ONE_CLASS ||
@@ -2780,7 +2785,7 @@ public class svm {
 		}
 	}
 
-	public static double svm_predict(svm_model model, svm_node[] x)
+	public static double svm_predict(svm_model model, double[] x)
 	{
 		int nr_class = model.nr_class;
 		double[] dec_values;
@@ -2794,7 +2799,7 @@ public class svm {
 		return pred_result;
 	}
 
-	public static double svm_predict_probability(svm_model model, svm_node[] x, double[] prob_estimates)
+	public static double svm_predict_probability(svm_model model, double[] x, double[] prob_estimates)
 	{
 		if ((model.param.svm_type == svm_parameter.C_SVC || model.param.svm_type == svm_parameter.NU_SVC) &&
 		    model.probA!=null && model.probB!=null)
@@ -2909,19 +2914,19 @@ public class svm {
 
 		fp.writeBytes("SV\n");
 		double[][] sv_coef = model.sv_coef;
-		svm_node[][] SV = model.SV;
+		double[][] SV = model.SV;
 
 		for(int i=0;i<l;i++)
 		{
 			for(int j=0;j<nr_class-1;j++)
 				fp.writeBytes(sv_coef[j][i]+" ");
 
-			svm_node[] p = SV[i];
+			double[] p = SV[i];
 			if(param.kernel_type == svm_parameter.PRECOMPUTED)
-				fp.writeBytes("0:"+(int)(p[0].value));
+				fp.writeBytes("0:"+(int)(p[0]));
 			else
 				for(int j=0;j<p.length;j++)
-					fp.writeBytes(p[j].index+":"+p[j].value+" ");
+					fp.writeBytes(j+":"+p[j]+" ");
 			fp.writeBytes("\n");
 		}
 
@@ -3084,7 +3089,7 @@ public class svm {
 		int m = model.nr_class - 1;
 		int l = model.l;
 		model.sv_coef = new double[m][l];
-		model.SV = new svm_node[l][];
+		model.SV = new double[l][];
 
 		for(int i=0;i<l;i++)
 		{
@@ -3094,12 +3099,14 @@ public class svm {
 			for(int k=0;k<m;k++)
 				model.sv_coef[k][i] = atof(st.nextToken());
 			int n = st.countTokens()/2;
-			model.SV[i] = new svm_node[n];
+//			int n = st.countTokens();
+			model.SV[i] = new double[n];
 			for(int j=0;j<n;j++)
 			{
-				model.SV[i][j] = new svm_node();
-				model.SV[i][j].index = atoi(st.nextToken());
-				model.SV[i][j].value = atof(st.nextToken());
+				model.SV[i][atoi(st.nextToken())] = atoi(st.nextToken());
+//				model.SV[i][j] = new svm_node();
+//				model.SV[i][j].index = atoi(st.nextToken());
+//				model.SV[i][j].value = atof(st.nextToken());
 			}
 		}
 

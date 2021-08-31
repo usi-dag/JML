@@ -20,7 +20,7 @@ public class SvmBenchmark {
     private static final int ITERATIONS = 1;
 
     static class Data {
-        private svm_node[][] X;
+        private double[][] X;
         private double[] Y;
         private static svm_parameter param = new svm_parameter();
         private static svm_problem prob = new svm_problem();
@@ -60,7 +60,7 @@ public class SvmBenchmark {
             List<String> quality = records.get("quality");
 
             int size = acidity.size();
-            X = new svm_node[size][11];
+            X = new double[size][11];
 
             List<List<String>> tmp = new ArrayList<>();
             tmp.add(acidity);
@@ -76,9 +76,10 @@ public class SvmBenchmark {
             tmp.add(alcohol);
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < 11; j++) {
-                    X[i][j] = new svm_node();
-                    X[i][j].index = j;
-                    X[i][j].value = Double.parseDouble(tmp.get(j).get(i));
+//                    X[i][j] = new svm_node();
+//                    X[i][j].index = j;
+//                    X[i][j].value = Double.parseDouble(tmp.get(j).get(i));
+                    X[i][j] =  Double.parseDouble(tmp.get(j).get(i));
                 }
             }
 
@@ -98,13 +99,22 @@ public class SvmBenchmark {
             return param;
         }
 
-        public svm_node[][] getX() {
+        public double[][] getX() {
             return X;
         }
 
         public double[] getY() {
             return Y;
         }
+    }
+
+    public static void main(String[] args) {
+
+        Data data = new Data();
+        svm_parameter param = data.getParam();
+        svm_problem prob = data.getProb();
+        svm svm_class = new svm();
+        svm_model model = svm_class.svm_train(prob, param);
     }
 
 
@@ -116,31 +126,29 @@ public class SvmBenchmark {
         public svm_parameter param = data.getParam();
         public svm_problem prob = data.getProb();
 
-        public svm_node[] pred = createPred();
+        public double[] pred = createPred();
 
-        svm_node[] createPred() {
-            svm_node[] x = new svm_node[11];
+        double[] createPred() {
+            double[] x = new double[11];
             for (int i = 0; i < 11; i++) {
-                x[i] = new svm_node();
-                x[i].index = i;
-                x[i].value = i - 0.5;
+                x[i] = i - 0.5;
             }
 
             return x;
         }
     }
 
-    @Benchmark
-    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void testLibSvm(MyState state, Blackhole sink) {
-        svm svm_class = new svm();
-        svm_model model;
-        for (int i = 0; i < ITERATIONS; i++) {
-            model = svm_class.svm_train(state.prob, state.param);
-            System.out.println(svm_class.svm_predict(model, state.pred));
-            sink.consume(svm_class.svm_predict(model, state.pred));
-        }
-    }
+//    @Benchmark
+//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+//    public void testLibSvm(MyState state, Blackhole sink) {
+//        svm svm_class = new svm();
+//        svm_model model;
+//        for (int i = 0; i < ITERATIONS; i++) {
+//            model = svm_class.svm_train(state.prob, state.param);
+//            System.out.println(svm_class.svm_predict(model, state.pred));
+//            sink.consume(svm_class.svm_predict(model, state.pred));
+//        }
+//    }
 
     @Benchmark
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -154,15 +162,15 @@ public class SvmBenchmark {
         }
     }
 
-    @Benchmark
-    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void testLibSvmVectorNoMask(MyState state, Blackhole sink) {
-        svm svm_class = new svm(true, false);
-        svm_model model;
-        for (int i = 0; i < ITERATIONS; i++) {
-            model = svm_class.svm_train(state.prob, state.param);
-            System.out.println(svm_class.svm_predict(model, state.pred));
-            sink.consume(svm_class.svm_predict(model, state.pred));
-        }
-    }
+//    @Benchmark
+//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+//    public void testLibSvmVectorNoMask(MyState state, Blackhole sink) {
+//        svm svm_class = new svm(true, false);
+//        svm_model model;
+//        for (int i = 0; i < ITERATIONS; i++) {
+//            model = svm_class.svm_train(state.prob, state.param);
+//            System.out.println(svm_class.svm_predict(model, state.pred));
+//            sink.consume(svm_class.svm_predict(model, state.pred));
+//        }
+//    }
 }
