@@ -140,7 +140,6 @@ abstract class QMatrix {
 };
 
 abstract class Kernel extends QMatrix {
-	//TODO to be congruent with the Java vector api the svm node should become a double[][]
 	private double[][] x;
 	private final double[] x_square;
 
@@ -344,7 +343,7 @@ abstract class Kernel extends QMatrix {
 //
 class Solver {
 	int active_size;
-	byte[] y;
+	double[] y;
 	double[] G;		// gradient of objective function
 	static final byte LOWER_BOUND = 0;
 	static final byte UPPER_BOUND = 1;
@@ -406,7 +405,8 @@ class Solver {
 	void swap_index(int i, int j)
 	{
 		Q.swap_index(i,j);
-		do {byte tmp=y[i]; y[i]=y[j]; y[j]=tmp;} while(false);
+		do {
+			double tmp=y[i]; y[i]=y[j]; y[j]=tmp;} while(false);
 		do {double tmp=G[i]; G[i]=G[j]; G[j]=tmp;} while(false);
 		do {byte tmp=alpha_status[i]; alpha_status[i]=alpha_status[j]; alpha_status[j]=tmp;} while(false);
 		do {double tmp=alpha[i]; alpha[i]=alpha[j]; alpha[j]=tmp;} while(false);
@@ -474,14 +474,14 @@ class Solver {
 		}
 	}
 
-	void Solve(int l, QMatrix Q, double[] p_, byte[] y_,
-		   double[] alpha_, double Cp, double Cn, double eps, SolutionInfo si, int shrinking, boolean vectorize, boolean useMask)
+	void Solve(int l, QMatrix Q, double[] p_, double[] y_,
+			   double[] alpha_, double Cp, double Cn, double eps, SolutionInfo si, int shrinking, boolean vectorize, boolean useMask)
 	{
 		this.l = l;
 		this.Q = Q;
 		QD = Q.get_QD();
 		p = (double[])p_.clone();
-		y = (byte[])y_.clone();
+		y = y_.clone();
 		alpha = (double[])alpha_.clone();
 		this.Cp = Cp;
 		this.Cn = Cn;
@@ -493,7 +493,6 @@ class Solver {
 		// initialize alpha_status
 		{
 			alpha_status = new byte[l];
-			// TODO candidate for vectorization
 			for(int i=0;i<l;i++)
 				update_alpha_status(i);
 		}
@@ -730,19 +729,17 @@ class Solver {
 					k = 0;
 					upperBound = DOUBLE_SPECIES.loopBound(l);
 					if(ui) {
-//						//TODO NOT GOOD
-//						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-//							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).sub(DoubleVector.fromArray(DOUBLE_SPECIES, Q_i, k).mul(C_i)).intoArray(G_bar, k);
-//						}
+						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).sub(DoubleVector.fromArray(DOUBLE_SPECIES, Q_i, k).mul(C_i)).intoArray(G_bar, k);
+						}
 						for (; k < l; k++)
 							G_bar[k] -= C_i * Q_i[k];
 					}
 					else {
-						//TODO NOT GOOD
-//						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-//							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).add(DoubleVector.fromArray(DOUBLE_SPECIES, Q_i, k).mul(C_i)).intoArray(G_bar, k);
-//						}
-						for (k = 0; k < l; k++)
+						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).add(DoubleVector.fromArray(DOUBLE_SPECIES, Q_i, k).mul(C_i)).intoArray(G_bar, k);
+						}
+						for (; k < l; k++)
 							G_bar[k] += C_i * Q_i[k];
 					}
 				}
@@ -753,19 +750,17 @@ class Solver {
 					k = 0;
 					upperBound = DOUBLE_SPECIES.loopBound(l);
 					if(uj) {
-						//TODO NOT GOOD
-//						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-//							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).sub(DoubleVector.fromArray(DOUBLE_SPECIES, Q_j, k).mul(C_j)).intoArray(G_bar, k);
-//						}
-						for (k = 0; k < l; k++)
+						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).sub(DoubleVector.fromArray(DOUBLE_SPECIES, Q_j, k).mul(C_j)).intoArray(G_bar, k);
+						}
+						for (; k < l; k++)
 							G_bar[k] -= C_j * Q_j[k];
 					}
 					else {
-						//TODO NOT GOOD
-//						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
-//							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).add(DoubleVector.fromArray(DOUBLE_SPECIES, Q_j, k).mul(C_j)).intoArray(G_bar, k);
-//						}
-						for (k = 0; k < l; k++)
+						for (;this.vectorize && k < upperBound; k += DOUBLE_SPECIES_LENGTH) {
+							DoubleVector.fromArray(DOUBLE_SPECIES, G_bar, k).add(DoubleVector.fromArray(DOUBLE_SPECIES, Q_j, k).mul(C_j)).intoArray(G_bar, k);
+						}
+						for (; k < l; k++)
 							G_bar[k] += C_j * Q_j[k];
 					}
 				}
@@ -1050,9 +1045,9 @@ final class Solver_NU extends Solver
 {
 	private SolutionInfo si;
 
-	void Solve(int l, QMatrix Q, double[] p, byte[] y,
-		   double[] alpha, double Cp, double Cn, double eps,
-		   SolutionInfo si, int shrinking, boolean vectorize, boolean useMask)
+	void Solve(int l, QMatrix Q, double[] p, double[] y,
+			   double[] alpha, double Cp, double Cn, double eps,
+			   SolutionInfo si, int shrinking, boolean vectorize, boolean useMask)
 	{
 		this.si = si;
 		super.Solve(l,Q,p,y,alpha,Cp,Cn,eps,si,shrinking, vectorize, useMask);
@@ -1299,17 +1294,17 @@ final class Solver_NU extends Solver
 //
 class SVC_Q extends Kernel
 {
-	private final byte[] y;
+	private final double[] y;
 	private final Cache cache;
 	private final double[] QD;
 
 	static private final VectorSpecies<Byte>  BYTE_SPECIES = ByteVector.SPECIES_PREFERRED;
 	static private final int BYTE_SPECIES_LENGTH = BYTE_SPECIES.length();
 
-	SVC_Q(svm_problem prob, svm_parameter param, byte[] y_)
+	SVC_Q(svm_problem prob, svm_parameter param, double[] y_)
 	{
 		super(prob.l, prob.x, param);
-		y = (byte[])y_.clone();
+		y = y_.clone();
 		cache = new Cache(prob.l,(long)(param.cache_size*(1<<20)));
 		QD = new double[prob.l];
 		for(int i=0;i<prob.l;i++)
@@ -1337,7 +1332,7 @@ class SVC_Q extends Kernel
 	{
 		cache.swap_index(i,j);
 		super.swap_index(i,j);
-		do {byte tmp=y[i]; y[i]=y[j]; y[j]=tmp;} while(false);
+		do {double tmp=y[i]; y[i]=y[j]; y[j]=tmp;} while(false);
 		do {double tmp=QD[i]; QD[i]=QD[j]; QD[j]=tmp;} while(false);
 	}
 }
@@ -1523,24 +1518,23 @@ public class svm {
 		int l = prob.l;
 		double[] minus_ones = new double[l];
 		// WHY USE BYTE -> -128 - 128 range number -> PERFORMANCE???
-		byte[] y = new byte[l];
+		double[] y = new double[l];
 
 		int i;
 
-		int upperBound = DOUBLE_SPECIES.loopBound(l) - BYTE_SPECIES_LENGTH;
+		int upperBound = DOUBLE_SPECIES.loopBound(l);
 		i = 0;
-		//TODO NOT GOOD
-//		for (;svm.vectorize && svm.useMask && i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
-//			var zeros = DoubleVector.zero(DOUBLE_SPECIES);
-//			zeros.intoArray(alpha, i);
-//			zeros.sub(1).intoArray(minus_ones, i);
-//
-//			zeros.sub(1).blend(
-//					1,
-//					DoubleVector.fromArray(DOUBLE_SPECIES, prob.y, i).compare(VectorOperators.GT, 0)
-//			).reinterpretAsBytes().intoArray(y, i);
-//
-//		}
+		for (;svm.vectorize && svm.useMask && i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
+			var zeros = DoubleVector.zero(DOUBLE_SPECIES);
+			zeros.intoArray(alpha, i);
+			zeros.sub(1).intoArray(minus_ones, i);
+
+			zeros.sub(1).blend(
+					1,
+					DoubleVector.fromArray(DOUBLE_SPECIES, prob.y, i).compare(VectorOperators.GT, 0)
+			).intoArray(y, i);
+
+		}
 		for(;i<l;i++)
 		{
 			alpha[i] = 0;
@@ -1569,11 +1563,10 @@ public class svm {
 			svm.info("nu = "+sum_alpha/(Cp*prob.l)+"\n");
 
 		i = 0;
-		upperBound = DOUBLE_SPECIES.loopBound(l) - BYTE_SPECIES_LENGTH;
-		//TODO NOT GOOD
-//		for (;svm.vectorize && i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
-//			DoubleVector.fromArray(DOUBLE_SPECIES, alpha, i).mul(ByteVector.fromArray(BYTE_SPECIES, y, i).reinterpretAsDoubles()).intoArray(alpha, i);
-//		}
+		upperBound = DOUBLE_SPECIES.loopBound(l);
+		for (;svm.vectorize && i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
+			DoubleVector.fromArray(DOUBLE_SPECIES, alpha, i).mul(DoubleVector.fromArray(DOUBLE_SPECIES, y, i)).intoArray(alpha, i);
+		}
 		for(;i<l;i++)
 			alpha[i] *= y[i];
 	}
@@ -1585,7 +1578,7 @@ public class svm {
 		int l = prob.l;
 		double nu = param.nu;
 
-		byte[] y = new byte[l];
+		double[] y = new double[l];
 
 		i = 0;
 		int upperBound = DOUBLE_SPECIES.loopBound(l) - BYTE_SPECIES_LENGTH;
@@ -1593,7 +1586,7 @@ public class svm {
 			DoubleVector.zero(DOUBLE_SPECIES).sub(1).blend(
 					1,
 					DoubleVector.fromArray(DOUBLE_SPECIES, prob.y, i).compare(VectorOperators.GT, 0)
-			).reinterpretAsBytes().intoArray(y, i);
+			).intoArray(y, i);
 		}
 
 		for(;i<l;i++)
@@ -1634,10 +1627,10 @@ public class svm {
 
 		svm.info("C = "+1/r+"\n");
 
-		upperBound = DOUBLE_SPECIES.loopBound(l) - BYTE_SPECIES_LENGTH;
+		upperBound = DOUBLE_SPECIES.loopBound(l);
 		i = 0;
 		for (;svm.vectorize &&  i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
-			DoubleVector.fromArray(DOUBLE_SPECIES, alpha, i).mul(ByteVector.fromArray(BYTE_SPECIES, y, i).reinterpretAsDoubles()).div(r).intoArray(alpha, i);
+			DoubleVector.fromArray(DOUBLE_SPECIES, alpha, i).mul(DoubleVector.fromArray(DOUBLE_SPECIES, y, i)).div(r).intoArray(alpha, i);
 		}
 
 		for(;i<l;i++)
@@ -1654,7 +1647,7 @@ public class svm {
 	{
 		int l = prob.l;
 		double[] zeros = new double[l];
-		byte[] ones = new byte[l];
+		double[] ones = new double[l];
 		int i;
 
 		int n = (int)(param.nu*prob.l);	// # of alpha's at upper bound
@@ -1683,7 +1676,7 @@ public class svm {
 		int l = prob.l;
 		double[] alpha2 = new double[2*l];
 		double[] linear_term = new double[2*l];
-		byte[] y = new byte[2*l];
+		double[] y = new double[2*l];
 		int i;
 		//TODO candidate for vectorization
 		for(i=0;i<l;i++)
@@ -1702,8 +1695,15 @@ public class svm {
 			alpha2, param.C, param.C, param.eps, si, param.shrinking, svm.vectorize, svm.useMask);
 
 		double sum_alpha = 0;
-		//TODO candidate for vectorization
-		for(i=0;i<l;i++)
+		i = 0;
+		int upperBound = DOUBLE_SPECIES.loopBound(l);
+		var sum_alpha_v = DoubleVector.zero(DOUBLE_SPECIES);
+		for (; svm.vectorize && i < upperBound; i += DOUBLE_SPECIES_LENGTH) {
+			DoubleVector.fromArray(DOUBLE_SPECIES, alpha2, i).sub(DoubleVector.fromArray(DOUBLE_SPECIES, alpha2, i+l)).intoArray(alpha, i);
+			sum_alpha_v = sum_alpha_v.add(DoubleVector.fromArray(DOUBLE_SPECIES, alpha, i).abs());
+		}
+		sum_alpha += sum_alpha_v.reduceLanes(VectorOperators.ADD);
+		for(;i<l;i++)
 		{
 			alpha[i] = alpha2[i] - alpha2[i+l];
 			sum_alpha += Math.abs(alpha[i]);
@@ -1718,7 +1718,7 @@ public class svm {
 		double C = param.C;
 		double[] alpha2 = new double[2*l];
 		double[] linear_term = new double[2*l];
-		byte[] y = new byte[2*l];
+		double[] y = new double[2*l];
 		int i;
 
 		double sum = C * param.nu * l / 2;
@@ -1739,8 +1739,12 @@ public class svm {
 			alpha2, C, C, param.eps, si, param.shrinking, svm.vectorize, svm.useMask);
 
 		svm.info("epsilon = "+(-si.r)+"\n");
-		//TODO candidate for vectorization
-		for(i=0;i<l;i++)
+		int upperBound = DOUBLE_SPECIES.loopBound(l);
+		i = 0;
+		for(; svm.vectorize && i < l; i+= DOUBLE_SPECIES_LENGTH) {
+			DoubleVector.fromArray(DOUBLE_SPECIES, alpha2, i).sub(DoubleVector.fromArray(DOUBLE_SPECIES, alpha2, i+l)).intoArray(alpha, i);
+		}
+		for(;i<l;i++)
 			alpha[i] = alpha2[i] - alpha2[i+l];
 	}
 
@@ -2172,7 +2176,6 @@ public class svm {
 		{
 			int this_label = (int)(prob.y[i]);
 			int j;
-			// TODO candidate for vectorization with mask compare
 			for(j=0;j<nr_class;j++)
 			{
 				if(this_label == label[j])
