@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BenchmarkLinearRegression {
 
-//    @State(Scope.Benchmark)
+    @State(Scope.Benchmark)
     public static class MyState {
         public static final int N = 500;
         private final LoadCSV loader = new LoadCSV("weatherHistory.csv");
@@ -74,8 +74,8 @@ public class BenchmarkLinearRegression {
     }
 
 
-//    @Benchmark
-//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void testDoubleLinearRegression(MyState state, Blackhole sink) {
         DoubleLinearRegression doubleLinearRegression = new DoubleLinearRegression();
         for (int i = 0; i < 100; i++) {
@@ -84,8 +84,8 @@ public class BenchmarkLinearRegression {
         }
     }
 
-//    @Benchmark
-//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void testDoubleVectorLinearRegression(MyState state, Blackhole sink) {
         DoubleVectorLinearRegression doubleVectorLinearRegression = new DoubleVectorLinearRegression();
         for (int i = 0; i < 100; i++) {
@@ -94,8 +94,8 @@ public class BenchmarkLinearRegression {
         }
     }
 
-    // @Benchmark
-    // @OutputTimeUnit(TimeUnit.MILLISECONDS)
+     @Benchmark
+     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void testLongLinearRegression(MyState state, Blackhole sink) {
         LongLinearRegression longLinearRegression = new LongLinearRegression();
         for (int i = 0; i < 100; i++) {
@@ -104,8 +104,8 @@ public class BenchmarkLinearRegression {
         }
     }
 
-    // @Benchmark
-    // @OutputTimeUnit(TimeUnit.MILLISECONDS)
+     @Benchmark
+     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void testLongVectorLinearRegression(MyState state, Blackhole sink) {
         LongVectorLinearRegression longVectorLinearRegression = new LongVectorLinearRegression();
         for (int i = 0; i < 100; i++) {
@@ -114,8 +114,8 @@ public class BenchmarkLinearRegression {
         }
     }
 
-    // @Benchmark
-    // @OutputTimeUnit(TimeUnit.MILLISECONDS)
+     @Benchmark
+     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void testIntLinearRegression(MyState state, Blackhole sink) {
         IntegerLinearRegression integerLinearRegression = new IntegerLinearRegression();
         for (int i = 0; i < 100; i++) {
@@ -124,8 +124,8 @@ public class BenchmarkLinearRegression {
         }
     }
 
-    // @Benchmark
-    // @OutputTimeUnit(TimeUnit.MILLISECONDS)
+     @Benchmark
+     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void testIntVectorLinearRegression(MyState state, Blackhole sink) {
         IntegerVectorLinearRegression integerVectorLinearRegression = new IntegerVectorLinearRegression();
         for (int i = 0; i < 100; i++) {
