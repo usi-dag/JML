@@ -1,7 +1,6 @@
 package org.jml.libsvm;
 
 
-import libsvm.*;
 import org.jml.dataset.LoadCSV;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
@@ -76,9 +75,6 @@ public class SvmBenchmark {
             tmp.add(alcohol);
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < 11; j++) {
-//                    X[i][j] = new svm_node();
-//                    X[i][j].index = j;
-//                    X[i][j].value = Double.parseDouble(tmp.get(j).get(i));
                     X[i][j] =  Double.parseDouble(tmp.get(j).get(i));
                 }
             }
