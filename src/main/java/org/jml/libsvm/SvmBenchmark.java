@@ -138,17 +138,17 @@ public class SvmBenchmark {
         }
     }
 
-//    @Benchmark
-//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-//    public void testLibSvm(MyState state, Blackhole sink) {
-//        svm svm_class = new svm();
-//        svm_model model;
-//        for (int i = 0; i < ITERATIONS; i++) {
-//            model = svm_class.svm_train(state.prob, state.param);
-//            System.out.println(svm_class.svm_predict(model, state.pred));
-//            sink.consume(svm_class.svm_predict(model, state.pred));
-//        }
-//    }
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    public void testLibSvm(MyState state, Blackhole sink) {
+        svm svm_class = new svm();
+        svm_model model;
+        for (int i = 0; i < ITERATIONS; i++) {
+            model = svm_class.svm_train(state.prob, state.param);
+            System.out.println(svm_class.svm_predict(model, state.pred));
+            sink.consume(svm_class.svm_predict(model, state.pred));
+        }
+    }
 
     @Benchmark
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -162,15 +162,15 @@ public class SvmBenchmark {
         }
     }
 
-//    @Benchmark
-//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-//    public void testLibSvmVectorNoMask(MyState state, Blackhole sink) {
-//        svm svm_class = new svm(true, false);
-//        svm_model model;
-//        for (int i = 0; i < ITERATIONS; i++) {
-//            model = svm_class.svm_train(state.prob, state.param);
-//            System.out.println(svm_class.svm_predict(model, state.pred));
-//            sink.consume(svm_class.svm_predict(model, state.pred));
-//        }
-//    }
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    public void testLibSvmVectorNoMask(MyState state, Blackhole sink) {
+        svm svm_class = new svm(true, false);
+        svm_model model;
+        for (int i = 0; i < ITERATIONS; i++) {
+            model = svm_class.svm_train(state.prob, state.param);
+            System.out.println(svm_class.svm_predict(model, state.pred));
+            sink.consume(svm_class.svm_predict(model, state.pred));
+        }
+    }
 }
